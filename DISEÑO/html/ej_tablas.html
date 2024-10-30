@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/estilosEnunciado.css">
+    <title>ej_tablas</title>
+    <style>
+        
+        table {
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black; 
+
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <table border = "1">
+        <tr>
+            <th></th>
+            <th colspan = "3" class="imagenes"><img src="../img/120_ipod.png"></th>
+            <th colspan = "2" class="imagenes"><img src ="../img/100_ipod.png"></th>
+        </tr>
+
+        <tr>
+           <th class="encabezado">Capacidad</th>
+           <td class="gb">2GB</td> 
+           <td class="gb">4GB</td> 
+           <td class="gb">8GB</td> 
+           <td class="gb">32GB</td> 
+           <td class="gb">2GB</td> 
+        </tr>
+        <tr>
+            <th class="encabezado">Colores</th>
+            <th>Blanco</th>
+            <td>     
+                <ul type = "disc" class="colores_lista">
+                       <li>Negro</li>
+                       <li>Rosa</li>
+                       <li>Dorado</li>
+                </ul>
+                
+            </td>
+            <th>Negro</th>
+            <td colspan = "2" class="dos_colores"> <ul type = "disc">
+                <li>Negro</li>
+                <li>Blanco</li>
+                
+                  </ul>
+             </td>
+        </tr>
+        <tr>
+            <th class="encabezado">Pantalla</th>
+            <th colspan = "3" class = "pulgadas">3 pulgadas</th>
+            <th colspan = "2" class = "pulgadas">7 pulgadas</th>
+        </tr>
+        <tr>
+            <th class="encabezado" rowspan="2" >Tiempo de carga</th>
+            <th colspan = "3" rowspan = "2" class="una_hora">1 hora</th>
+            <th colspan = "2" id ="cinco_horas">5 horas</th>
+        </tr>
+
+        <tr>
+            <th colspan="2" class = "minutos">30 minutos para 73%</th>
+        </tr>
+       
+       </table>
+
+</body>
+</html>

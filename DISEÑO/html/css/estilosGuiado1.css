@@ -1,0 +1,60 @@
+/*El enlace sin visitar es rojo */
+
+
+
+/*Cuando paso ratón por encima se vuelve verde el enlace*/
+a:hover{
+    color: green;
+}
+
+/*Cuando ya he visitado el enlace el color es azul*/
+
+a:visited{
+    color: blue;
+}
+
+/*El primer elemento de todas las listas es de color gris*/
+
+li:first-child{
+    color: grey;
+}
+
+/*El ultimo elemento de la primera lista es de color azul. Es decir, selecciono primero por tipo y luego ultimo hijo de ese tipo es azul*/
+
+ul:first-of-type li:last-child{
+    color: blue;
+}
+
+/*La última lista está encuadrada con un borde de 1px y línea continua*/
+
+ul:last-of-type{
+    border: 1px solid black;
+}
+
+/*El segundo elemento de la ultima lista es de color naranha. Es decir, selecciono primero por tipo y luego segundo hijo de ese tipo es naranja*/
+
+ul:last-of-type li:nth-child(2){
+    color: orange;
+}
+
+/*La primera letra de los párrafos es de color roja y el doble de grande en EM*/
+
+p::first-letter{
+    color: red;
+    font-size: 2cm;
+}
+
+/*La primera línea de los párrados es de color azul y el tamaño es de 1.2 EM*/
+
+p::first-line{
+    color: blue;
+    font-size: 1.2cm;
+}
+
+
+/*Despúes de cada párrafo tenemos que tener un encuadre que ponga "FIN"*/
+
+p::after{
+    content:"FIN";
+    border: 1px solid pink;
+}

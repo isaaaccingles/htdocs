@@ -1,0 +1,103 @@
+/*Usando el selector simple table, pon borde a toda la tabla*/
+
+table{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+/*Usando los selectores simples td y th, poner borde a todas las casillas*/
+
+td, th{
+    border: 1px solid black;
+}
+
+/* Utilizando únicamente pseudoselectores da color de fondo verde a la primera columna (horas) */
+/*La primera casilla (first-child) que está en las filas del tbody debe permanecer en BLANCO*/
+
+table td:first-child {
+    background-color: green;
+}
+
+/* Utilizando únicamente pseudoselectores da color de fondo amarillo a la celda de recreo */
+/*Ojo el árbol DOM encuentra un SEGUNDO hijo, no encuentra un segundo th*/
+
+table tr:nth-child(4) th{
+    background-color: yellow;
+}
+
+/* Cambiar los estado de los enlaces para que:
+
+ Nunca estén subrayados
+ Si están visitados se muestren en rojo
+ Si no están visitado se muestren en verde */
+
+ a{
+    text-decoration: none;
+ }
+
+ a:visited{
+    color: red;
+ }
+ 
+ a:link{
+    color: green;
+ }
+
+
+
+
+/* Utilizando pseudoselectores hacer que cuando pasemos el ratón sobre la columna del viernes
+aumente el tamaño de letra al doble */
+
+
+td:nth-child(6):hover{
+    
+    font-size: 200%;
+
+}
+
+table tr:nth-child(4):hover{
+    font-size: 30px;
+}
+
+
+
+/* Utilizando Pseudoelementos Haz que la primera letra de los días tenga el doble de tamaño*/
+
+th::first-letter{
+    font-size: 200%;
+}
+
+
+
+
+/* Añade un borde rojo que esté separado 5 px a los campos obligatorios */
+
+input:required {
+    border: 1.5px solid red; /* Borde rojo para campos obligatorios */
+    padding: 10px; /* Espaciado interior */
+}
+
+/* Añade un * en rojo detrás de las etiquetas del formulario*/
+
+label:after {
+    content: " *";
+    color: red; 
+}
+
+/*Utilizando pseudoselectores de posición colgroup y col:.... da color azul a las columas de lunes y martes
+color verde a las columnas de miércoles y jueves
+color rojo a la columna del viernes
+Utiliza 3 reglas*/
+
+
+col:nth-child(2){
+    background-color: lightblue;
+}
+col:nth-child(3){
+    background-color: lightgreen;
+}
+col:nth-child(4){
+    background-color: lightcoral;
+}
+

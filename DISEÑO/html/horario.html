@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ejercicios con Pseudoselectores</title>
+
+    <link href="css/horario.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <table>
+        <caption><a href="https://site.educa.madrid.org/ies.sanjuandelacruz.pozuelodealarcon/" target="_blank">HORARIO DE CLASE CURSO 2024-2025</a></caption>
+        <colgroup>
+            <!-- Primera columna recibe un estilo individual -->
+            <col span="1"> <!-- Primera columna -->
+            <!-- Las siguientes dos columnas compartirán el mismo estilo -->
+            <col span="2"> <!-- Segunda y tercera columnas -->
+            <!-- Las siguientes tres columnas compartirán otro estilo -->
+            <col span="2"> <!-- Cuarta, quinta y sexta columnas -->
+            <col span="1"> <!-- Cuarta, quinta y sexta columnas -->
+        </colgroup>
+        <thead>
+            <tr>
+                <th>HORAS</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>8:30</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+                <td rowspan="2">Diseño de interfaces Web</td>
+                <td>Asigntura</td>
+            </tr>
+            <tr>
+                <td>9:25</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+            </tr>
+            
+            <tr>
+                <td>10:20</td>
+                <td>Asigntura</td>
+                <td>Diseño de interfaces Web</td>
+                <td>Asignatura</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+            </tr>
+            <tr>
+                <td>11:10</td>
+                <th colspan="5">RECREO</th>
+            </tr>
+            <tr>
+                <td>11:35</td>
+                <td>Asigntura</td>
+                <td>Diseño de Interfaces Web</td>
+                <td>Diseño de Interfaces Web</td>
+                <td>Asignatura</td>
+                <td>Asigntura</td>
+            </tr>
+
+            <tr>
+                <td>12:30</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+                <td>Diseño de Interfaces Web</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+            </tr>
+
+            <tr>
+                <td>13:25</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>
+                <td>Asigntura</td>s
+                <td>Asignatura</td>
+                <td>Asigntura</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form>
+        <p>
+            <label for="destino">Email</label>
+            <input type="email" name="destino" placeholder="Inserte email del destinario" required />
+        </p>
+        <input type="button" value="Enviar Horario" />
+    </form>
+</body>
+
+</html>

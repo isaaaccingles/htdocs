@@ -1,0 +1,65 @@
+/* Dar fuente Courier New, a todos los elementos*/
+
+*{
+    font-family:'Courier New', Courier, monospace;
+}
+
+/*El color del elemento principal (id) es grey*/
+
+#main{
+    color:grey;
+}
+
+/*Todas los h1 que tengan la clase especial son azules*/
+
+h1.especial{
+    color:blue;
+}
+
+/*Los h2 y h3, están encuadrados con un border de 1 píxel y de color naranja*/
+
+h2, h3{
+    border: 1px orange;
+}
+
+/*Los elementos de la lista son rojos*/
+
+li{
+    color:red;
+}
+
+/*Los elementos que son elementos de otra lista son verdes. Recordamos que es en cascada, se aplica el último estilo hacia abajo*/
+
+li, li{
+
+    color: green;
+
+}
+
+/*Las imagenes que son hijas directas de párrafos, deben de estar encuadradas con un borde de 5 píxeles y de color negro*/
+
+p>img{
+    
+    border: 5px solid black;
+
+}
+
+/*Las imagenes que tengan como valor de atributo "segunda", deben de estar encuadradas con un borde de 5 píxeles y de color rojo*/
+
+img[alt="segunda"]{
+    border: 5px solid red;
+}
+
+/*Los h3 que estén antes de un párrafo y que tengan la clase "antes" ponerles de color de fondo rosa*/
+
+p~h3{
+    
+    background-color: pink;
+
+}
+
+/*Los h3 que estén justo despúes de un párrafo poner de color de fondo azul*/
+
+p+h3{
+    background-color: blue;
+}

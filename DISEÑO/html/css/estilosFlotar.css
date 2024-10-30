@@ -1,0 +1,137 @@
+/*Ajusto tamaño a border-box*/
+
+*{
+    box-sizing: border-box;
+
+}
+
+/*Al contenedor principal, se le da una anchura del 80%  de la pantalla
+y se centra lateralmente, se indican 20px de margenes superiores e inferiores*/
+
+.contenedor{
+    width: 80%;
+    margin:20px auto;
+}
+
+
+
+/*Centrar texto del título de la pagina*/
+
+h1{
+    text-align: center;
+}
+
+
+/*Al menu de navegacion se le da fondo negro y color de letra blanco*/
+
+
+nav{
+    background-color: black;
+    color: white;
+    
+}
+
+
+/*Doy a los divs que hay dentro del menu de navegacion (salen unos al lado de los otros)*/
+
+
+nav div{
+    display: inline-block;
+    width: 15%;
+    padding: 10px;
+}
+
+
+/*El menu lateral debe de flotar a la izquierda
+tiene un fondo negro y color de texto blanco
+tiene altura de 500px
+margen superior de 30px
+ancho de 15%*/
+
+
+.menu{
+    float: left;
+    background-color: black;
+    color: white;
+    margin-top: 30px;
+    height: 500px;
+    width: 15%;    
+}
+
+
+
+/*La seccion de cursos flotantes debe de ser elemento flotante,
+ajustar margen al 5% y ancho al 80%*/
+/*Nota
+El menu lateral tiene un ancho del 15% del contenedor padre
+El section tiene  un ancho del 80% del contenedor padre (mismo que el del menu lateral)
+Hay un margen del 5%
+Todos estos suman el 100% del ancho del contenedor padre, si nos pasamos, no cabe en el contenedor, cuidado al dimensionar
+*/
+
+section.cursosPadel{
+    float:left;
+    margin-left: 5%;
+    width: 80%;
+}
+
+
+
+
+/*Los cursos (cada curso) debe de ser un elemento flotante
+Ajustar bordes a 1px y redondeados 10px
+tamaño de letra a 0.8em
+padding a 10px
+margen superior a 30%
+centrar texto
+ajustar ancho para que los tres quepan en su contenedor padre*/
+
+
+.curso{
+    float: left;
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 30%;
+    text-align: center;
+    width: 30%;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+
+/*Las imagenes que hay en el curso tiene un ancho del 50%*/
+
+
+.curso img{
+    width: 50%;
+}
+
+
+
+/*Dar formato de tres columnas a los articulos, tambien es un elemento flotante
+margen izquierdo de 5% y superior de 30%
+tiene un ancho del 80%, una vez mas, 80%+5%(margen) + 15% barra lateral, tienen un 100% de ancho
+¿Qué ocurre con los artículos? No se distribuye cada uno en una columna, sino que TODO el contenido (todos los articulos)
+se distribuyen en columnas. ¿Cómo se solucionas?
+*/
+
+.NoticiasPadel{
+    float: left;
+    margin-left: 5px;
+    margin-top: 30%;
+    width: 80%;
+    column-count: 3;
+}
+
+
+
+/*El footder es de color gris,
+tiene un padding de 20px, el footer debe de NO FLOTAR*/
+
+
+footer{
+    background-color: grey;
+    padding: 20px;
+    clear:both;
+    text-align: center;
+}

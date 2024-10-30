@@ -1,0 +1,198 @@
+/*Indicar que el formato de tamaño de las cajas es border-box!!*/
+
+*{
+    box-sizing: border-box;
+}
+
+/*Dar color de fondo a toda la página, por ejemplo, un gris*/
+
+.body{
+    background-color: lightgrey;
+}
+
+/*El div contenedor general debe tener un color de fondo verde claro,
+redondear 100px los bordes (que no sean vértices con pico)
+CENTRAR HORIZONTALMENTE el div, respetando una distancia de 100px respecto a la parte superior de la ventana
+No debe de ser un elemento estatico (posicionamiento relativo!!), tiene hijos que se posicionan respecto a el
+Tiene una altura de 600px
+Y un ancho del 80%
+*/
+
+
+.contenedor{
+    background-color: lightgreen;
+    position: relative;
+    height: 600px;
+    width: 80%;
+    margin: 100px auto;
+    border-radius: 100px;
+}
+
+
+
+/*El panel de navegacion de tener un fondo gris
+debe permanecer SIEMPRE EN PANTALLA, ningun elemento le puede solapar,
+si bajamos en la pantalla el menu de navegacion PERMANECE pegado al margen superior de la ventana*/
+
+
+nav{
+    background-color: grey;
+    position: sticky;
+    z-index: 50;
+}
+
+
+/*Los elementos del menu de navegacion deben de tener color blanco y ponerse un al lado del otro.
+Cada uno de ellos tiene un padding de 20px y ancho del 20% respecto a su contenedor padre*/
+
+.nav-item{
+    color: white;
+    display: inline-block;
+    padding: 20px;
+    width: 20%;
+    text-align: center;
+}
+
+
+
+/*
+Todos los figure tienen un color de fondo blanco y un borde de negro
+Tienen un padding de 10px
+El texto (figcaption) debe estar centrado en su propio contenedor (figure)
+Deben de tener un ancho del 25% de su contenedor padre
+*/
+
+figure {
+    background-color: white;
+    border: 2px solid black; 
+    padding: 10px; 
+    width: 25%; 
+    text-align: center;
+    margin: auto;
+}
+
+
+
+/*Todas las imagenes dentro de un figure tienen un ancho del 90% respecto a su padre*/
+
+
+figure img {
+    width: 90%; 
+    height: auto;
+    
+}
+
+
+
+/*
+El id img1 debe tener una posicion absoluta y estar posicionado un 20% a la derecha (left!!) de su padre
+y un 25% por debajo del extremo superior
+debe rotar -45grados (transform: rotate(-45deg)
+Cuiadado con la prioridad con la que se muestra!
+*/
+
+#img1{
+    position:absolute;
+    top: 25%;
+    left: 20%;
+    transform: rotate(-45deg);
+    z-index: 10;
+}
+
+
+
+/*
+El id img2 debe tener una posicion absoluta y estar posicionado un 30% a la izquierda de su padre
+y un 30% por debajo del extremo superior
+debe rotar 45grados (transform: rotate(45deg)
+Cuiadado con la prioridad con la que se muestra!
+*/
+
+#img2{
+    position:absolute;
+    top: 30%;
+    left: 30%;
+    transform: rotate(45deg);
+    z-index: 9;
+}
+
+
+
+
+/*
+El id img3 debe tener una posicion absoluta y estar posicionado un 40% a la izquierda de su padre
+y un 35% por debajo del extremo superior
+debe rotar -15 grados (transform: rotate(-15deg)
+Cuiadado con la prioridad con la que se muestra!
+*/
+
+
+#img3{
+    position:absolute;
+    top: 35%;
+    left: 40%;
+    transform: rotate(-15deg);
+    z-index: 8;
+}
+
+
+
+/*
+El id img4 debe tener una posicion absoluta y estar posicionado un 50% a la izquierda de su padre
+y un 40% por debajo del extremo superior
+debe rotar 15 grados (transform: rotate(15deg)
+Cuiadado con la prioridad con la que se muestra!
+*/
+
+
+
+#img4{
+    position:absolute;    
+    top: 40%;
+    left: 50%;
+    transform: rotate(15deg);
+    z-index: 7;
+}
+
+
+
+
+/*
+El menu lateral de estar encuadrado con un borde de 2px y los vertices derechos (superior e inferior) redondeados con 10px
+El tamaño de la letra de sus elementos es de 0.8em
+Tiene una altura del 40% de su contenedor padre
+Tiene un ancho de 80px
+Su posicion es fija en la ventana, separado un 30% respecto al extremo superior
+El texto de sus elementos debe estar centrado
+
+*/
+
+.fixed-sidebar{
+    border: 2px solid black;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 80px;
+    height: 40%;
+    font-size: 0.8em;
+    position: fixed;
+    top: 30%;
+    left: 0;
+    text-align: center;
+}
+
+
+
+.fixed-sidebar ul {
+  list-style: none;
+  padding-left: 5px;
+}
+
+
+
+
+/*Estilo de la imagen del menu lateral, con un ancho del 90% de su contenedor padre*/
+
+.fixed-sidebar img {
+    width: 90%;
+    height: auto;
+}
