@@ -10,7 +10,9 @@ y se centra lateralmente, se indican 20px de margenes superiores e inferiores*/
 
 .contenedor{
     width: 80%;
-    margin:20px auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin:auto;
 }
 
 
@@ -28,6 +30,7 @@ h1{
 nav{
     background-color: black;
     color: white;
+    padding: 10px;
     
 }
 
@@ -35,10 +38,9 @@ nav{
 /*Doy a los divs que hay dentro del menu de navegacion (salen unos al lado de los otros)*/
 
 
-nav div{
-    display: inline-block;
-    width: 15%;
-    padding: 10px;
+.menu-item{
+    display: inline;
+    padding: 40px;
 }
 
 
@@ -69,11 +71,14 @@ Hay un margen del 5%
 Todos estos suman el 100% del ancho del contenedor padre, si nos pasamos, no cabe en el contenedor, cuidado al dimensionar
 */
 
-section.cursosPadel{
-    float:left;
+.cursosPadel{
     margin-left: 5%;
+    margin-top: 30px;
     width: 80%;
+    float: left;
+    
 }
+
 
 
 
@@ -91,18 +96,16 @@ ajustar ancho para que los tres quepan en su contenedor padre*/
     float: left;
     border: 1px solid black;
     padding: 10px;
-    margin-top: 30%;
+    margin-top: 30px;
     text-align: center;
     width: 30%;
-    border-radius: 10px;
-    font-size: 0.8em;
 }
 
 
 /*Las imagenes que hay en el curso tiene un ancho del 50%*/
 
 
-.curso img{
+#img1{
     width: 50%;
 }
 
@@ -117,10 +120,15 @@ se distribuyen en columnas. ¿Cómo se solucionas?
 
 .NoticiasPadel{
     float: left;
-    margin-left: 5px;
-    margin-top: 30%;
+    margin-left: 5%;
+    margin-top: 30px;
     width: 80%;
     column-count: 3;
+    
+}
+
+article{
+    break-inside: avoid;
 }
 
 
@@ -128,10 +136,8 @@ se distribuyen en columnas. ¿Cómo se solucionas?
 /*El footder es de color gris,
 tiene un padding de 20px, el footer debe de NO FLOTAR*/
 
-
 footer{
     background-color: grey;
     padding: 20px;
     clear:both;
-    text-align: center;
 }

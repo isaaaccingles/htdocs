@@ -1,13 +1,33 @@
 <?php
+
+session_start();
+
+$err1 = false;
+$err2 = false;
+$err3 = false;
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$busquedaRealizada = $_POST["busqueda"];
-$tipoBusqueda = $_POST["tipoBusqueda"];
-$generoMusical = $_POST["generoMusical"];
+    $buscar = $_POST["buscar"];
+    $busqueda = isset($_POST["busqueda"])?$_POST["busqueda"]: '';
+    $genero = $_POST["genero"];
 
-if (empty($busquedaRealizada)) {
-    $err = true;
-} else {
+if (empty($buscar)) {
+    $err1 = true;
+} 
+if (empty($busqueda)) {
+    $err2 = true;
+} 
+if (empty($genero)) {
+    $err3 = true;
+
+} 
+if(!$err1 && !$err2 && !$err3) {
+    $_SESSION['buscar'] = $buscar;
+    $_SESSION['busqueda'] = $busqueda;
+    $_SESSION['genero'] = $genero;
+
     header("Location: bienvenido.php");
     exit();
 }
@@ -23,11 +43,18 @@ if (empty($busquedaRealizada)) {
     <title>Document</title>
 </head>
 <body>
-<?php if(isset($err)){
-			echo "<p> Revise usuario y contraseña</p>";
-		}?>
-    <h1>Formulario simple</h1>
-    <h2>Búsqueda de canciones</h2>
+        <?php if($err1){
+			echo "Búsqueda vacía";
+            }
+            if($err2){
+                echo "Ofrezca tipo de busqueda";
+            }
+            if($err3){
+                echo "Seleccione Género Musical";
+            }
+        ?>
+    <h1 style = "font-style: italic; color: blue">Formulario simple</h1>
+    <h2 style = "font-style: italic">Búsqueda de canciones</h2>
 
 <p>
     <form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "POST">
@@ -35,35 +62,28 @@ if (empty($busquedaRealizada)) {
             <table>
                 <tr>
                     <td>Texto a buscar: </td>
-                    <td><input type = "text" id = "texto" name="busqueda"  
-                            value = "<?php if(isset($busquedaRealizada))echo $busquedaRealizada;?>"></td>
+                    <td><input type = "text" id = "texto" name="buscar"  
+                            value = "<?php if(isset($buscar))echo $buscar;?>"></td>
                 </tr>
                 <tr>
                     <td>Buscar en:</td>
-                    <td><input type = "radio" id = "titulos" name = "tipoBusqueda"
-                        value="titulos" 
-                         <?php if($tipoBusqueda == "titulos") echo "checked"; ?>>Titulos de cancion</td>
-                    <td><input type = "radio" id = "titulos" name = "tipoBusqueda"
-                         value="album" 
-                         <?php if($tipoBusqueda == "album") echo "checked"; ?>>Nombres de álbum</td>
-                    <td><input type = "radio" id = "titulos" name = "tipoBusqueda"
-                         value="ambos" 
-                         <?php if($tipoBusqueda == "ambos") echo "checked"; ?>>Ambos campos</td>
+                    <td><input type = "radio" id = "titulos" name = "busqueda" value="titulos">Titulos de cancion</td>
+                    <td><input type = "radio" id = "titulos" name = "busqueda" value="album">Nombres de álbum</td>
+                    <td><input type = "radio" id = "titulos" name = "busqueda" value="ambos">Ambos campos</td>
                 </tr>
                 <tr>
                     <td>Género musical: </td>
                     <td>
-                        <select name="generoMusical">
-                        <option value="Todos" <?php if($generoMusical == "Todos") echo $generoMusical; ?>>Todos</option>
-                        <option value="A" <?php if($generoMusical == "A") echo $generoMusical;?>>Acustica</option>
-                        <option value="M" <?php if($generoMusical == "M") echo $generoMusical;?>>Banda Sonora</option>
-                        <option value="B" <?php if($generoMusical == "B") echo $generoMusical;?>>Blues</option>
-                        <option value="E" <?php if($generoMusical == "E") echo $generoMusical;?>>Electrónica</option>
-                        <option value="F" <?php if($generoMusical == "F") echo $generoMusical;?>>Folk</option>
-                        <option value="J" <?php if($generoMusical == "J") echo $generoMusical;?>>Jazz</option>
-                        <option value="N" <?php if($generoMusical == "N") echo $generoMusical;?>>New Age</option>
-                        <option value="P" <?php if($generoMusical == "P") echo $generoMusical;?>>Pop</option>
-                        <option value="R" <?php if($generoMusical == "R") echo $generoMusical;?>>Rock</option>
+                        <select name="genero">
+                            <option value="Acustica">Acustica</option>
+                            <option value="Banda Sonora">Banda Sonora</option>
+                            <option value="Blues">Blues</option>
+                            <option value="Electrónica">Electrónica</option>
+                            <option value="Folk">Folk</option>
+                            <option value="Jazz">Jazz</option>
+                            <option value="New Age">New Age</option>
+                            <option value="Pop">Pop</option>
+                            <option value="Rock">Rock</option>
                         </select>
                     </td>
                 </tr>

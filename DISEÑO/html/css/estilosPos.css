@@ -24,8 +24,8 @@ Y un ancho del 80%
     position: relative;
     height: 600px;
     width: 80%;
-    margin: 100px auto;
-    border-radius: 100px;
+    margin-top: 100px;
+    
 }
 
 
@@ -50,7 +50,6 @@ Cada uno de ellos tiene un padding de 20px y ancho del 20% respecto a su contene
     display: inline-block;
     padding: 20px;
     width: 20%;
-    text-align: center;
 }
 
 
@@ -67,8 +66,8 @@ figure {
     border: 2px solid black; 
     padding: 10px; 
     width: 25%; 
-    text-align: center;
-    margin: auto;
+    position: relative; 
+    border-radius: 10px;
 }
 
 
@@ -168,20 +167,15 @@ El texto de sus elementos debe estar centrado
 */
 
 .fixed-sidebar{
-    border: 2px solid black;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    width: 80px;
-    height: 40%;
-    font-size: 0.8em;
-    position: fixed;
-    top: 30%;
-    left: 0;
-    text-align: center;
+    border:2px black;
+    
 }
 
 
 
+
+
+/*Estilo de los elementos de la lista (sin puntero)* del menu lateral/
 .fixed-sidebar ul {
   list-style: none;
   padding-left: 5px;
@@ -191,8 +185,3 @@ El texto de sus elementos debe estar centrado
 
 
 /*Estilo de la imagen del menu lateral, con un ancho del 90% de su contenedor padre*/
-
-.fixed-sidebar img {
-    width: 90%;
-    height: auto;
-}

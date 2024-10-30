@@ -9,7 +9,7 @@ G27C4X: 44W 250Hz 1920px 4ms 189,45$ 27"
 const items = [];
 const lineas = input.trim().split('\n');
 
-for (const linea of lineas) {
+lineas.forEach((linea) => {
     const partes = linea.split(' ');
     const nombre = partes[0].replace(':', '');
 
@@ -20,7 +20,7 @@ for (const linea of lineas) {
     let resolucion;
     let consumoEnergia;
 
-    for (const parte of partes) {
+    partes.forEach((parte) => {
         if (parte.includes('€') || parte.includes('$')) {
             precio = parseFloat(parte.replace(',', '.').replace('€', '').replace('$', ''));
         } else if (parte.endsWith('"')) {
@@ -34,11 +34,11 @@ for (const linea of lineas) {
         } else if (parte.endsWith('W' || 'w')) {
             consumoEnergia = parseInt(parte.toLowerCase().replace('W',''));
         }
-    }
+    });
 
         items.push({ nombre, precio, tamaño, frecuencia, tiempoRespuesta, resolucion, consumoEnergia
         });
     
-}
+    });
 
 console.log(items);

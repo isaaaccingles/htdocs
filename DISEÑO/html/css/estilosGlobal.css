@@ -1,0 +1,282 @@
+
+/*Ajustar tamaño de todas las cajas*/
+
+*{
+    box-sizing: border-box;
+}
+
+
+/*Estilo de fuentes en todo el cuerpo de la página: cambria y todo en negrita (bold) y de color azul*/
+
+
+body{
+    color: blue;
+    font-family: Cambria, serif;
+    font-weight: bold;
+}
+
+
+
+/*Barra de nevagcion, cabecera, contendor y pie de página, deben de tener un ancho máximo de 12000x.Centrar horizontalmente estos elementos*/
+
+
+.nav-bar, .cabecera, .contenedor, footer{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+
+
+/*Barra de navegacion con color de fondo azul, color de letra rosa
+Tamaño de letra 1.4 em
+Padding 10px
+Debe responder a scroll, pero no desaparecer de la página (se queda pegada al extremo superior)
+*/
+
+
+nav{
+    background-color: blue;
+    color: pink;
+    font-size: 1.4em;
+    padding: 10px;
+    position:sticky;
+}
+
+
+
+
+/*Elementos de la barra de navegacion*/
+
+
+.nav-item {
+    color: pink;
+    padding: 10px;
+  }
+
+  #img1 {
+    width: 100%;
+    display: block;
+  }
+
+
+
+/*Estilos de la cabecera: posicionada y centrada*/
+
+
+.cabecera{
+    text-align: center;
+    margin: 20px;
+}
+
+
+
+
+/*Banner compra aqui
+Color de fondo y de letra el mismo que antes
+Se debe posicionar respecto a su padre
+Separada un 15% de su derecha y un 30% de arriba
+Con un ancho del 20%
+*/
+
+
+.banner{
+    background-color: blue;
+    color: pink;
+    position: relative;
+    margin-right:15%;
+    margin-top: 30%;
+    width: 20%;
+}
+
+
+
+
+
+/*
+El enlace del banner debe de cambiar de color cuando pasar el ratón por encima
+*/
+
+
+.banner-link:hover{
+    color: red;
+}
+
+
+
+
+
+/*
+El elemento principal, esta centrado horizontalmente. Tiene un ancho del 80%
+*/
+
+
+
+
+
+
+/*Kineas de separacion, despues del h1 del main y despues del main*/
+
+
+
+
+
+
+/*Manejo de desbordamiento (el main es mas pequeño que su contenido)*/
+
+
+
+
+
+/*Colocación de cada uno de los divs de las imagenes de la Federacion de Padel*/
+
+
+
+
+
+
+/*Ajuste de ancho a 189px y alto a 265px de las imagenes de los fip-item*/
+
+
+
+
+
+
+/*
+La seccion de las palas se ajusta al 70% del ancho de su contenedor padre
+centrada horizontalmente
+Se debe manejar el desbordamiento en altura
+*/
+
+
+
+
+
+
+/*Se deben de colocar los elementos de tal forma que floten con respecto a la imagen
+La imagen tiene un ancho del 20% y guarda un margen izquierdo del 10%
+*/
+
+
+
+
+
+
+/*Los elementos que hay dentro de la seccion, flotan con la imagen
+Tienen un margen superior del 20% y un ancho del 50%
+El texto está justificado
+*/
+
+
+
+
+
+
+
+/*La primera linea de texto que hay en los div que estan en la clase pala, deben de ser:
+el doble de grandes de la fuente
+del color rosa usado previamente
+en negrita
+recuadrados solamante en el borde derecho e inferior con bordes de 1px, continuo y de color azul,
+ademas deben de guardar un margen derecho (continuacion de línea) de 10px y padding derecho de 10px*/
+
+
+
+
+
+
+
+
+/*La galeria de imagenes debe de estar centrada horizontalmente (guarda 20px de margen superior e inferior)
+Manejo de desbordamiento en altura
+Tiene un ancho del 70%
+*/
+
+
+
+
+
+/*Colocacion de las imagenes de la galeria que deben de tener un ancho cada una del 20%*/
+
+
+
+
+
+
+
+
+/*Estilos del pie de pagina, es un elemento NO flotante
+Manejo de desbordamiento*/
+
+
+
+
+
+
+
+
+/*Estilos del div de la direccion. Definir altura y anchura*/
+
+
+
+
+
+
+
+/*Colocar y dimensionar adecuadamente el icono de la red social de instagram*/
+
+
+
+
+
+
+
+*{
+    box-sizing: border-box;
+
+}
+
+.contenedor{
+    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin:auto;
+}
+
+nav{
+    color: lightpink;
+    display: inline-block;
+    background-color: darkblue;
+    position: sticky;
+    z-index: 50;
+}
+
+.nav-item{
+    display: inline;
+    padding: 10px;
+}
+
+.padel{
+    text-align: center;
+}
+
+figure img{
+    display: block;
+}
+
+#img2{
+    top: 25%;
+    left: 20%;
+}
+
+.fotosRaqueta{
+    display: inline;
+}
+
+#img3{
+    width: 20%;
+}
+
+footer{
+    background-color: darkblue;
+    color: lightpink;
+}

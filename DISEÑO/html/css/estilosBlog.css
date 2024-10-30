@@ -1,0 +1,183 @@
+/* Selectores básicos. 
+Los elementos de una lista se disponen en bloque.
+Haz usando selectores (una sola regla) que los elementos de la lista de la barra navegación
+se coloquen uno al LADO DEL OTRO y que además esos elementos de la lista no tengan puntero
+*/
+
+li{
+    display: inline-block;
+}
+
+/* 
+Usando clases y un selector de adyacencia haz que el segundo artículo 
+tenga un color de fondo: #f0f0f0
+*/
+
+article.destacado+article.post{
+    background-color: #f0f0f0 ;
+}
+
+
+
+/* Utilizando pseudoselectore y selector de hermanos generales
+haz que todos los enlaces cambien de color cuando uno de ellos haya sido visitado
+ */
+
+
+a:visited{
+    color: purple;
+}
+
+
+
+/* Cuando paso el ratón por encima de cualquier enlace, este se pone rojo*/
+
+
+a:hover{
+    color: red;
+}
+
+
+
+/*Al hacer click (focus) sobre un enlace este se encuadra en un marco azul*/
+
+
+a:focus{
+    border: 2px blue
+}
+
+
+
+
+/* Pseudoselectores de posición
+El primer artículo esta encuadrado con un borde 2px
+*/
+
+.destacado{
+    border: 2px solid black;
+}
+
+
+
+
+/*Pseudo selectores de posicion la palabra contacto de la barra de 
+navegación está en negrita*/
+
+
+li:nth-child(4){
+    font-weight: bolder;
+}
+
+
+
+/* Pseudo-elementos 
+Antes de una etiqueta h2 debe haber ✦ en color azul
+Con otra regla, haz lo mismo, pero esta vez, después de una etiqueta h2
+*/
+
+
+h2::before{
+    content: "✦";
+    color: blue;
+
+}
+
+h2::after{
+    content:  "✦";
+    color: blue;
+}
+
+
+
+
+/*Usando pseudo-elementos se debe mostrar la primera letra de cada párrafo
+con un tamaño del doble de la fuente, en negreita y de color #555*/
+
+
+p::first-letter{
+    font-size: 200%;
+    font-weight: bolder;
+    text-transform: uppercase;
+    color: #555;
+}
+
+
+
+
+/* El body tiene tipo de letra Arial (sans-serif) y un
+interlineado (line-height de 1.6*/
+
+
+body{
+    font:100% sans-serif;
+    line-height: 1.6;
+}
+
+
+
+/*La cabecera es de color de fondo #333 y letras blancas
+tiene un padding superior e inferior de 10px y 0px a los laterales
+Está alineado horizontalmente centrado
+*/
+
+
+header{
+    background-color: #333;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+}
+
+
+
+
+/*Utilizando selectores de descendencia. Los enlaces de la lista
+menu de navegacion son de color blanco y tienen un padding de 
+5px (sup e inf) y 10px (izda, dcha)*/
+
+
+ul li a{
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+
+
+/*La seccion tiene un padding de 20px*/
+
+
+section{
+    padding: 20px;
+}
+
+
+
+
+/*Todos los artíuclos tienen un margen superior de 20px*/
+
+
+section.article{
+    margin-top: 20px;
+}
+
+
+
+/*El pie de pagina tiene un color de fondo #333, el texto es blanco,
+el texto alienado horizantalmente centrado y tiene un padding superior
+e inferior de 10px y 0px a los laterales*/
+
+footer{
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
