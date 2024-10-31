@@ -1,0 +1,75 @@
+
+.error{
+    color: red;
+    font-size: 0.9em;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    color: #333;
+}
+
+h1 {
+    color: #0056b3;
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid grey;
+    border-radius: 8px;
+    background-color: white;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding: 8px;
+    vertical-align: top;
+}
+
+/* Estilos para los errores */
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+/* Estilos para entradas de texto */
+input[type="text"], input[type="password"], input[type="date"], select {
+    width: calc(100% - 10px);
+    padding: 6px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Estilos para el botón */
+input[type="submit"] {
+    background-color: #0056b3;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #003d7a;
+}
+
+/* Estilos adicionales */
+input[type="radio"], input[type="checkbox"] {
+    margin-right: 4px;
+}

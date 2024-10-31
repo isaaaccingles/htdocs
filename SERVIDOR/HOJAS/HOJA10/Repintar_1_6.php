@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre"];
     $contraseña =$_POST["contraseña"];
     $color = isset($_POST["color"])?$_POST["color"]: '';
-    $publicidad = $_POST["publicidad"];
+    $publicidad = isset($_POST["publicidad"])?$_POST["publicidad"]: '';
     $fecha = $_POST["fecha"];
     $ciudad = $_POST["ciudad"];
 
@@ -56,12 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario Usuario</title>
-    <style>
-        .error{
-            color: red;
-            font-size: 0.9em;
-        }
-    </style>
+    <link rel="stylesheet" href="estiloFormulario.css">
 </head>
 <body>
     <h1>Recibe parámetros y repinta el formulario</h1>
