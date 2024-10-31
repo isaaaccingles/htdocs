@@ -10,8 +10,8 @@
 
 
 body{
-    
-    font-family: Cambria, serif;
+
+    font-family: Cambria;
     font-weight: bold;
 }
 
@@ -20,7 +20,7 @@ body{
 /*Barra de nevagcion, cabecera, contendor y pie de página, deben de tener un ancho máximo de 12000x.Centrar horizontalmente estos elementos*/
 
 
-.nav-bar, .cabecera, .contenedor, footer{
+.nav-bar,.imagen1 .cabecera, .contenedor, footer{
     width: 1200px;
     margin: 0 auto;
 }
@@ -56,10 +56,7 @@ nav{
     display: inline;
   }
 
-  #img1 {
-    width: 100%;
-    display: block;
-  }
+
 
 
 
@@ -85,7 +82,7 @@ Con un ancho del 20%
 .banner{
     background-color: blue;
     color: pink;
-    position: relative;
+    position: absolute;
     margin-right:15%;
     margin-top: 30%;
     width: 20%;
@@ -106,12 +103,14 @@ El enlace del banner debe de cambiar de color cuando pasar el ratón por encima
 
 
 
-
 /*
 El elemento principal, esta centrado horizontalmente. Tiene un ancho del 80%
 */
 
-
+.imagen1 {
+    width: 80px;
+    margin:auto;
+  }
 
 
 
@@ -138,8 +137,11 @@ El elemento principal, esta centrado horizontalmente. Tiene un ancho del 80%
 
 /*Ajuste de ancho a 189px y alto a 265px de las imagenes de los fip-item*/
 
-
-
+#img2{
+    display: inline-block;
+    width: 189px;
+    height: 265px;
+}
 
 
 
@@ -149,7 +151,10 @@ centrada horizontalmente
 Se debe manejar el desbordamiento en altura
 */
 
-
+.seccionPalas{
+    width: 70%;
+   
+}
 
 
 
@@ -157,6 +162,7 @@ Se debe manejar el desbordamiento en altura
 /*Se deben de colocar los elementos de tal forma que floten con respecto a la imagen
 La imagen tiene un ancho del 20% y guarda un margen izquierdo del 10%
 */
+
 
 
 
@@ -193,12 +199,16 @@ Manejo de desbordamiento en altura
 Tiene un ancho del 70%
 */
 
-
+.fotosRaqueta{
+    margin-top:20px;
+    margin-bottom:20px;
+    display:inline-block;
+    width: 70px;
+}
 
 
 
 /*Colocacion de las imagenes de la galeria que deben de tener un ancho cada una del 20%*/
-
 
 
 

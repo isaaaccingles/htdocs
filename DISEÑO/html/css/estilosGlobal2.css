@@ -1,0 +1,154 @@
+/* Ajustar el tamaño de todas las cajas */
+* {
+    box-sizing: border-box;
+}
+
+/* Estilos de fuente del cuerpo: Cambria, negrita, color azul */
+body {
+    font-family: Cambria, serif;
+    font-weight: bold;
+}
+
+/* Centrar la barra de navegación, cabecera, contenedor y pie de página con ancho máximo de 1200px */
+.nav-bar, .imagen1, .cabecera, .contenedor, footer {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilos de la barra de navegación: sticky, fondo azul, texto rosa, tamaño de fuente 1.4em, padding de 10px */
+nav {
+    background-color: blue;
+    color: pink;
+    font-size: 1.4em;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+/* Estilo de los elementos de navegación */
+.nav-item {
+    color: pink;
+    padding: 10px;
+    display: inline;
+}
+
+/* Estilo de la cabecera: texto centrado */
+.cabecera {
+    text-align: center;
+    margin: 20px;
+}
+
+/* Estilos del banner "Compra aquí" */
+.banner {
+    background-color: blue;
+    color: pink;
+    position: absolute;
+    right: 15%;
+    top: 30%;
+    width: 20%;
+}
+
+/* Efecto hover en el enlace del banner */
+.banner-link:hover {
+    color: red;
+}
+
+/* Estilo de la imagen principal: centrada horizontalmente, ancho de 1200px */
+.imagen1 {
+    width: 1200px;
+    margin: auto;
+}
+
+.imagen1 img {
+    width: 100%;
+    display: block;
+}
+
+/* Tamaño específico para las imágenes de .fip-item */
+.contenedor{
+    text-align: center;
+}
+.contenedor figure{
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+}
+
+.contenedor img{
+    width: 100%;
+    height: auto;
+}
+
+/* Estilo de la sección de palas */
+.seccionPalas {
+    width: 70%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Estilo de la imagen de las palas: ancho del 20%, margen izquierdo del 10% */
+.seccionPalas img {
+    width: 20%;
+    margin-left: 10%;
+    float: left;
+}
+
+/* Texto que flota junto a la imagen de las palas con margen superior del 20%, ancho del 50% */
+.seccionPalas .parrafo {
+    width: 50%;
+    margin-top: 20%;
+    float: left;
+    text-align: justify;
+}
+
+/* Estilo para la primera línea en la sección de texto de palas */
+.seccionPalas .parrafo:first-child {
+    font-size: 2em;
+    color: pink;
+    font-weight: bold;
+    border-right: 1px solid blue;
+    border-bottom: 1px solid blue;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+/* Estilo de la galería de imágenes: centrada, ancho de 70%, margen vertical de 20px */
+.fotosRaqueta {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 70%;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+/* Estilo de cada imagen individual en la galería: ancho del 20% */
+.fotosRaqueta img {
+    width: 20%;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+/* Estilos del pie de página: fondo azul oscuro, texto rosa claro */
+footer {
+    background-color: darkblue;
+    color: lightpink;
+    clear: both;
+    padding: 20px;
+}
+
+/* Estilo adicional para el div de la dirección dentro del pie de página */
+footer p {
+    height: 40px;
+    text-align: center;
+}
+
+/* Estilo del icono de Instagram (reemplazar URL por la ruta de tu icono) */
+footer .instagram-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-image: url('../img/instagram-icon.png'); /* URL de icono de ejemplo */
+    background-size: cover;
+}
