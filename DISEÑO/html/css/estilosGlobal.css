@@ -10,7 +10,7 @@
 
 
 body{
-    color: blue;
+    
     font-family: Cambria, serif;
     font-weight: bold;
 }
@@ -40,6 +40,8 @@ nav{
     font-size: 1.4em;
     padding: 10px;
     position:sticky;
+    z-index: 50;
+    
 }
 
 
@@ -51,6 +53,7 @@ nav{
 .nav-item {
     color: pink;
     padding: 10px;
+    display: inline;
   }
 
   #img1 {
@@ -87,7 +90,6 @@ Con un ancho del 20%
     margin-top: 30%;
     width: 20%;
 }
-
 
 
 
@@ -209,7 +211,10 @@ Manejo de desbordamiento*/
 
 
 
-
+footer{
+    background-color: darkblue;
+    color: lightpink;
+}
 
 
 
@@ -230,53 +235,5 @@ Manejo de desbordamiento*/
 
 
 
-*{
-    box-sizing: border-box;
 
-}
 
-.contenedor{
-    width: 80%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin:auto;
-}
-
-nav{
-    color: lightpink;
-    display: inline-block;
-    background-color: darkblue;
-    position: sticky;
-    z-index: 50;
-}
-
-.nav-item{
-    display: inline;
-    padding: 10px;
-}
-
-.padel{
-    text-align: center;
-}
-
-figure img{
-    display: block;
-}
-
-#img2{
-    top: 25%;
-    left: 20%;
-}
-
-.fotosRaqueta{
-    display: inline;
-}
-
-#img3{
-    width: 20%;
-}
-
-footer{
-    background-color: darkblue;
-    color: lightpink;
-}
