@@ -1,27 +1,68 @@
 <?php
+
+
 session_start();
+
+$err1 = "";
+$err2 = "";
+$err3 = "";
+$err4 = "";
+$errors = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $titulo = $_POST["titulo"];
+    $titulo = $_POST["titulo"];   
     $noticia =$_POST["noticia"];
-    $categoria =$_POST["categoria"];
-    $imagen =$_POST["imagen"];
+    $categoria = isset($_POST["categoria"]) ? $_POST["categoria"] : [];
+    $imagen =isset($_FILES["imagen"]) ? $_FILES["imagen"] : [];
 
     if (empty($titulo)) {
-        $err1 = "Inserte un tútulo para la noticia";
-    }
-    if (empty($noticia)) {
-        $err2 = "Introduzca el cuerpo de la noticia";
-    }
-    if (empty($categoria)) {
-        $err3 = "Seleccione una categoría";
-    }
-    if (empty($imagen)) {
-        $err4 = "Inserte una imagen";
+        $err1 = "Inserte un título para la noticia";
+        $errors = true;
+    } elseif (!preg_match('/^[A-Z ]{15,25}$/', $titulo)) {
+        $err1 = "El título debe tener entre 15 y 25 caracteres en mayúsculas y solo letras";
+        $errors = true;
     }
 
-    if(!$err1 && !$err2 && !$err3 && !$err4 && !$err5) {
+     // Validación del texto de la noticia
+     if (empty($noticia)) {
+        $err2 = "Introduzca el cuerpo de la noticia";
+        $errors = true;
+    } elseif (strlen($noticia) < 50) {
+        $err2 = "El texto debe contener al menos 50 caracteres";
+        $errors = true;
+    }
+
+    $valid_categories = ["promociones", "locales comerciales", "nueva construccion", "pisos", "naves industriales", "terrenos"];
+    if (empty($categoria)) {
+        $err3 = "Seleccione al menos una categoría";
+        $errors = true;
+    } else {
+        foreach ($categoria as $cat) {
+            if (!in_array($cat, $valid_categories)) {
+                $err3 = "Seleccione categorías válidas";
+                $errors = true;
+                break;
+            }
+        }
+    }
+
+// Validación de imágenes
+    if (empty($imagenes['name'][0])) {
+        $err4 = "Inserte al menos una imagen";
+        $errors = true;
+    } else {
+        foreach ($imagenes['name'] as $index => $image_name) {
+            $target_file = "img/" . basename($image_name);
+            if (!move_uploaded_file($imagenes['tmp_name'][$index], $target_file)) {
+                $err4 = "Error al subir las imágenes";
+                $errors = true;
+                break;
+            }
+        }
+    }
+
+    if(!$errors) {
         $_SESSION['titulo'] = $titulo;
         $_SESSION['noticia'] = $noticia;
         $_SESSION['categoria'] = $categoria;
@@ -30,6 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: noticia.php");
         exit();
     }
+
+    
 
 }
 
@@ -48,34 +91,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h2>Insertar nueva noticia</h2>
 
     <p>
+    <form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "POST">
         <form>
             <fieldset>
                 <table>
                     <tr>
                         <td><label>Título:*</label></td>
                         <td><input type = "text" id = "titulo" name = "titulo"
-                        value = "<?php if(isset($titulo))echo $titulo;?>"></td>
+                        value = "<?php if(isset($titulo))echo $titulo;?>">
+                        <span class="error"><?php echo $err1; ?></span></td>
                     </tr>
                     <tr>
                         <td><label>Texto:*</label></td>
                         <td><textarea name = "noticia" cols = "34" rows = "4"
-                        value = "<?php if(isset($noticia))echo $noticia;?>"></textarea></td>
+                        value = "<?php if(isset($noticia))echo $noticia;?>"></textarea>
+                        <span class="error"><?php echo $err2; ?></span></td>
                     </tr>
                     <tr>
                         <td><label>Categoría:</label></td>
                         <td>
-                            <select name="categoria">
+                            <select name="categoria[]" id="categoria" multiple>
                                 <option value="promociones" <?php if(isset($categoria) && $categoria == "promociones") echo 'selected'; ?>>Promociones</option>
-                                <option value="actualidad" <?php if(isset($categoria) && $categoria == "actualidad") echo 'selected'; ?>>Actualidad</option>
-                                <option value="nacional" <?php if(isset($categoria) && $categoria == "nacional") echo 'selected'; ?>>Nacional</option>
-                                <option value="global" <?php if(isset($categoria) && $categoria == "global") echo 'selected'; ?>>Global</option>
+                                <option value="locales comerciales" <?php if(isset($categoria) && $categoria == "locales comerciales") echo 'selected'; ?>>Locales Comerciales</option>
+                                <option value="nueva construccion" <?php if(isset($categoria) && $categoria == "nueva construccion") echo 'selected'; ?>>Nueva Construccion</option>
+                                <option value="pisos" <?php if(isset($categoria) && $categoria == "pisos") echo 'selected'; ?>>Pisos</option>
+                                <option value="naves industriales" <?php if(isset($categoria) && $categoria == "naves industriales") echo 'selected'; ?>>Naves Industriales</option>
+                                <option value="terrenos" <?php if(isset($categoria) && $categoria == "terrenos") echo 'selected'; ?>>Terrenos</option>
                             </select>
+                            <span class="error"><?php echo $err3; ?></span></td>
                         </td>
                     </tr>
                     <tr>
                         <td><label>Imagen:</label></td>
-                        <td><input type = "file" size = "20" name = "imagen"
-                        value = "<?php if(isset($imagen))echo $imagen;?>"></td>
+                        <td><input type = "file" name = "imagen[]" id="imagen" multiple>
+                        <span class="error"><?php echo $err4; ?></span></td>
                     </tr>
                     <tr></tr>
                     <tr>
