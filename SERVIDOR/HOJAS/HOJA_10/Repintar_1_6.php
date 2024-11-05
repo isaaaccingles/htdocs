@@ -75,7 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </tr>
                 <tr>
                     <td>Contraseña:</td>
-                    <td><input type = "password" id ="contraseña" name = "contraseña">
+                    <td><input type = "password" id ="contraseña" name = "contraseña"
+                    value = "<?php if(isset($nombre))echo $nombre;?>">
                     <span class="error"><?php echo $err2; ?></span></td>
                     
                 </tr>

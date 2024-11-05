@@ -1,4 +1,3 @@
-
 /*Ajustar tamaño de todas las cajas*/
 
 *{
@@ -8,18 +7,21 @@
 
 /*Estilo de fuentes en todo el cuerpo de la página: cambria y todo en negrita (bold) y de color azul*/
 
+
 body{
-    font-family: Cambria;
-    color: blue;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
+    color: blue;
 }
 
 
 
 /*Barra de nevagcion, cabecera, contendor y pie de página, deben de tener un ancho máximo de 12000x.Centrar horizontalmente estos elementos*/
+
+
 nav, header, .contenedor, footer{
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 12000x;
+    text-align: center;
 }
 
 
@@ -36,18 +38,19 @@ nav{
     font-size: 1.4em;
     padding: 10px;
     position: sticky;
-    top: 0;
-    z-index:1000;
+    top:0px;
+    z-index: 1000;
+    overflow-y: auto;
 }
-
-
 
 
 /*Elementos de la barra de navegacion*/
 
+
 .nav-item{
-    display: inline-block;
-    padding: 10px;
+    float: left;
+    margin-left: 20px;
+    padding: 5px;
 }
 
 
@@ -55,18 +58,14 @@ nav{
 
 /*Estilos de la cabecera: posicionada y centrada*/
 
+
 header{
-    text-align: center;
     position: relative;
-    margin: 0 auto;               
-    max-width: 1200px;
 }
 
-header img {
-    display: block;                 
-    margin: 0 auto;                  
+header img{
+    width: 100%;
 }
-
 
 
 /*Banner compra aqui
@@ -76,14 +75,17 @@ Separada un 15% de su derecha y un 30% de arriba
 Con un ancho del 20%
 */
 
+
 #banner{
     background-color: blue;
     color: pink;
-    position: absolute;              
-    top: 30%;                        
-    right: 15%;                       
+    position: absolute;
     width: 20%;
+    right: 15%;
+    top: 30%;
+    border-radius: 10px;
 }
+
 
 
 
@@ -92,11 +94,10 @@ Con un ancho del 20%
 El enlace del banner debe de cambiar de color cuando pasar el ratón por encima
 */
 
-a:hover{
-    color: red;
+
+#banner a:hover{
+    color: white;
 }
-
-
 
 
 
@@ -104,49 +105,56 @@ a:hover{
 El elemento principal, esta centrado horizontalmente. Tiene un ancho del 80%
 */
 
-.contenedor {
-    width: 80%;
-    text-align: center;
-}
 
-header img{
-    width: 100%;
-    height: auto;
+main{
+    margin: 0px auto;
+    width: 80%;
+}
+h1{
+    text-align: center;
 }
 
 
 /*Kineas de separacion, despues del h1 del main y despues del main*/
 
 
-
+main h1::after, main::after{
+    background-color: palevioletred;
+    display: block;
+    content: "";
+    height: 2px;
+    width: 30%;
+    margin: 0px auto;
+    margin-top: 30px;
+}
 
 
 
 /*Manejo de desbordamiento (el main es mas pequeño que su contenido)*/
 
 
+.fip {
+    overflow-y: auto;
+}
 
 
 /*Colocación de cada uno de los divs de las imagenes de la Federacion de Padel*/
 
-
-
-.flip{
-    text-align: center;
+.fip .fip-item{
+    float: left;
     padding: 20px;
+    text-align: center;
+    width: 33%;
 }
-
 
 
 
 /*Ajuste de ancho a 189px y alto a 265px de las imagenes de los fip-item*/
 
-.main img{
+.flip-item{
     width: 189px;
     height: 265px;
-    display: inline-block;
 }
-
 
 
 
@@ -157,13 +165,12 @@ centrada horizontalmente
 Se debe manejar el desbordamiento en altura
 */
 
-.pala{
-    width: 70%;                  
-    margin: 0 auto;                
-    max-height: 400px;           
-    padding: 20px; 
-}
 
+.pala{
+    width: 70%;
+    margin: 30pxpx auto;
+    overflow-y: auto;
+}
 
 
 
@@ -171,27 +178,24 @@ Se debe manejar el desbordamiento en altura
 La imagen tiene un ancho del 20% y guarda un margen izquierdo del 10%
 */
 
-.pala img {
-    width: 20%;                  
-    margin-left: 10%;            
-    float: left;                  
-}
 
+.pala img{
+    float: left;
+    width: 20%;
+    margin-left: 10%;
+}
 
 /*Los elementos que hay dentro de la seccion, flotan con la imagen
 Tienen un margen superior del 20% y un ancho del 50%
 El texto está justificado
 */
 
-.pala div{
-    width: 50%;
+.pala div {
     float: left;
-    margin-top: 20%;
+    margin-top: 20px;
     text-align: justify;
-    padding-left: 5px;
+    width: 50%;
 }
-
-
 
 
 
@@ -204,11 +208,11 @@ ademas deben de guardar un margen derecho (continuacion de línea) de 10px y pad
 
 
 .pala div::first-letter{
-    font-size: 2em;
+    border-right: 1px solid #121867;
+    border-bottom: 1px solid #121867;
+    font-size: 200%;
     color: pink;
     font-weight: bold;
-    border-right: 1px border blue;
-    border-bottom: 1px blue;
     margin-right: 10px;
     padding-right: 10px;
 }
@@ -223,12 +227,10 @@ Tiene un ancho del 70%
 */
 
 .imagenes{
-    text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 70%;
     overflow-y: auto;
-    display: inline-block;
+    width: 70%;
 }
 
 
@@ -243,19 +245,20 @@ Tiene un ancho del 70%
 
 
 
+
 /*Estilos del pie de pagina, es un elemento NO flotante
 Manejo de desbordamiento*/
 
 
-
 footer{
-    background-color: blue;
-    color: pink;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 20px;
+    background-color: #121867;
+    color: palevioletred;
     clear: both;
+    font-weight: bold;
+    font-size: 0.8em;
+    overflow-y: auto;
 }
+
 
 
 
@@ -263,18 +266,31 @@ footer{
 /*Estilos del div de la direccion. Definir altura y anchura*/
 
 
+footer .direccion {
+    background-color: #121867;
+    color: palevioletred;
+    float: left;
+    text-align: center;
+    width: 20%;
+    height: 100%;
+    
 
+}
 
 
 
 
 /*Colocar y dimensionar adecuadamente el icono de la red social de instagram*/
 
+footer .redes {
+    float: right;
+    background-color: #121867;
+    color: palevioletred;
+    width: 80%;
+}
 
-
-
-
-
-
-
-
+.redes img {
+    float: right;
+    width: 2%;
+    height: 2%;
+}
