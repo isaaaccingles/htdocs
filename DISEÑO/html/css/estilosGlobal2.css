@@ -103,7 +103,7 @@ nav {
 }
 
 /* Estilo para la primera línea en la sección de texto de palas */
-.seccionPalas .parrafo:first-child {
+.seccionPalas .parrafo::first-letter {
     font-size: 2em;
     color: pink;
     font-weight: bold;

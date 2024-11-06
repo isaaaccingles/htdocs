@@ -73,9 +73,6 @@ section.cursosPadel{
     width: 80%;
 }
 
-
-
-
 /*Los cursos (cada curso) debe de ser un elemento flotante
 Ajustar bordes a 1px y redondeados 10px
 tamaño de letra a 0.8em
@@ -90,7 +87,7 @@ ajustar ancho para que los tres quepan en su contenedor padre*/
     border-radius: 10px;
     font-size: 0.8em;
     padding: 10px;
-    margin-top: 30%;
+    margin-top: 1%;
     text-align: center;
     width: 33%;
 }

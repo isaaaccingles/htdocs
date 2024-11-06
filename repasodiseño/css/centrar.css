@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box;
+}
+
+
+.contenedor{
+    text-align: center;
+    border: 1px solid black;
+    height: 800px;
+    width: 80%;
+    text-align: center;
+    margin: 10% auto;
+}
+
+.primer{
+    border: 1px solid black;
+    margin: 10px;
+    height: 45%;
+}
+.segundo{
+    border: 1px solid black;
+    margin: 10px;
+    height: 50%;
+}
+
+.primer div{
+    display: inline-block;
+    border: 1px solid black;
+    width: 80px;
+    height: 80px;
+    margin-top: 140px;
+}
+.segundo div{
+    display: block;
+    border: 1px solid black;
+    width: 80px;
+    height: 80px;
+    margin-left: 300px;
+    margin-top: 30px;
+}
