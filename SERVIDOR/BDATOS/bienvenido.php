@@ -1,7 +1,7 @@
 <?php
 
-$usuario = $_POST["usuario"];
-$clave = $_POST["clave"];
+$usuario = isset($_POST["usuario"])?$_POST["usuario"]: '';
+$contraseña = isset($_POST["contraseña"])?$_POST["contraseña"]: '';
 
 
 echo "</br>";
@@ -18,6 +18,6 @@ echo "BIENVENIDO".$usuario."</br>";
     <title>Document</title>
 </head>
 <body>
-    <a href="H10_1.php">Volver al Formulario</a>
+    <a href="sqlLogin.php">Volver al Formulario</a>
 </body>
 </html>

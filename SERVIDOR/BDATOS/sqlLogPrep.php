@@ -10,24 +10,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Usuario vacio";
     }else if(empty($contraseña)){
         echo "Contraseña vacia";
-    }
+    }else{
 
     try {
 
     $db = new PDO('mysql:host=localhost;dbname=prueba1', 'prueba1', 'prueba1');
 
 
-    $query = "SELECT * from usuarios WHERE usuario = $usuario AND contraseña = $contraseña";
-    $queryDB = $db -> query($query);
+    $query = "SELECT * from usuarios WHERE usuario = :usuario AND contraseña = :contraseña";
+    $stmt = $db->prepare($query);
     
-    if ($queryDB == 1) {
+    $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
+    $stmt->bindParam(':contraseña', $contraseña, PDO::PARAM_STR);
+    $stmt->execute();
+
+
+    if ($stmt->rowCount() > 0) {  
         header("Location: bienvenido.php");
+        exit; 
     } else {
         echo "Usuario o contraseña incorrectos";
     }
     } catch (PDOException $e) {
         echo "Error con la base de datos: " . $e->getMessage();
     }
+ }
 }
 
     ?>
@@ -44,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }?>
             <form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "POST">
                 <label for = "usuario">Usuario</label> 
-                <input value = "<?php if(isset($usuarioRegistrado))echo $usuarioRegistrado;?>"
+                <input value = "<?php if(isset($usuario))echo $usuario;?>"
                 id = "usuario" name = "usuario" type = "text">				
                 
                 <label for = "contraseña">Clave</label> 
