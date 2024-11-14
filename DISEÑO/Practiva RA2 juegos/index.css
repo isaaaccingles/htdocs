@@ -1,0 +1,19 @@
+li{
+    display: inline-block;
+}
+
+header{
+    background-color: #4278A5;
+    color: white;
+}
+
+
+#logo{
+    width: 15%;
+    height: 15%;
+    padding-top: 2%;
+}
+
+video{
+    margin: auto;
+}

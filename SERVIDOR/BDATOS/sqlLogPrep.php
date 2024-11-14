@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "SELECT * from usuarios WHERE usuario = :usuario AND contraseña = :contraseña";
     $stmt = $db->prepare($query);
     
-    $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
-    $stmt->bindParam(':contraseña', $contraseña, PDO::PARAM_STR);
+    $stmt->bindParam(':usuario', $usuario);
+    $stmt->bindParam(':contraseña', $contraseña);
     $stmt->execute();
 
 
