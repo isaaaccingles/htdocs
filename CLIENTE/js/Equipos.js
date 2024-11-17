@@ -82,54 +82,48 @@ function formarEquipos(jugadoresPorGenero) {
         //Añado a cada equipo (i) los siguientes jugadores
         for (let i = 0; i < cantidadEquipos; i++) {
             const equipo = {
-                Portero: [Portero[i]],
+                Portero: [Portero.pop()],
                 Defensa: [], 
                 Centro: [], 
                 Delantero: [] 
             };
-        
-            //defensa
-            //En el equipo (i) en la posicion defensa, se meten los jugadores j
+
+            // Defensa
             for (let j = 0; j < 4; j++) {
-                equipo.Defensa.push(Defensa[i * 4 + j]);
+                equipo.Defensa.push(Defensa.pop());
             }
-        
-            //centro
-            //En el equipo (i) en la posicion centro, se meten los jugadores j
+
+            // Centro
             for (let j = 0; j < 3; j++) {
-                equipo.Centro.push(Centro[i * 3 + j]);
+                equipo.Centro.push(Centro.pop());
             }
-        
-            //delantero
-            //En el equipo (i) en la posicion delantero, se meten los jugadores j
+
+            // Delantero
             for (let j = 0; j < 3; j++) {
-                equipo.Delantero.push(Delantero[i * 3 + j]);
+                equipo.Delantero.push(Delantero.pop());
             }
-        
+
             equipos[genero].push(equipo);
         }
-        
-        //Agrego a reservas los que sobran
-        //Empiezo desde cantidad de equipos hasta la longuitud de lo que pido para recorrer los sobrantes
-        for (let i = cantidadEquipos; i < Portero.length; i++) {
-            reservas[genero].push(Portero[i]);
+
+        // Agrego a reservas los que sobran
+        // Empiezo desde cantidad de equipos hasta la longitud de lo que pido para recorrer los sobrantes
+        while (Portero.length > 0) {
+            reservas[genero].push(Portero.pop());
         }
-        
-        
-        for (let i = cantidadEquipos * 4; i < Defensa.length; i++) {
-            reservas[genero].push(Defensa[i]);
+
+        while (Defensa.length > 0) {
+            reservas[genero].push(Defensa.pop());
         }
-        
-       
-        for (let i = cantidadEquipos * 3; i < Centro.length; i++) {
-            reservas[genero].push(Centro[i]);
+
+        while (Centro.length > 0) {
+            reservas[genero].push(Centro.pop());
         }
-        
-        
-        for (let i = cantidadEquipos * 3; i < Delantero.length; i++) {
-            reservas[genero].push(Delantero[i]);
+
+        while (Delantero.length > 0) {
+            reservas[genero].push(Delantero.pop());
         }
-    }   
+    }
 
     console.log("Equipos Formados:");
 
