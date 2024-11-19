@@ -1,6 +1,6 @@
 <configuracion>
 <ip>127.0.0.1</ip>
 <nombre>tienda</nombre>
-<usuario>root</usuario>
-<clave></clave>
+<usuario>tienda</usuario>
+<clave>tienda1</clave>
 </configuracion>

@@ -1,7 +1,7 @@
 <?php 
 	/*comprueba que el usuario haya abierto sesión o redirige*/
 	require_once 'sesiones.php';
-	require_once 'bd.php';
+	require_once 'bd_tienda.php';
 	comprobar_sesion();
 ?>
 <!DOCTYPE html>
