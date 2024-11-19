@@ -8,10 +8,7 @@ try{
     $hash = password_hash("rasmuslerdorf", PASSWORD_DEFAULT);
     echo $hash;
 
-    $query = "INSERT INTO usuarios VALUES ('isaacingles', '$hash')";
-    $db ->query($query);
-
-    $query = "INSERT INTO usuarios VALUES ('paulalopez', '$hash')";
+    $query = "INSERT INTO usuarios(usuario, contraseña) VALUES ('paulalopez', '$hash')";
     $db ->query($query);
 
 }catch(PDOException $e) {
@@ -19,3 +16,4 @@ try{
 }
 
 
+ 

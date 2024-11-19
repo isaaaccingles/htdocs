@@ -4,9 +4,19 @@ document.getElementById('file-input').addEventListener('change', async (e) => {
 
     const contenido = await leerArchivo(archivo);
     const contenidoFiltrado = filtrarDuplicados(contenido);
-    const equiposYReservas = formarEquipos(completarPorGenero(contenidoFiltrado));
 
-    document.getElementById('contenido-filtrado').textContent = equiposYReservas;
+    // Medir el tiempo de ejecución de las operaciones principales
+    const tiempoInicio = Date.now();
+
+    let vecesRepetir = 0;
+    while (vecesRepetir < 10000) {
+        const equiposYReservas = formarEquipos(completarPorGenero(contenidoFiltrado));
+        vecesRepetir++;
+    }
+
+    const tiempoFinal = Date.now();
+
+    document.getElementById('contenido-filtrado').textContent = `Tiempo total: ${tiempoFinal - tiempoInicio}ms`;
 }, false);
 
 async function leerArchivo(file) {
@@ -32,16 +42,14 @@ function filtrarDuplicados(contenido) {
     return Array.from(repartoSet);
 }
 
-//Funcion para definir un objeto que separa en genero y sus puestos
 function completarPorGenero(jugadores) {
     const jugadoresPorGenero = {
         Masculino: { Portero: [], Defensa: [], Centro: [], Delantero: [] },
         Femenino: { Portero: [], Defensa: [], Centro: [], Delantero: [] }
     };
 
-    //Separo lo jugadores en genero dependiendo de la letra M o F
     jugadores.forEach(jugador => {
-        const [nombre, genero, apellido, puesto, equipo] = jugador.split(';');
+        const [nombre, genero, apellido, puesto] = jugador.split(';');
         let grupoGenero;
         switch (genero) { 
             case "M":
@@ -51,8 +59,6 @@ function completarPorGenero(jugadores) {
                 grupoGenero = "Femenino";
                 break;
         }
-        //Fijandose en el genero y la posicion, se agregan los jugadores a 
-        //su genero y posicion correspondiente
         if (grupoGenero && jugadoresPorGenero[grupoGenero][puesto]) {
             jugadoresPorGenero[grupoGenero][puesto].push(`${nombre} ${apellido}`);
         }
@@ -61,16 +67,12 @@ function completarPorGenero(jugadores) {
     return jugadoresPorGenero;
 }
 
-// Funcion para formar equipos
 function formarEquipos(jugadoresPorGenero) {
     const equipos = { Masculino: [], Femenino: [] };
     const reservas = { Masculino: [], Femenino: [] };
 
-    // Formar equipos para cada género
     for (const genero in jugadoresPorGenero) {
         const { Portero, Defensa, Centro, Delantero } = jugadoresPorGenero[genero];
-
-        // Aqui calculo cuantos equipos completos se pueden formar
         const cantidadEquipos = Math.min(
             Math.floor(Portero.length / 1),
             Math.floor(Defensa.length / 4),
@@ -78,7 +80,7 @@ function formarEquipos(jugadoresPorGenero) {
             Math.floor(Delantero.length / 3)
         );
 
-        // Formar los equipos
+                // Formar los equipos
         //Añado a cada equipo (i) los siguientes jugadores
         for (let i = 0; i < cantidadEquipos; i++) {
             const equipo = {
@@ -94,6 +96,7 @@ function formarEquipos(jugadoresPorGenero) {
                 equipo.Defensa.push(Defensa[i * 4 + j]);
             }
         
+
             //centro
             //En el equipo (i) en la posicion centro, se meten los jugadores j
             for (let j = 0; j < 3; j++) {
@@ -130,22 +133,23 @@ function formarEquipos(jugadoresPorGenero) {
             reservas[genero].push(Delantero[i]);
         }
     }   
-
-    console.log("Equipos Formados:");
+    /*console.log("Equipos Formados:");
 
     for (const genero in equipos) {
-        console.log(`\n${genero}:`);
+        console.log(\n${genero}:);
         equipos[genero].forEach((equipo, index) => {
-            console.log(`Equipo ${index + 1}:`);
+            console.log(Equipo ${index + 1}:);
             for (const posicion in equipo) {
-                console.log(`${posicion}: ${equipo[posicion].join(', ')}`);
+                console.log(${posicion}: ${equipo[posicion].join(', ')});
             }
         });
     }
 
     console.log("\nReservas:");
     for (const genero in reservas) {
-        console.log(`\n${genero}:`);
-        console.log(`${reservas[genero].join(', ')}`);
+        console.log(\n${genero}:);
+        console.log(${reservas[genero].join(', ')});
     }
+        */
+    return { equipos, reservas };
 }
