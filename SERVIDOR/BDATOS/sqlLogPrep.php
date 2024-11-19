@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $db = new PDO('mysql:host=localhost;dbname=prueba1', 'prueba1', 'prueba1');
 
 
-    $query = "SELECT * from usuarios WHERE usuario = :usuario AND contraseña = :contraseña";
+    $query = "SELECT * from usuarios WHERE usuario = :usuario";
     $stmt = $db->prepare($query);
     
     $stmt->bindParam(':usuario', $usuario);
-    $stmt->bindParam(':contraseña', $contraseña);
+
     $stmt->execute();
 
 

@@ -1,4 +1,5 @@
 <?php
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = $_POST["usuario"];
     $contraseña = $_POST["contraseña"];
@@ -37,26 +38,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Formulario de login</title>		
-    <meta charset="UTF-8">
-</head>
-<body>
-    <?php if (!empty($err)) {
-        echo "<p style='color: red;'>$err</p>";
-    } ?>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        <label for="usuario">Usuario</label>
-        <input value="<?php echo isset($usuario) ? htmlspecialchars($usuario) : ''; ?>" id="usuario" name="usuario" type="text">
-        
-        <label for="contraseña">Contraseña</label>
-        <input id="contraseña" name="contraseña" type="password">
-        
-        <input type="submit" value="Iniciar sesión">
-    </form>
-</body>
+    <head>
+        <title>Formulario de login</title>		
+        <meta charset="UTF-8">
+    </head>
+    <body>			
+        <?php if(isset($err)) { 
+            echo "<p> Revise usuario y contraseña</p>"; 
+        } ?>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <label for="usuario">Usuario</label> 
+            <input value="<?php if(isset($usuario)) echo $usuario;?>" id="usuario" name="usuario" type="text">				
+            
+            <label for="contraseña">Clave</label> 
+            <input id="contraseña" name="contraseña" type="password">			
+			
+            <input type="submit">
+        </form>
+    </body>
 </html>
