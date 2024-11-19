@@ -1,23 +1,19 @@
+
 document.getElementById('file-input').addEventListener('change', async (e) => {
     const archivo = e.target.files[0];
-    if (!archivo) return;
+    if (!archivo) return; 
 
-    const contenido = await leerArchivo(archivo);
-    const contenidoFiltrado = filtrarDuplicados(contenido);
+    try {
+        const contenido = await leerArchivo(archivo);
+        const contenidoFiltrado = filtrarDuplicados(contenido);
 
-    // Medir el tiempo de ejecución de las operaciones principales
-    const tiempoInicio = Date.now();
-
-    let vecesRepetir = 0;
-    while (vecesRepetir < 10000) {
         const equiposYReservas = formarEquipos(completarPorGenero(contenidoFiltrado));
-        vecesRepetir++;
+
+    } catch (error) {
+        console.error("Error procesando el archivo:", error);
     }
-
-    const tiempoFinal = Date.now();
-
-    document.getElementById('contenido-filtrado').textContent = `Tiempo total: ${tiempoFinal - tiempoInicio}ms`;
 }, false);
+
 
 async function leerArchivo(file) {
     return new Promise((resolve, reject) => {
@@ -29,19 +25,21 @@ async function leerArchivo(file) {
 }
 
 function filtrarDuplicados(contenido) {
-    const lineas = contenido.split('\n');
+    const lineas = contenido.split('\n').map(linea => linea.trim()).filter(linea => linea);
     const repartoSet = new Set();
 
     lineas.forEach(linea => {
+        // Divido la línea en sus componentes y verifico que estén completas.
         const [nombre, genero, apellido, puesto, equipo] = linea.split(';');
         if (nombre && genero && apellido && puesto && equipo) {
+            // Uso un Set para evitar duplicados.
             repartoSet.add(`${nombre};${genero};${apellido};${puesto};${equipo}`);
         }
     });
-
     return Array.from(repartoSet);
 }
 
+// Aquí separo los jugadores por género y posición.
 function completarPorGenero(jugadores) {
     const jugadoresPorGenero = {
         Masculino: { Portero: [], Defensa: [], Centro: [], Delantero: [] },
@@ -49,24 +47,19 @@ function completarPorGenero(jugadores) {
     };
 
     jugadores.forEach(jugador => {
+        // Divido los datos de cada jugador y veo cual es su género.
         const [nombre, genero, apellido, puesto] = jugador.split(';');
-        let grupoGenero;
-        switch (genero) { 
-            case "M":
-                grupoGenero = "Masculino";
-                break;
-            case "F":
-                grupoGenero = "Femenino";
-                break;
-        }
+        const grupoGenero = genero === "M" ? "Masculino" : genero === "F" ? "Femenino" : null;
         if (grupoGenero && jugadoresPorGenero[grupoGenero][puesto]) {
+            // Agrego al jugador en la lista correspondiente.
             jugadoresPorGenero[grupoGenero][puesto].push(`${nombre} ${apellido}`);
         }
     });
-
     return jugadoresPorGenero;
 }
 
+// Esta es la parte principal para formar los equipos.
+// Se distribuyen jugadores según las posiciones necesarias.
 function formarEquipos(jugadoresPorGenero) {
     const equipos = { Masculino: [], Femenino: [] };
     const reservas = { Masculino: [], Femenino: [] };
@@ -80,65 +73,47 @@ function formarEquipos(jugadoresPorGenero) {
             Math.floor(Delantero.length / 3)
         );
 
-                // Formar los equipos
-        //Añado a cada equipo (i) los siguientes jugadores
+        // Formo los equipos según la cantidad calculada.
         for (let i = 0; i < cantidadEquipos; i++) {
             const equipo = {
                 Portero: [Portero.pop()],
-                Defensa: [], 
-                Centro: [], 
-                Delantero: [] 
+                Defensa: [],
+                Centro: [],
+                Delantero: []
             };
 
-            // Defensa
+            // Asigno jugadores a cada posición.
             for (let j = 0; j < 4; j++) {
-                equipo.Defensa.push(Defensa.pop());
+            equipo.Defensa.push(Defensa.pop());
             }
-            for (let j = 0; j < 3; j++) {
+            for (let j = 0; j < 3; j++){
                 equipo.Centro.push(Centro.pop());
-            }
-
-            // Delantero
-            for (let j = 0; j < 3; j++) {
+            } 
+            for (let j = 0; j < 3; j++){
                 equipo.Delantero.push(Delantero.pop());
-            }
+            } 
 
-            equipos[genero].push(equipo);
+            equipos[genero].push(equipo); // Agrego el equipo formado.
         }
 
-        // Agrego a reservas los que sobran
-        // Empiezo desde cantidad de equipos hasta la longitud de lo que pido para recorrer los sobrantes
-        while (Portero.length > 0) {
-            reservas[genero].push(Portero.pop());
-        }
+        // Todo lo que sobra se va a las reservas.
+        reservas[genero].push(...Portero, ...Defensa, ...Centro, ...Delantero);
+    }
 
-        while (Defensa.length > 0) {
-            reservas[genero].push(Defensa.pop());
-        }
-
-        while (Centro.length > 0) {
-            reservas[genero].push(Centro.pop());
-        }
-
-        while (Delantero.length > 0) {
-            reservas[genero].push(Delantero.pop());
-        }
-
+    // Imprimo los equipos y las reservas en la consola.
     for (const genero in equipos) {
-        console.log(\n${genero}:);
+        console.log(`\n${genero}:`);
         equipos[genero].forEach((equipo, index) => {
-            console.log(Equipo ${index + 1}:);
+            console.log(`Equipo ${index + 1}:`);
             for (const posicion in equipo) {
-                console.log(${posicion}: ${equipo[posicion].join(', ')});
+                console.log(`${posicion}: ${equipo[posicion].join(', ')}`);
             }
         });
     }
 
     console.log("\nReservas:");
     for (const genero in reservas) {
-        console.log(\n${genero}:);
-        console.log(${reservas[genero].join(', ')});
+        console.log(`\n${genero}:`);
+        console.log(reservas[genero].join(', '));
     }
-        
-    return { equipos, reservas };
 }

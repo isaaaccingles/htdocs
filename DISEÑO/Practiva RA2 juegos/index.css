@@ -1,17 +1,20 @@
-/* General */
+* {
+    box-sizing: border-box;
+}
 
 body {
-    font-family: 'Rajdhani', sans-serif; /* Moderna y legible */
+    font-family: 'Rajdhani', sans-serif;
     margin: 0;
     padding: 0;
     background-color: rgb(217, 234, 249);
     color: #ffffff;
+    font-size: 14px; 
 }
 
 /* Header */
 header {
     background-color: #4278A5;
-    height: 220px; 
+    height: 150px;
     position: sticky;
     overflow: hidden;
     top: 0;
@@ -20,34 +23,33 @@ header {
 
 .menu_izquierda {
     float: left;
-    margin-left: 49px; 
+    margin-left: 49px;
 }
 
 #logo {
-    height: 300px; 
+    height: 200px; 
     margin: -30px auto 0 auto;
 }
 
 .menu_derecha {
     float: right;
-    margin-right: 100px; 
-    line-height: 145px; 
+    margin-right: 50px; 
+    line-height: 100px; 
     padding-top: 1.2%;
 }
 
 nav a {
     text-decoration: none;
     color: #ffffff;
-    font-family: 'Press Start 2P', sans-serif; 
-    margin-left: 40px; 
-    font-size: 25px; 
+    font-family: 'Press Start 2P', sans-serif;
+    margin-left: 30px; 
+    font-size: 14px;
     transition: color 0.3s;
 }
 
 nav a:hover {
     color: #a0bbd1;
 }
-
 
 /* Main */
 .contenedor {
@@ -58,27 +60,30 @@ nav a:hover {
 
 #videoPrimer {
     width: 100%;
-    height: 610px;
-    object-fit: cover; 
-    border-radius: 10px; 
-    opacity: 0.4; 
+    height: 580px;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0.4;
     position: relative; 
+    z-index: 1;
 }
 
+
 .barra-busqueda {
-    position: absolute; 
-    top: 15%; 
-    left: 50%; 
+    position: absolute;
+    top: 40%; 
+    left: 50%;
     transform: translate(-50%, -50%);
     padding: 15px 0;
-    border-radius: 30px; 
-    width: 60%; 
+    border-radius: 30px;
+    width: 60%;
+    z-index: 2;
 }
 
 .barra-busqueda input {
-    width: 80%; 
+    width: 80%;
     padding: 10px;
-    font-size: 20px;
+    font-size: 16px; 
     border: 2px solid black;
     border-radius: 30px;
     outline: none;
@@ -87,8 +92,8 @@ nav a:hover {
 }
 
 .barra-busqueda button {
-    padding: 10px 20px;
-    font-size: 20px;
+    padding: 8px 16px; 
+    font-size: 16px; 
     font-family: 'Rajdhani', sans-serif;
     font-weight: bold;
     color: #fff;
@@ -96,7 +101,7 @@ nav a:hover {
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    margin-left: 10px; 
+    margin-left: 8px;
 }
 
 .barra-busqueda button:hover {
@@ -104,37 +109,36 @@ nav a:hover {
 }
 
 /* Blog Information */
-.informacion-blog { 
-    padding: 40px 20px; 
-    border-radius: 15px; 
+.informacion-blog {
+    padding: 40px 20px;
+    border-radius: 15px;
     margin-top: 2%;
-    text-align: center; 
+    text-align: center;
     margin-bottom: 2%;
     background-color: #435461;
-    color: #ffffff; 
-    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.1); 
-    transform: translateY(0); 
-    transition: transform 0.3s ease-in-out; 
+    color: #ffffff;
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
 }
 
 .informacion-blog:hover {
-    transform: translateY(-5px); 
+    transform: translateY(-5px);
 }
 
 .informacion-blog h2 {
-    font-family: 'Orbitron', sans-serif; /* Futurista */
-    font-size: 50px; 
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px; 
     margin-bottom: 20px;
     font-weight: bold;
     letter-spacing: 2px;
     border-bottom: 4px solid #ffffff;
     padding-bottom: 10px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .informacion-blog p {
-    font-size: 30px; 
-    line-height: 1.6; 
+    font-size: 18px; 
+    line-height: 1.6;
     padding-left: 10%;
     padding-right: 10%;
     margin: 0 auto;
@@ -150,44 +154,64 @@ nav a:hover {
 
 .titulo-noticias h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 60px;
+    font-size: 35px; 
     color: #ffffff;
     background-color: #435461;
-    padding: 40px 600px;
+    padding: 2% 28%;
     display: inline-block;
     border-radius: 10px;
     position: relative;
-    transform: translateY(-50%); 
+    transform: translateY(-50%);
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
-    border: 4px solid #8ec2ec; 
-    z-index: 100; 
+    border: 4px solid #8ec2ec;
+    z-index: 100;
 }
 
 #noticias {
     background-color: grey;
-    padding: 7px 35px 67px; 
+    padding: 7px 35px 67px;
     border-radius: 15px;
     background: linear-gradient(135deg, #4278A5, #8ec2ec);
     position: static;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
-/*NOTICIAS*/
+/* Noticias */
 .contenedor-noticias {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 90px;
+    grid-template-columns: repeat(3, 1fr);  
+    gap: 2%; 
     width: 90%;
     margin: 0 auto;
 }
 
+/*@keyframes show{
+    from{
+        opacity: 0.0;
+        scale: 25%;
+    }
+    to{
+        opacity:1;
+        scale: 100%;
+    }
+}
+
+.contenedor-noticias{
+    view-timeline-name: --noticias;
+    view-timeline-axis: block;
+    animation-timeline: --noticias;
+    animation-name: show;
+    animation-range: entry 25%;
+    animation-fill-mode: both;
+}*/
+
 .noticia {
     background-color: #cccccc;
     border-radius: 10px;
-    padding: 100px;
+    padding: 60px; 
     text-align: center;
     color: white;
-    border-radius: 15px;  
+    border-radius: 15px;
     background: linear-gradient(135deg, black, #435461);
 }
 
@@ -201,84 +225,84 @@ nav a:hover {
 }
 
 .noticia h3 {
-    font-size: 35px;
+    font-size: 24px; 
     margin: 15px 0;
     font-family: 'Orbitron', sans-serif;
 }
 
 .noticia p {
-    font-size: 30px;
+    font-size: 18px; 
     color: white;
     margin-top: 10%;
 }
-
-
 
 /* PROMOCIÓN */
 #promocion {
     background-color: #435461;
     border-radius: 15px;
     overflow: hidden;
-    display: block;
     position: relative;
-    height: 800px;
+    height: 600px;
     margin-top: 76px;
 }
 
 #videoPromocion {
-    float: left;
-    width: 45%;
-    margin-right: 20px;
+    float: left; 
+    width: 50%;
+    height: 100%; 
+    object-fit: cover; 
     box-shadow: 0px 5px 15px rgba(18, 78, 216, 0.3);
 }
 
 .texto-promocion {
     overflow: hidden;
-    margin-left: 47%;
     color: #ffffff;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    left: 50%; 
+    width: 50%; 
+    padding-left: 30px; 
 }
+
 
 .texto-promocion h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 50px;
+    font-size: 30px; 
     color: #ffffff;
     text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
-.texto-promocion h1::before{
+.texto-promocion h1::before {
     content: "✦";
     color: gold;
-
 }
 
-.texto-promocion h1::after{
-    content:  "✦";
+.texto-promocion h1::after {
+    content: "✦";
     color: gold;
 }
 
 .texto-promocion h2 {
     font-family: 'Press Start 2P', sans-serif;
-    font-size: 35px;
+    font-size: 25px; 
     color: #f2f2f2;
     margin: 10px 0;
 }
 
 .texto-promocion p {
-    font-size: 30px;
+    font-size: 18px;
     color: #dddddd;
     line-height: 1.6;
 }
 
 .texto-promocion a {
-    font-size: 30px;
+    font-size: 18px; 
     color: #dddddd;
     line-height: 1.6;
 }
 
-.texto-promocion a:hover{
+.texto-promocion a:hover {
     transform: scale(1.05);
     color: white;
 }
@@ -295,7 +319,7 @@ footer {
 .footer-content p {
     margin: 5px 0;
     font-family: 'Rajdhani', sans-serif;
-    font-size: 25px;
+    font-size: 18px; 
 }
 
 .footer-content a {
@@ -304,13 +328,3 @@ footer {
     font-weight: bold;
     margin: 0 10px;
 }
-
-.footer-content a:hover {
-    text-decoration: underline;
-    color: #ffffff;
-}
-
-
-
-
-
