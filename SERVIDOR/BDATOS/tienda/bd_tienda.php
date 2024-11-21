@@ -34,7 +34,7 @@ function comprobar_usuario($nombre, $clave){
 function cargar_categoria($id_categoria) {
     try {
         // Conexión a la base de datos
-        $conexion = new PDO('mysql:host=localhost;dbname=tienda', 'tienda', 'tienda1');
+        $conexion = new PDO('mysql:host=localhost;dbname=tienda', 'root', '');
         $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Consulta para obtener la categoría
@@ -56,7 +56,7 @@ function cargar_categoria($id_categoria) {
 function cargar_productos_categoria($id_categoria) {
     try {
         // Conexión a la base de datos
-        $conexion = new PDO('mysql:host=localhost;dbname=tienda', 'tienda', 'tienda1');
+        $conexion = new PDO('mysql:host=localhost;dbname=tienda', 'root', '');
         $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Consulta para obtener los productos de una categoría
@@ -80,7 +80,7 @@ function cargar_productos_categoria($id_categoria) {
 function cargar_categorias() {
 	try {
 		// Configuración y conexión a la base de datos con PDO
-		$conexion = new PDO('mysql:host=localhost;dbname=tienda', 'tienda', 'tienda1');
+		$conexion = new PDO('mysql:host=localhost;dbname=tienda', 'root', '');
 		$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		// Consulta para obtener las categorías
@@ -132,7 +132,59 @@ function cargar_productos($codigosProductos) {
         return false;
     }
 }
+function insertar_pedido($carrito, $codRes) {
+    $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
+    $bd = new PDO($res[0], $res[1], $res[2]);
+    $bd->beginTransaction();
+    $hora = date("Y-m-d H:i:s", time());
+    // insertar el pedido
+    $sql = "INSERT INTO pedidos(Fecha, Enviado, Restaurante)
+            values('$hora', 0, $codRes)";
+    $result = $bd->query($sql);
+    if (!$result) {
+        return FALSE;
+    }
+    // coger el id del nuevo pedido para las filas detalle
+    $pedido = $bd->lastInsertId();
+    // insertar las filas en pedidoproductos
+    foreach($carrito as $codProd => $unidades) {
+        $sql = "INSERT INTO pedidosproductos(Pedido, Producto, Unidades)
+                values($pedido, $codProd, $unidades)";
+        //echo $sql;
+        $result = $bd->query($sql);
+        if (!$result) {
+            $bd->rollback();
+            return FALSE;
+        }
+        $sql = "UPDATE productos SET Stock = Stock - $unidades
+                WHERE CodProd = $codProd";
+        $result = $bd->query($sql);
+        if (!$result) {
+            $bd->rollback();
+            return FALSE;
+        }
+    }
+    $bd->commit();
+    return $pedido;
+}
 
-
-
-
+/*function crear_correo($carrito, $pedido, $correo){
+    $texto = "<hl>Pedido n2 $pedido </hl><h2>Restaurante:
+    $correo </h2>";
+    $texto.= "Detalle del pedido:";
+    $productos = cargar_productos(array_keys($carrito));
+    $texto.= "<table>"; //abrir la tabla
+    $texto.= "<tr><th>Nombre</th><th>Descripción</th><th>Peso</th>
+    <th>Unidades</th><th>Eliminar</th></tr>";
+    foreach($productos as $producto){
+    $cod = $producto['CodProd'] ;
+    $nom = $producto['Nombre'];
+    $des = $producto['Descripción'];
+    $peso = $producto['Peso'];
+    $unidades = $_SESSION['carrito'][$cod];
+    $texto.= "<tr><td>$nom</td><td>$des</td><td>$peso</td>
+    <td>$unidades</tdxtdx/tr>";
+    }
+    $texto.= "</table>";
+    return $texto;
+    }*/

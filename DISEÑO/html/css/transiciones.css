@@ -1,0 +1,159 @@
+.menu:after, .menu  span  span {
+    display: block;
+    text-align: center;
+    border-radius: 0em;
+    padding: 2em 0 1.5em;
+  }
+
+.menu > span > span{
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: #fff;
+    background-color: #000;
+  }
+
+
+.menu:after {
+    content: attr(data-title);
+    width: 100%;
+    background: #000;
+    color: #fff; 
+  }
+  
+  .contenedor div{
+    width: 180px;
+    height: 180px;
+  }
+
+  .div1{
+    background-color: rebeccapurple;
+  }
+  .div2{
+    background-color: red;
+  }
+  .div3{
+    background-color: blue;
+  }
+  .div4{
+    background-color: green;
+  }
+  .div5{
+    background-color: black;
+  }
+  .div6{
+    background-color: yellow;
+  }
+  .div7{
+    background-color: rosybrown;
+  }
+  .div8{
+    background-color: yellowgreen;
+  }
+  .div9{
+    background-color: lightcoral;
+  }
+  .div10{
+    background-color: darkblue;
+  }
+
+  .div1:hover{
+    background-color: grey;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;  
+    transform: translate(10%, 10%)  ;
+  }
+  .div2:hover{
+    background-color: black;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;
+    transform: translate(10%, 10%);
+  }
+  .div3:hover{
+    background-color: blue;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;
+    transform: translate(10%, 10%);
+  }
+  .div4:hover{
+    background-color: green;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;
+    transform: translate(10%, 10%);
+  }
+  .div5:hover{
+    background-color: greenyellow;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;
+    transform: translate(10%, 10%);
+  }
+  .div6:hover{
+    background-color: yellow;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;
+    transform: translate(10%, 10%);
+  }
+  .div7:hover{
+    background-color: blue;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;
+    transform: translate(10%, 10%);
+  }
+  .div8:hover{
+    background-color: grey;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;
+    transform: translate(10%, 10%);
+  }
+  .div9:hover{
+    background-color: blueviolet;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    line-height: 0.5%;
+    transform: translate(10%, 10%);
+  }
+  .div10:hover{
+    background-color: orange;
+    line-height: 0.5%;
+    font-size: larger;
+    color: white;
+    border-radius: 10%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0.5;
+    transform: translate(10%, 10%);
+  }

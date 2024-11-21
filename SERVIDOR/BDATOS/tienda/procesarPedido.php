@@ -17,7 +17,7 @@
 	if($resul === FALSE){
 		echo "No se ha podido realizar el pedido<br>";			
 	}else{
-		$correo = $_SESSION['usuario']['correo'];
+		$correo = $_SESSION['usuario']['Correo'];
 		echo "Pedido realizado con éxito. Se enviará un correo de confirmación a: $correo ";													
 		//vaciar carrito	
 		$_SESSION['carrito'] = [];

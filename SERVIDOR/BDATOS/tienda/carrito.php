@@ -39,6 +39,6 @@
 		echo "</table>";						
 		?>
 		<hr>
-		<a href = "procesar_pedido.php">Realizar pedido</a>		
+		<a href = "procesarPedido.php">Realizar pedido</a>		
 	</body>
 </html>
