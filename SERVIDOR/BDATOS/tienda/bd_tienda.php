@@ -104,7 +104,7 @@ function cargar_productos($codigosProductos) {
     try {
         // Cargar configuración desde los archivos XML y XSD
         $res = leer_config(dirname(__FILE__)."/configuracion.xml", dirname(__FILE__)."/configuracion.xsd");
-        $bd = new PDO($res[0], $res[1], $res[2]);
+        $bd = new PDO($res[0], $res[1], $res[   2]);
         $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Crear una lista de marcadores para la consulta preparada
@@ -166,7 +166,7 @@ function insertar_pedido($carrito, $codRes) {
     }
     $bd->commit();
     return $pedido;
-}
+}   
 
 /*function crear_correo($carrito, $pedido, $correo){
     $texto = "<hl>Pedido n2 $pedido </hl><h2>Restaurante:

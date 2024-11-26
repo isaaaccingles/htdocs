@@ -331,3 +331,15 @@ footer {
     font-weight: bold;
     margin: 0 10px;
 }
+
+.menu_izquierda{
+    animation: girar 3s infinite;
+}
+
+@keyframes girar{
+    from{
+        transform: rotateY(0deg);
+    }to{
+        transform: rotateY(360deg);
+    }
+}
