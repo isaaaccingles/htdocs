@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src = "../js/libreria.js"></script>
+</head>
+<body>
+    <button>Boton1</button>
+    <input type = "button" value = "Boton1">
+    <button>Boton2</button>
+    <input type = "text" value = "Cancelar">
+
+
+    <script>
+        $(document).ready(function(){
+            var array = ["manzana", "platano", "uva"];
+            
+            $(array).each(function(index, element){
+                console.log("El indice: " + index + " tiene el elemento" + this);
+            });
+        });
+    </script>
+</body>
+</html>
