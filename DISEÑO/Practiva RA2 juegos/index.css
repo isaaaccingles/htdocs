@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+/* Cambio el tipo de letra, defino el color de fondo */
 body {
     font-family: 'Rajdhani', sans-serif;
     margin: 0;
@@ -12,6 +13,7 @@ body {
 }
 
 /* Header */
+/* Pongo un color que tenga un degradado a un azul mas claro, defindo el alto del header y lo hago sticky para que cuando baje la página se quede a la vista */
 header {
     background: linear-gradient(135deg, #4278A5, #569eda);
     height: 150px;
@@ -21,6 +23,7 @@ header {
     z-index: 1000;
 }
 
+/* Hago flotante el logo */
 .menu_izquierda {
     float: left;
     margin-left: 49px;
@@ -33,10 +36,12 @@ header {
 
 .menu_derecha {
     float: right;
-    margin-right: 10%; 
+    margin-right: 4%; 
     line-height: 100px; 
     padding-top: 1.2%;
+
 }
+
 
 nav a {
     text-decoration: none;
@@ -45,6 +50,7 @@ nav a {
     margin-left: 50px; 
     font-size: 14px;
     transition: color 0.3s;
+    
 }
 
 nav a:hover {
@@ -53,6 +59,8 @@ nav a:hover {
 
 #usuIcon{
     height: 35px;
+    margin-left: 85px;
+    
 }
 #carritoIcon{
     height: 35px;

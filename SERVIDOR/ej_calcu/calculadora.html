@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>
+        <laber>Numero1</laber>
+        <input type = "text" id = "num1">
+        <br>
+        <laber>Numero2</laber>
+        <input type = "text" id = "num2">
+        <br>
+        <button id = "sumar">Sumar</button>
+       
+        <p>Resultado: <span id ="resultado"></p>
+        
+        <script>
+                document.getElementById('sumar').addEventListener('click', function(){
+                        const numero1 = document.getElementById('num1').value;
+                        const numero2 = document.getElementById('num2').value;
+
+                        const  xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function(){
+                                if(this.readyState === 4 && this.status === 200){
+                                        document.getElementById('resultado').innerText = this.responseText;
+                                }
+
+                                xhttp.open("POST", "calculadora.php", true);
+                                xhttp.setRequestHeader("Content-Type", "application/x-www-fpr-urlencode");
+                                xhttp.send(`num1=${nume1}&num2=${num2}`);
+                        }
+                });
+        </script>
+</body>
+</html>

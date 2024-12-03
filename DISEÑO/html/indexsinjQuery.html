@@ -59,17 +59,23 @@
 
     <script>
         $(document).ready(function(){
-
+ 
             $("tbody tr").each(function(){
                 nota1 = parseFloat($(this).find("td:nth-child(2)").text());
                 nota2 = parseFloat($(this).find("td:nth-child(3)").text());
                 nota3 = parseFloat($(this).find("td:nth-child(4)").text());
                 notaMedia = ((nota1 + nota2 + nota3)/3);
 
-                notaMedia = notaMedia.toFixed(2);
-                $(this).find("td:nth-child(5)").text(notaMedia);
+                notaMediaF = notaMedia.toFixed(2);
+                $(this).find("td:nth-child(5)").text(notaMediaF);
+
+                if(notaMediaF>=5){
+                $(this).find("td").css("color", "green");
+                }else{
+                $(this).find("td").css("color", "red");
+                }
             });
-          
+
         });
 
     </script>
