@@ -207,5 +207,3 @@ let noEsNumero = "texto";
 
 console.log(isNaN(numeroValido)); // false (42 es un número)
 console.log(isNaN(noEsNumero)); // true ("texto" no es un número)
-
-//hpalkdnkljasfdhlksjdf
