@@ -1,0 +1,13 @@
+.parallax {
+    background-image: url();
+    height: 600px;
+    background-attachment: fixed; /*Fondo fijo, para dar efecto de paralaje*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; /*Con cover se cubre todo el contenedor en ancho y alto*/
+    }
+    .content {
+    height: 500px;
+    text-align: center;
+    padding: 50px;
+    }

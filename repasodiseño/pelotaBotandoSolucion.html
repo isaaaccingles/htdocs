@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      .pelotaBote {
+  width: 50px;
+  height: 50px;
+  background-color: #3498db;
+  border-radius: 50%;
+  animation-name: bote;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  margin: 100px auto;
+}
+
+@keyframes bote {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: ease-in;
+  }
+  50% {
+    transform: translateY(-100px);
+    animation-timing-function: ease-out;
+  }
+}
+
+        </style>
+</head>
+<body>
+  <div class="pelotaBote"></div>
+
+
+</body>
+</html>

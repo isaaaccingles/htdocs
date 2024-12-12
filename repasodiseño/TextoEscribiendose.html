@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>/* Menú horizontal con transiciones */
+        /*En este menú se ha creado una línea horizontal de colores diferentes encima de cada enlace. Se incluye una transición para cambiar el ancho de esa línea al 100% del contenedor de forma gradual*/
+        /* Formato general de cada item */
+        
+       /* Establecemos el contenedor del texto */
+       .mensaje {
+    display: inline-block;
+    font-size: 36px;
+    font-weight: bold;
+    
+    overflow: hidden;
+  }
+
+  /* Animación para las letras */
+  .mensaje span {
+    display: inline-block;
+    
+    transform: translateX(-100%);
+    animation: desplegar 1s infinite;
+  }
+
+  /* Animación de despliegue de cada letra */
+  @keyframes desplegar {
+    0% { transform: translateX(-100%);  }
+    100% { transform: translateX(0);  }
+  }
+
+  /* Añadir retrasos para las letras usando nth-child */
+  .mensaje span:nth-child(1) { animation-delay: 0s; }
+  .mensaje span:nth-child(2) { animation-delay: 0.1s; }
+  .mensaje span:nth-child(3) { animation-delay: 0.2s; }
+  .mensaje span:nth-child(4) { animation-delay: 0.3s; }
+  .mensaje span:nth-child(5) { animation-delay: 0.4s; }
+  .mensaje span:nth-child(6) { animation-delay: 0.5s; }
+  .mensaje span:nth-child(7) { animation-delay: 0.6s; }
+  .mensaje span:nth-child(8) { animation-delay: 0.7s; }
+  .mensaje span:nth-child(9) { animation-delay: 0.8s; }
+  .mensaje span:nth-child(10) { animation-delay: 0.9s; }
+  .mensaje span:nth-child(11) { animation-delay: 1s; }
+        </style>
+</head>
+<body>
+  <div class="mensaje">
+  <span>¡</span>
+  <span>H</span>
+  <span>o</span>
+  <span>l</span>
+  <span>a</span>
+  <span> </span>
+  <span>M</span>
+  <span>u</span>
+  <span>n</span>
+  <span>d</span>
+  <span>o</span>
+  <span>!</span>
+</div>
+</body>
+</html>

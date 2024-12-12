@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .animacionLogo {
+	animation-duration: 5s;
+	animation-name: animacionLogo;
+	animation-iteration-count: infinite;
+  }
+@keyframes animacionLogo{
+	from {
+		
+        transform: rotateY(0deg);
+	}
+  50%{
+		
+        transform: rotateY(180deg);
+	} 
+	to {
+		
+        transform: rotateY(360deg);
+		}
+}
+
+
+    </style>
+</head>
+<body>
+  <a href="#">
+    <img class="animacionLogo" src="logoSJC.png"  width="74" height="33">
+  </a>  
+</body>
+</html>
