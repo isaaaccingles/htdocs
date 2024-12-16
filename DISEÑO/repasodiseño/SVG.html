@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Gráficos</title>
+    <style>
+        svg {
+            border: 1px solid black;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejemplos de Gráficos SVG</h1>
+
+    <!-- a) Círculo simple -->
+    <svg viewBox="0 0 200 200" width="200" height="200">
+        <circle cx="100" cy="100" r="20" fill="none" stroke="black" />
+    </svg>
+
+    <!-- b) Círculo con relleno rojo y borde verde -->
+    <svg viewBox="0 0 200 200" width="200" height="200">
+        <circle cx="100" cy="100" r="20" fill="red" stroke="green" />
+    </svg>
+
+    <!-- c) Rectángulo azul -->
+    <svg viewBox="0 0 200 200" width="200" height="200">
+        <rect x="50" y="100" width="100" height="40" fill="blue" />
+    </svg>
+
+    <!-- d) Línea amarilla diagonal -->
+    <svg viewBox="0 0 200 200" width="200" height="200">
+        <line x1="0" y1="0" x2="200" y2="200" stroke="yellow" stroke-width="2" />
+    </svg>
+
+    <!-- e) Pentágono -->
+    <svg viewBox="0 0 400 350" width="200" height="200">
+        <polygon points="200,10 250,120 200,200 150,120" fill="none" stroke="blue" />
+    </svg>
+
+    <!-- f) Línea múltiple -->
+    <svg viewBox="0 0 500 500" width="200" height="200">
+        <polyline points="50,50 150,150 50,250 150,350" fill="none" stroke="purple" stroke-width="2" />
+    </svg>
+
+    <!-- g) Círculo rojo, rectángulo verde, elipse azul -->
+    <svg viewBox="0 0 300 150" width="300" height="150">
+        <circle cx="80" cy="75" r="30" fill="red" />
+        <rect x="50" y="50" width="60" height="40" fill="green" />
+        <ellipse cx="120" cy="75" rx="50" ry="30" fill="blue" />
+    </svg>
+
+    <!-- h) Rectángulo con título -->
+    <svg viewBox="0 0 300 150" width="300" height="150">
+        <rect x="50" y="50" width="200" height="50" fill="lightgray" />
+        <text x="150" y="85" font-size="20" text-anchor="middle" fill="black">Título Aquí</text>
+    </svg>
+
+    <!-- i) Tres círculos, una línea, y un rectángulo -->
+    <svg viewBox="0 0 200 200" width="200" height="200">
+        <circle cx="50" cy="50" r="20" fill="red" />
+        <circle cx="150" cy="50" r="20" fill="blue" />
+        <circle cx="100" cy="150" r="20" fill="green" />
+        <line x1="50" y1="50" x2="150" y2="50" stroke="black" stroke-width="2" />
+        <rect x="75" y="100" width="50" height="50" fill="yellow" />
+    </svg>
+
+</body>
+</html>

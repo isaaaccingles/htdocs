@@ -1,0 +1,48 @@
+/* background: linear-gradient(dirección|ángulo, color posición, color posición, color posición...);
+background: linear-gradient(color, color, color…); */
+
+
+div{
+    padding:40px;
+}
+
+div:nth-child(1){
+background: linear-gradient(90deg, rgba(176,174,238,1) 0%, rgba(29,30,31,1));
+}
+
+div:nth-child(2){
+background: linear-gradient(to right,red,brown,orange,yellow,blue,green,violet,pink);
+}
+
+div:nth-child(3){
+background: linear-gradient(to top, #000, #ccc);
+}
+
+div:nth-child(4){
+background: linear-gradient(to right,red 300px,brown 400px,orange 700px);
+}
+
+
+
+/*CIRCULAR
+ background: radial-gradient(forma, color, color, color...);
+background: radial-gradient(forma posición, color, color, color...);
+background: radial-gradient(forma, color posición, color posición, color posición...);
+background: radial-gradient(color, color, color...);
+background: radial-gradient(farthest-side, color, color, ...); */
+
+div:nth-child(1){
+    background: radial-gradient(ellipse,rgba(176,174,238,1) 0%, rgba(29,30,31,1));
+    }
+    div:nth-child(2){
+    background: radialgradient(circle, red, brown, orange, yellow, blue);
+    }
+    div:nth-child(3){
+    background:radial-gradient(circle,red 300px,brown 400px,orange 700px);
+    }
+    div:nth-child(4){
+    background: radial-gradient(#000, #ccc);
+    }
+    div:nth-child(5){
+    background: radial-gradient(farthest-side, #ff5733, #ffca3a);} div{padding:40px;
+    }

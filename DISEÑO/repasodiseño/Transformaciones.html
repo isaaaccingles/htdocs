@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 para soportar diferentes idiomas. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que el diseño sea responsive al establecer el ancho de la vista igual al ancho del dispositivo. -->
+    <title>Document</title> <!-- Título del documento que aparece en la pestaña del navegador. -->
+    <style>
+    /* Contenedor principal que agrupa todas las cajas */
+    .container {
+        position: relative; /* Permite posicionamiento relativo dentro del contenedor. */
+    }
+
+    /* Estilo general de todas las cajas */
+    .caja {
+        width: 180px; /* Ancho fijo de cada caja. */
+        height: 180px; /* Alto fijo de cada caja. */
+        color: #FFF; /* Color de texto blanco. */
+        text-align: center; /* Alineación horizontal del texto al centro. */
+        line-height: 180px; /* Alineación vertical del texto mediante altura de línea igual al alto de la caja. */
+        margin: 15px; /* Margen entre cajas. */
+        float: left; /* Disposición horizontal de las cajas. */
+        font-size: 18px; /* Tamaño de fuente del texto en las cajas. */
+        font-family: Arial; /* Fuente utilizada para el texto. */
+    }
+
+    /* Caja 1: Cambia el tamaño con efecto de escala al pasar el cursor */
+    .caja1 {
+        background-color: #C0392B; /* Fondo rojo oscuro. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja1:hover {
+        transform: scale(.5); /* Reduce el tamaño a la mitad cuando se pasa el cursor. */
+    }
+
+    /* Caja 2: Gira completamente (360 grados) al pasar el cursor */
+    .caja2 {
+        background-color: #9B59B6; /* Fondo púrpura. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja2:hover {
+        transform: rotate(360deg); /* Gira completamente. */
+    }
+
+    /* Caja 3: Se desplaza un 10% horizontalmente al pasar el cursor */
+    .caja3 {
+        background-color: #2980B9; /* Fondo azul. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja3:hover {
+        transform: translate(10%); /* Mueve la caja hacia la derecha un 10%. */
+    }
+
+    /* Caja 4: Inclina ligeramente con efecto skew al pasar el cursor */
+    .caja4 {
+        background-color: #3498DB; /* Fondo azul claro. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja4:hover {
+        transform: skew(10deg); /* Aplica un sesgado de 10 grados. */
+    }
+
+    /* Caja 5: Aplica un sesgado vertical (skewY) al pasar el cursor */
+    .caja5 {
+        background-color: #17A589; /* Fondo verde azulado. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja5:hover {
+        transform: skewY(10deg); /* Aplica un sesgado vertical de 10 grados. */
+    }
+
+    /* Caja 6: Aplica un sesgado horizontal (skewX) negativo al pasar el cursor */
+    .caja6 {
+        background-color: #F1C40F; /* Fondo amarillo. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja6:hover {
+        transform: skewX(-5deg); /* Aplica un sesgado horizontal de -5 grados. */
+    }
+
+    /* Caja 7: Se desplaza horizontalmente 20px al pasar el cursor */
+    .caja7 {
+        background-color: #E67E22; /* Fondo naranja. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja7:hover {
+        transform: translateX(20px); /* Mueve la caja 20px hacia la derecha. */
+    }
+
+    /* Caja 8: Se desplaza verticalmente 20px al pasar el cursor */
+    .caja8 {
+        background-color: #95A5A6; /* Fondo gris claro. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja8:hover {
+        transform: translateY(20px); /* Mueve la caja 20px hacia abajo. */
+    }
+
+    /* Caja 9: Aplica perspectiva y rota en el eje X al pasar el cursor */
+    .caja9 {
+        background-color: #2C3E50; /* Fondo azul oscuro. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja9:hover {
+        transform: perspective(150px) rotateX(45deg); /* Añade perspectiva y gira 45 grados en el eje X. */
+    }
+
+    /* Caja 10: Aplica perspectiva y rota en el eje Y al pasar el cursor */
+    .caja10 {
+        background-color: grey; /* Fondo gris. */
+        transition: 1s linear; /* Transición suave en 1 segundo. */
+    }
+    .caja10:hover {
+        transform: perspective(150px) rotateY(45deg); /* Añade perspectiva y gira 45 grados en el eje Y. */
+    }
+    </style>
+</head>
+<body>
+    <!-- Contenedor que agrupa todas las cajas con diferentes efectos -->
+    <div class="container">
+        <div class="caja caja1">Scale</div> <!-- Caja con efecto de escala -->
+        <div class="caja caja2">Rotate</div> <!-- Caja con efecto de rotación -->
+        <div class="caja caja3">Translate</div> <!-- Caja con efecto de traslación horizontal -->
+        <div class="caja caja4">Skew</div> <!-- Caja con efecto de sesgado -->
+        <div class="caja caja5">SkewY</div> <!-- Caja con sesgado vertical -->
+        <div class="caja caja6">SkewX</div> <!-- Caja con sesgado horizontal -->
+        <div class="caja caja7">TranslateX</div> <!-- Caja con traslación horizontal específica -->
+        <div class="caja caja8">TranslateY</div> <!-- Caja con traslación vertical específica -->
+        <div class="caja caja9">Perspective rotate</div> <!-- Caja con perspectiva y rotación en el eje X -->
+        <div class="caja caja10">Perspective rotate</div> <!-- Caja con perspectiva y rotación en el eje Y -->
+    </div>
+</body>
+</html>
