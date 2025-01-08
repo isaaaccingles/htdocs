@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .completada {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <ul id="lista-tareas">
+        <li><input type="checkbox" id="tarea1" name="tarea1"> Tarea 1</li>
+        <li><input type="checkbox" id="tarea2" name="tarea2"> Tarea 2</li>
+        <li><input type="checkbox" id="tarea3" name="tarea3"> Tarea 3</li>
+    </ul>
+    <button id="eliminarCompletadas">Eliminar Tareas Completadas</button>
+
+    <script>
+        $(document).ready(function() {
+            // Alternar clase completada al marcar/desmarcar el checkbox
+            $('#lista-tareas').on('change', 'input[type="checkbox"]', function() {
+                $(this).parent('li').toggleClass('completada');
+            });
+
+            // Eliminar tareas completadas
+            $('#eliminarCompletadas').click(function() {
+                $('#lista-tareas .completada').remove();
+            });
+        });
+    </script>
+</body>
+</html>

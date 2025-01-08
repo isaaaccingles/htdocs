@@ -45,7 +45,7 @@ async function leerArchivo(file) {
 
 // Procesar la ista de clientes
 function procesarClientes(listaClientes) {
-    const lineas = listaClientes.split("\n").slice(1).map(line => line.split("–").map(item => item.trim()));
+    const lineas = listaClientes.split("\n").slice(1).map(line => line.split("-").map(item => item.trim()));
     return lineas.map(linea => {
         const [nombreApellido, direccion] = linea;
         const [nombre, apellido] = nombreApellido.split(" ");
