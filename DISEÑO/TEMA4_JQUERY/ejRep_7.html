@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espacios del Instituto</title>
+    <style>
+        div {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        .rojo {
+            color: red;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <p>Indica cuál de estos espacios del instituto has visitado durante este curso:</p>
+    <div>
+        <input type="checkbox" id="cafeteria" value="La cafetería" onclick="actualizarLista(this)">
+        <label for="cafeteria">La cafetería</label><br>
+
+        <input type="checkbox" id="aula" value="Aula" onclick="actualizarLista(this)">
+        <label for="aula">Aula</label><br>
+
+        <input type="checkbox" id="biblioteca" value="Biblioteca" onclick="actualizarLista(this)">
+        <label for="biblioteca">Biblioteca</label><br>
+
+        <input type="checkbox" id="patio" value="Patio" onclick="actualizarLista(this)">
+        <label for="patio">Patio</label><br>
+
+        <input type="checkbox" id="jefatura" value="Jefatura de estudios" onclick="actualizarLista(this)">
+        <label for="jefatura">Jefatura de estudios</label><br>
+
+        <input type="checkbox" id="secretaria" value="Secretaría" onclick="actualizarLista(this)">
+        <label for="secretaria">Secretaría</label>
+    </div>
+
+    <p>Usted ha visitado:</p>
+    <ol id="listaSeleccionada">
+    </ol>
+    <input type="button" value="Limpiar datos" id="boton1">
+    <script>
+        function actualizarLista(elemento) {
+            const lista = document.getElementById("listaSeleccionada");
+
+            if (elemento.checked) {
+                const nuevoElemento = document.createElement("li");
+                nuevoElemento.textContent = elemento.value;
+                nuevoElemento.setAttribute("id", elemento.id + "-li");
+                lista.appendChild(nuevoElemento);
+            } else {
+                const elementoAEliminar = document.getElementById(elemento.id + "-li");
+                if (elementoAEliminar) {
+                    lista.removeChild(elementoAEliminar);
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            $('#boton1').click(function () {
+                $('#listaSeleccionada').empty();
+                $('input[type=checkbox]').prop('checked', false);
+            });
+        });
+    </script>
+</body>
+</html>

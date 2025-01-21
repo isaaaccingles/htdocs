@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignación y eliminación de estilos</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <style>
+        .rojo {
+            color: red;
+        }
+        .aumentarTamaño {
+            font-size: 26px;
+        }
+    </style>
+</head>
+<body>
+    <p id="parrafo1">Cuando se haga click en los botones se realizarán asignaciones o eliminaciones de estilos en este párrafo</p>
+    <input type="button" id="boton1" value="Asignar color rojo">
+    <input type="button" id="boton2" value="Asignar rojo y tamaño 26px">
+    <input type="button" id="boton3" value="Eliminar estilo rojo">
+    <input type="button" id="boton4" value="Eliminar estilos rojo y tamaño 26px">
+    <script>
+        $(document).ready(function () {
+            $('#boton1').click(function () {
+                $('#parrafo1').addClass('rojo');
+            });
+
+            $('#boton2').click(function () {
+                $('#parrafo1').addClass('rojo aumentarTamaño');
+            });
+
+            $('#boton3').click(function () {
+                $('#parrafo1').removeClass('rojo');
+            });
+
+            $('#boton4').click(function () {
+                $('#parrafo1').removeClass('rojo aumentarTamaño');
+            });
+        });
+    </script>
+</body>
+</html>

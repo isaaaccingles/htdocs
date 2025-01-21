@@ -181,7 +181,7 @@ document.getElementById('file-input').addEventListener('change', async (e) => {
 
     try {
         const contenido = await leerArchivo(archivo);
-        const [_, _, listaCompras] = contenido.split("&&&&&").map(section => section.trim());
+        const [_, listaCompras] = contenido.split("&&&&&").map(section => section.trim());
 
         const comprasProcesadas = calcularDiasDesdeCompras(listaCompras);
         console.log("Listado de compras con días pasados:", comprasProcesadas);
@@ -190,4 +190,3 @@ document.getElementById('file-input').addEventListener('change', async (e) => {
     }
 }, false);
 
-// Resto del código permanece igual

@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repaso</title>
+    <title>Repasos</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .hidden {
             display: none;
         }
     </style>
+</head>
 <body>
     <h1 id="encabezado">Encabezado</h1>
 
@@ -27,24 +28,23 @@
     <script>
         $(document).ready(function () {
             $('#boton1').click(function () {
-                $('#encabezado, #parrafo1').addClass('hidden');
-                $('#boton1, #boton2').addClass('hidden'); // Oculta este botón y "Ocultar Párrafo 1"
+                $('#encabezado, #parrafo1').css('display', 'none');
+                $('#boton1, #boton2').css('display', 'none');
             });
 
             $('#boton2').click(function () {
-                $('#parrafo1').addClass('hidden');
-                $('#boton2').addClass('hidden'); // Oculta este botón
+                $('#parrafo1').css('display', 'none');
+                $('#boton2').css('display', 'none');
             });
 
             $('#boton3').click(function () {
-                $('#enlace1, #enlace2').addClass('hidden');
-                $('#boton3').addClass('hidden'); // Oculta este botón
+                $('#enlace1, #enlace2').css('display', 'none');
+                $('#boton3').css('display', 'none');
             });
 
-            // Ocultar solo el enlace 1, y ocultar este botón
             $('#boton4').click(function () {
-                $('#enlace1').addClass('hidden');
-                $('#boton4').addClass('hidden'); // Oculta este botón
+                $('#enlace1').css('display', 'none');
+                $('#boton4').css('display', 'none');
             });
         });
     </script>
