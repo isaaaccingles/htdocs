@@ -1,41 +1,49 @@
-
-//Objeto lectores
-function lectores(numSocio, nombre, apellido, telefono, email, bajaLector){
+// Lectores
+function lectores(numSocio, nombre, apellido, telefono, email) {
     this.numSocio = numSocio;
     this.nombre = nombre;
     this.apellido = apellido;
     this.telefono = telefono;
     this.email = email;
-    this.bajaLector = function(){
-        bajaLector = false;
-        
-    }
+    this.activo = true;
+    this.bajaLector = null; 
+
+
+    this.darDeBaja = function() {
+        this.activo = false;
+        this.bajaLector = {
+            baja: true,
+            fechaBaja: new Date().toLocaleDateString()
+        };
+    };
+    
+    // Función para modificar los datos del lector
+    this.modificarLector = function(dato, nuevoValor) {
+        if (dato === 'nombre') {
+            this.nombre = nuevoValor;
+        } else if (dato === 'apellido') {
+            this.apellido = nuevoValor;
+        } else if (dato === 'telefono') {
+            this.telefono = nuevoValor;
+        } else if (dato === 'email') {
+            this.email = nuevoValor;
+        }
+    };
 }
 
-const Julia = new lectores("465", "Julia", "Martínez", "644994312", "jmar@gmail.com");
-const PedroLuis = new lectores("687", "Pedro Luis", "Pérez", "611894466", "pper@gmail.com");
-const Elena = new lectores("612", "Elena", "Lopez", "638t94652", "elopez@hotmail.es");
-const Manuel = new lectores("911", "Manuel", "Velasco", "611733917", "manuelvel@gmaileu");
-const Diego = new lectores("132", "Diego", "Alcaraz", "623891175", "diego.alcaraz.gmail.au");
-const Isabel = new lectores("175", "Isabel", "Martín", "6779446339", "isa.mar22@gmail.com");
-const Juan = new lectores("426", "Juan", "López", "633911691", "julo3776@gmailcom");
-const JoseAntonio = new lectores("344", "Jose Antonio", "Pérez", "66819955", "japerez11@gmail..com");
-
-
-
-//Objeto libros
-function libros(codLibro, isbn, autor, titulo, editorial, ejemplares){
+// Libros
+function libros(codLibro, isbn, autor, titulo, editorial, ejemplares, clasificacion) {
     this.codLibro = codLibro;
     this.isbn = isbn;
     this.autor = autor;
     this.titulo = titulo;
     this.editorial = editorial;
     this.ejemplares = ejemplares;
+    this.clasificacion = clasificacion;
 }
 
-
-//Objeto prestamos
-function prestamos(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevolucion){
+// Préstamos
+function prestamos(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevolucion) {
     this.numPrestamo = numPrestamo;
     this.numSocio = numSocio;
     this.codLibro = codLibro;
@@ -43,24 +51,13 @@ function prestamos(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevoluci
     this.fechaDevolucion = fechaDevolucion;
 }
 
+// Clasificación
+const clasificacion = { pasillo: "7", estanteria: "4", estante: "6" };
 
-//Objeto Clasificacion
-const clasificacion = {pasillo: "7", estanteria: "4", estante: "6"};
+const lectoresArray = [];
+const librosArray = [];
 
-//-----------------------------------------32134234
-
-const lectoresArray = [
-    Julia,
-    PedroLuis,
-    Elena,
-    Manuel,
-    Diego,
-    Isabel,
-    Juan,
-    JoseAntonio
-];
-
-
+// Alta Lector
 function altaLector() {
     let numSocio = prompt("Escribe tu número de socio: ");
     let nombre = prompt("Escribe tu nombre: ");
@@ -72,13 +69,71 @@ function altaLector() {
         return "Por favor, rellene todos los campos";
     }
 
-    let nuevoLector = new lectores(numSocio, nombre, apellido, telefono, email);
+    // Verificar si ya existe el lector
+    let lectorExistente = lectoresArray.find(lector => lector.numSocio === numSocio);
+    if (lectorExistente) {
+        return "El número de socio ya existe";
+    }
 
+    let nuevoLector = new lectores(numSocio, nombre, apellido, telefono, email);
     lectoresArray.push(nuevoLector);
 
     return "Lector dado de alta correctamente";
 }
 
+//Baja lector
+function bajaLector(numSocio) {
+    let lector = lectoresArray.find(lector => lector.numSocio === numSocio);
+    if (lector) {
+        lector.darDeBaja();
+        return `Lector con número de socio ${numSocio} dado de baja correctamente.`;
+    } else {
+        return "Lector no encontrado.";
+    }
+}
+
+//Modificar lector
+function modificarLector(numSocio) {
+    let lector = lectoresArray.find(lector => lector.numSocio === numSocio);
+    if (!lector) {
+        return "Lector no encontrado.";
+    }
+    let dato = prompt("¿Qué dato deseas modificar? (nombre, apellido, telefono, email): ");
+    let nuevoValor = prompt("Introduce el nuevo valor: ");
+    lector.modificarLector(dato, nuevoValor);
+    return `Dato ${dato} del lector ${numSocio} actualizado correctamente.`;
+}
+
+//Comprobar emails
+function comprobarEmails() {
+    let invalidos = [];
+    lectoresArray.forEach(lector => {
+        let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailRegex.test(lector.email)) {
+            invalidos.push(`${lector.nombre} ${lector.apellido} + ${lector.email}`);
+        }
+    });
+    return invalidos.length ? invalidos : "Todos los emails son válidos.";
+}
+
+//Comprobar telefonos
+function comprobarTelefonos() {
+    let invalidos = [];
+    lectoresArray.forEach(lector => {
+        let telefonoRegex = /^\d{9}$/; 
+        if (!telefonoRegex.test(lector.telefono)) {
+            invalidos.push(`${lector.nombre} ${lector.apellido} + ${lector.telefono}`);
+        }
+    });
+    return invalidos.length ? invalidos : "Todos los teléfonos son válidos.";
+}
+
+// Ejemplo de uso
 console.log(altaLector());
 console.log(lectoresArray);
 
+console.log(bajaLector(1)); 
+console.log(modificarLector(1)); 
+
+console.log(comprobarEmails()); 
+console.log(comprobarTelefonos()); 
