@@ -13,20 +13,22 @@ body {
 }
 
 /* Header */
-/* Pongo un color que tenga un degradado a un azul mas claro, defindo el alto del header y lo hago sticky para que cuando baje la página se quede a la vista */
 header {
     background: linear-gradient(135deg, #4278A5, #569eda);
     height: 150px;
     position: sticky;
-    overflow: hidden;
     top: 0;
     z-index: 1000;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    padding: 0 4%;
 }
 
-/* Hago flotante el logo */
+/* Logo */
 .menu_izquierda {
-    float: left;
-    margin-left: 49px;
+    display: flex;
+    align-items: center;
 }
 
 #logo {
@@ -35,37 +37,31 @@ header {
 }
 
 .menu_derecha {
-    float: right;
-    margin-right: 4%; 
-    line-height: 100px; 
-    padding-top: 1.2%;
-
+    display: flex;
+    align-items: center;
+    gap: 50px;
 }
-
 
 nav a {
     text-decoration: none;
     color: #ffffff;
     font-family: 'Press Start 2P', sans-serif;
-    margin-left: 50px; 
-    font-size: 14px;
+    font-size: 12px;
     transition: color 0.3s;
-    
 }
 
 nav a:hover {
     color: #a0bbd1;
 }
 
-#usuIcon{
+#usuIcon {
     height: 35px;
-    margin-left: 85px;
-    
-}
-#carritoIcon{
-    height: 35px;
+    margin-left: 20px;
 }
 
+#carritoIcon {
+    height: 35px;
+}
 
 /* Main */
 .contenedor {
@@ -84,7 +80,6 @@ nav a:hover {
     z-index: 1;
 }
 
-
 .barra-busqueda {
     position: absolute;
     top: 35%; 
@@ -94,6 +89,9 @@ nav a:hover {
     border-radius: 30px;
     width: 60%;
     z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .barra-busqueda input {
@@ -116,7 +114,6 @@ nav a:hover {
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    margin-left: 8px;
 }
 
 .barra-busqueda button:hover {
@@ -200,26 +197,6 @@ nav a:hover {
     margin: 0% auto;
 }
 
-/*@keyframes show{
-    from{
-        opacity: 0.0;
-        scale: 25%;
-    }
-    to{
-        opacity:1;
-        scale: 100%;
-    }
-}
-
-.contenedor-noticias{
-    view-timeline-name: --noticias;
-    view-timeline-axis: block;
-    animation-timeline: --noticias;
-    animation-name: show;
-    animation-range: entry 25%;
-    animation-fill-mode: both;
-}*/
-
 .noticia {
     background-color: #cccccc;
     border-radius: 10px;
@@ -228,11 +205,11 @@ nav a:hover {
     color: white;
     border-radius: 15px;
     background: linear-gradient(135deg, black, #435461);
+    transition: transform 0.5s;
 }
 
 .noticia:hover {
     transform: scale(1.05);
-    transition: transform 0.5s
 }
 
 .noticia img {
@@ -260,10 +237,10 @@ nav a:hover {
     position: relative;
     height: 600px;
     margin-top: 76px;
+    display: flex;
 }
 
 #videoPromocion {
-    float: left; 
     width: 50%;
     height: 100%; 
     object-fit: cover; 
@@ -273,14 +250,12 @@ nav a:hover {
 .texto-promocion {
     overflow: hidden;
     color: #ffffff;
-    position: absolute; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    left: 50%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 50%; 
-    padding-left: 1%; 
+    padding-left: 1%;
 }
-
 
 .texto-promocion h1 {
     font-family: 'Orbitron', sans-serif;
@@ -345,14 +320,14 @@ footer {
     margin: 0 10px;
 }
 
-.menu_izquierda{
+.menu_izquierda {
     animation: girar 3s infinite;
 }
 
-@keyframes girar{
-    from{
+@keyframes girar {
+    from {
         transform: rotateY(0deg);
-    }to{
+    } to {
         transform: rotateY(360deg);
     }
 }

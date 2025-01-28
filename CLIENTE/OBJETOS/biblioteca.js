@@ -1,3 +1,88 @@
+
+document.addEventListener('DOMContentLoaded', () => {
+    const lectoresInput = document.getElementById('file-lectores');
+    const librosInput = document.getElementById('file-libros');
+
+    lectoresInput.addEventListener('change', async (e) => {
+        const archivo = e.target.files[0];
+        if (!archivo || !archivo.name.endsWith(".csv")) {
+            alert("Por favor, selecciona un archivo CSV válido para Lectores.");
+            return;
+        }
+
+        try {
+            const contenido = await leerArchivo(archivo);
+            procesarLectoresCSV(contenido);
+            console.log("Lectores cargados:", lectoresArray);
+        } catch (error) {
+            console.error("Error leyendo el archivo de lectores:", error);
+        }
+    });
+
+    librosInput.addEventListener('change', async (e) => {
+        const archivo = e.target.files[0];
+        if (!archivo || !archivo.name.endsWith(".csv")) {
+            alert("Por favor, selecciona un archivo CSV válido para Libros.");
+            return;
+        }
+
+        try {
+            const contenido = await leerArchivo(archivo);
+            procesarLibrosCSV(contenido);
+            console.log("Libros cargados:", librosArray);
+        } catch (error) {
+            console.error("Error leyendo el archivo de libros:", error);
+        }
+    });
+});
+
+async function leerArchivo(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => resolve(e.target.result);
+        reader.onerror = (e) => reject(e);
+        reader.readAsText(file);
+    });
+}
+
+// Procesar contenido CSV de Lectores
+function procesarLectoresCSV(contenido) {
+    const lineas = contenido.split('\n');
+    for (let i = 1; i < lineas.length; i++) { 
+        const linea = lineas[i].trim();
+        if (linea) {
+            const [numSocio, nombre, apellido, telefono, email] = linea.split(',');
+            const nuevoLector = new lectores(numSocio, nombre, apellido, telefono, email);
+            lectoresArray.push(nuevoLector);
+        }
+    }
+}
+
+// Procesar contenido CSV de Libros
+function procesarLibrosCSV(contenido) {
+    const lineas = contenido.split('\n');
+    for (let i = 1; i < lineas.length; i++) { 
+        const linea = lineas[i].trim();
+        if (linea) {
+            const [codLibro, isbn, autor, titulo, editorial, ejemplares, clasificacion] = linea.split(',');
+            const nuevoLibro = new libros(codLibro, isbn, autor, titulo, editorial, parseInt(ejemplares), clasificacion);
+            librosArray.push(nuevoLibro);
+        }
+    }
+}
+
+
+async function leerArchivo(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => resolve(e.target.result);
+        reader.onerror = (e) => reject(e);
+        reader.readAsText(file);
+    });
+}
+
+
+
 // Lectores
 function lectores(numSocio, nombre, apellido, telefono, email) {
     this.numSocio = numSocio;
@@ -128,12 +213,12 @@ function comprobarTelefonos() {
     return invalidos.length ? invalidos : "Todos los teléfonos son válidos.";
 }
 
-// Ejemplo de uso
-console.log(altaLector());
-console.log(lectoresArray);
 
-console.log(bajaLector(1)); 
-console.log(modificarLector(1)); 
+// console.log(altaLector());
+// console.log(lectoresArray);
 
-console.log(comprobarEmails()); 
-console.log(comprobarTelefonos()); 
+// console.log(bajaLector(1)); 
+console.log(modificarLector("")); 
+
+// console.log(comprobarEmails()); 
+// console.log(comprobarTelefonos()); 
