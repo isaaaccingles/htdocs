@@ -1,41 +1,9 @@
 
-document.addEventListener('DOMContentLoaded', () => {
-    const lectoresInput = document.getElementById('file-lectores');
-    const librosInput = document.getElementById('file-libros');
+// Definir arrays globales
+const arrayLectores = [];
+const arrayLibros = [];
 
-    lectoresInput.addEventListener('change', async (e) => {
-        const archivo = e.target.files[0];
-        if (!archivo || !archivo.name.endsWith(".csv")) {
-            alert("Por favor, selecciona un archivo CSV válido para Lectores.");
-            return;
-        }
-
-        try {
-            const contenido = await leerArchivo(archivo);
-            procesarLectoresCSV(contenido);
-            console.log("Lectores cargados:", lectoresArray);
-        } catch (error) {
-            console.error("Error leyendo el archivo de lectores:", error);
-        }
-    });
-
-    librosInput.addEventListener('change', async (e) => {
-        const archivo = e.target.files[0];
-        if (!archivo || !archivo.name.endsWith(".csv")) {
-            alert("Por favor, selecciona un archivo CSV válido para Libros.");
-            return;
-        }
-
-        try {
-            const contenido = await leerArchivo(archivo);
-            procesarLibrosCSV(contenido);
-            console.log("Libros cargados:", librosArray);
-        } catch (error) {
-            console.error("Error leyendo el archivo de libros:", error);
-        }
-    });
-});
-
+// Función para leer archivo de texto
 async function leerArchivo(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -45,45 +13,79 @@ async function leerArchivo(file) {
     });
 }
 
-// Procesar contenido CSV de Lectores
-function procesarLectoresCSV(contenido) {
-    const lineas = contenido.split('\n');
-    for (let i = 1; i < lineas.length; i++) { 
-        const linea = lineas[i].trim();
-        if (linea) {
-            const [numSocio, nombre, apellido, telefono, email] = linea.split(',');
-            const nuevoLector = new lectores(numSocio, nombre, apellido, telefono, email);
-            lectoresArray.push(nuevoLector);
-        }
+// Función para mostrar contenido del archivo
+function mostrarContenido(contenido) {
+    var elemento = document.getElementById('contenido-archivo');
+    if (elemento) {
+        elemento.innerHTML = contenido;
     }
 }
 
-// Procesar contenido CSV de Libros
-function procesarLibrosCSV(contenido) {
-    const lineas = contenido.split('\n');
-    for (let i = 1; i < lineas.length; i++) { 
-        const linea = lineas[i].trim();
-        if (linea) {
-            const [codLibro, isbn, autor, titulo, editorial, ejemplares, clasificacion] = linea.split(',');
-            const nuevoLibro = new libros(codLibro, isbn, autor, titulo, editorial, parseInt(ejemplares), clasificacion);
-            librosArray.push(nuevoLibro);
-        }
+// Manejar eventos de entrada de archivo (Lectores)
+document.getElementById('file-inputLectores').addEventListener('change', async (e) => {
+    const archivo = e.target.files[0];
+    if (!archivo) {
+        return;
     }
-}
+    const contenido = await leerArchivo(archivo);
 
+    const lineas = contenido.split('\r\n');
+    const sinDuplicados = new Set(lineas);
+    sinDuplicados.delete(""); 
+    const arraySin = [...sinDuplicados]; 
+    arraySin.shift(); 
 
-async function leerArchivo(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (e) => resolve(e.target.result);
-        reader.onerror = (e) => reject(e);
-        reader.readAsText(file);
+    arrayLectores.length = 0; 
+    arraySin.forEach(linea => {
+        const partes = linea.split(",");
+
+        const numSocio = partes[0].trim();
+        const nombre = partes[1].trim();
+        const apellido = partes[2].trim();
+        const telefono = partes[3].trim();
+        const email = partes[4].trim();
+
+        const nuevoLector = new lectores(numSocio, nombre, apellido, telefono, email);
+        arrayLectores.push(nuevoLector);
     });
-}
+
+}, false);
 
 
+document.getElementById('file-inputLibros').addEventListener('change', async (e) => {
+    const archivo = e.target.files[0];
+    if (!archivo) {
+        return;
+    }
+    const contenido = await leerArchivo(archivo);
 
-// Lectores
+    const lineas = contenido.split('\r\n');
+    const sinDuplicados = new Set(lineas);
+    sinDuplicados.delete(""); 
+    const arraySin = [...sinDuplicados]; 
+    arraySin.shift();
+
+    arrayLibros.length = 0;
+    arraySin.forEach(linea => {
+        const partes = linea.split(",");
+
+        const codLibro = partes[0].trim();
+        const isbn = partes[1].trim();
+        const autor = partes[2].trim();
+        const titulo = partes[3].trim();
+        const editorial = partes[4].trim();
+        const ejemplares = partes[5].trim();
+
+        const nuevoLibro = new libros(codLibro, isbn, autor, titulo, editorial, ejemplares);
+        arrayLibros.push(nuevoLibro);
+    });
+
+    console.log(arrayLectores); 
+    altaLector();
+
+}, false);
+
+// Función constructora de Lectores
 function lectores(numSocio, nombre, apellido, telefono, email) {
     this.numSocio = numSocio;
     this.nombre = nombre;
@@ -91,8 +93,7 @@ function lectores(numSocio, nombre, apellido, telefono, email) {
     this.telefono = telefono;
     this.email = email;
     this.activo = true;
-    this.bajaLector = null; 
-
+    this.bajaLector = null;
 
     this.darDeBaja = function() {
         this.activo = false;
@@ -101,7 +102,7 @@ function lectores(numSocio, nombre, apellido, telefono, email) {
             fechaBaja: new Date().toLocaleDateString()
         };
     };
-    
+
     // Función para modificar los datos del lector
     this.modificarLector = function(dato, nuevoValor) {
         if (dato === 'nombre') {
@@ -116,7 +117,7 @@ function lectores(numSocio, nombre, apellido, telefono, email) {
     };
 }
 
-// Libros
+// Función constructora de Libros
 function libros(codLibro, isbn, autor, titulo, editorial, ejemplares, clasificacion) {
     this.codLibro = codLibro;
     this.isbn = isbn;
@@ -124,25 +125,32 @@ function libros(codLibro, isbn, autor, titulo, editorial, ejemplares, clasificac
     this.titulo = titulo;
     this.editorial = editorial;
     this.ejemplares = ejemplares;
-    this.clasificacion = clasificacion;
+    this.clasificacion = clasificacion || ''; // Si no se pasa clasificacion, dejarla vacía
+    this.bajaLibro = null;
+
+    this.darDeBaja = function() {
+        this.activo = false;
+        this.bajaLibro = {
+            baja: true,
+            fechaBaja: new Date().toLocaleDateString()
+        };
+    };
+
+    // Función para modificar los datos del libro
+    this.modificarLibro = function(dato, nuevoValor) {
+        if (dato === 'titulo') {
+            this.titulo = nuevoValor;
+        } else if (dato === 'editorial') {
+            this.editorial = nuevoValor;
+        } else if (dato === 'ejemplares') {
+            this.ejemplares = nuevoValor;
+        } else if (dato === 'clasificacion') {
+            this.clasificacion = nuevoValor;
+        }
+    };
 }
 
-// Préstamos
-function prestamos(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevolucion) {
-    this.numPrestamo = numPrestamo;
-    this.numSocio = numSocio;
-    this.codLibro = codLibro;
-    this.fechaPrestamo = fechaPrestamo;
-    this.fechaDevolucion = fechaDevolucion;
-}
-
-// Clasificación
-const clasificacion = { pasillo: "7", estanteria: "4", estante: "6" };
-
-const lectoresArray = [];
-const librosArray = [];
-
-// Alta Lector
+// Función para alta de lector
 function altaLector() {
     let numSocio = prompt("Escribe tu número de socio: ");
     let nombre = prompt("Escribe tu nombre: ");
@@ -155,44 +163,38 @@ function altaLector() {
     }
 
     // Verificar si ya existe el lector
-    let lectorExistente = lectoresArray.find(lector => lector.numSocio === numSocio);
+    let lectorExistente = arrayLectores.find(lector => lector.numSocio === numSocio);
     if (lectorExistente) {
         return "El número de socio ya existe";
     }
 
     let nuevoLector = new lectores(numSocio, nombre, apellido, telefono, email);
-    lectoresArray.push(nuevoLector);
+    arrayLectores.push(nuevoLector);
 
     return "Lector dado de alta correctamente";
 }
 
-//Baja lector
-function bajaLector(numSocio) {
-    let lector = lectoresArray.find(lector => lector.numSocio === numSocio);
-    if (lector) {
-        lector.darDeBaja();
-        return `Lector con número de socio ${numSocio} dado de baja correctamente.`;
-    } else {
-        return "Lector no encontrado.";
-    }
-}
-
-//Modificar lector
+// Función para modificar lector
 function modificarLector(numSocio) {
-    let lector = lectoresArray.find(lector => lector.numSocio === numSocio);
+    let lector = arrayLectores.find(lector => lector.numSocio === numSocio);
     if (!lector) {
         return "Lector no encontrado.";
     }
-    let dato = prompt("¿Qué dato deseas modificar? (nombre, apellido, telefono, email): ");
-    let nuevoValor = prompt("Introduce el nuevo valor: ");
+    let dato = prompt("¿Qué dato deseas modificar? (nombre, apellido, telefono, email): ").trim();
+    let nuevoValor = prompt("Introduce el nuevo valor: ").trim();
+
+    if (!nuevoValor) {
+        return "El valor no puede estar vacío.";
+    }
+
     lector.modificarLector(dato, nuevoValor);
     return `Dato ${dato} del lector ${numSocio} actualizado correctamente.`;
 }
 
-//Comprobar emails
+// Función para comprobar emails válidos
 function comprobarEmails() {
     let invalidos = [];
-    lectoresArray.forEach(lector => {
+    arrayLectores.forEach(lector => {
         let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         if (!emailRegex.test(lector.email)) {
             invalidos.push(`${lector.nombre} ${lector.apellido} + ${lector.email}`);
@@ -201,11 +203,11 @@ function comprobarEmails() {
     return invalidos.length ? invalidos : "Todos los emails son válidos.";
 }
 
-//Comprobar telefonos
+// Función para comprobar teléfonos válidos
 function comprobarTelefonos() {
     let invalidos = [];
-    lectoresArray.forEach(lector => {
-        let telefonoRegex = /^\d{9}$/; 
+    arrayLectores.forEach(lector => {
+        let telefonoRegex = /^\d{9}$/;
         if (!telefonoRegex.test(lector.telefono)) {
             invalidos.push(`${lector.nombre} ${lector.apellido} + ${lector.telefono}`);
         }
@@ -214,11 +216,138 @@ function comprobarTelefonos() {
 }
 
 
-// console.log(altaLector());
-// console.log(lectoresArray);
+// Función para alta de libro
+function altaLibro() {
+    let codLibro = prompt("Escribe el código del libro: ");
+    let isbn = prompt("Escribe el ISBN del libro: ");
+    let autor = prompt("Escribe el autor del libro: ");
+    let titulo = prompt("Escribe el título del libro: ");
+    let editorial = prompt("Escribe la editorial del libro: ");
+    let ejemplares = parseInt(prompt("Escribe el número de ejemplares del libro: "));
+    let clasificacion = prompt("Clasificación del libro: ");
 
-// console.log(bajaLector(1)); 
-console.log(modificarLector("")); 
+    if (!codLibro || !isbn || !autor || !titulo || !editorial || isNaN(ejemplares) || !clasificacion) {
+        return "Por favor, rellene todos los campos correctamente";
+    }
 
-// console.log(comprobarEmails()); 
-// console.log(comprobarTelefonos()); 
+    // Verificar si ya existe el libro
+    let libroExistente = arrayLibros.find(libro => libro.codLibro === codLibro);
+    if (libroExistente) {
+        return "El código del libro ya existe";
+    }
+
+    let nuevoLibro = new libros(codLibro, isbn, autor, titulo, editorial, ejemplares, clasificacion);
+    arrayLibros.push(nuevoLibro);
+
+    return "Libro dado de alta correctamente";
+}
+
+// Función para modificar libro
+function modificarLibro(codLibro) {
+    let libro = arrayLibros.find(libro => libro.codLibro === codLibro);
+    if (!libro) {
+        return "Libro no encontrado.";
+    }
+    let dato = prompt("¿Qué dato deseas modificar? (titulo, editorial, ejemplares, clasificacion): ").trim();
+    let nuevoValor = prompt("Introduce el nuevo valor: ").trim();
+
+    if (!nuevoValor) {
+        return "El valor no puede estar vacío.";
+    }
+
+    libro.modificarLibro(dato, nuevoValor);
+    return `Dato ${dato} del libro ${codLibro} actualizado correctamente.`;
+}
+
+// Función para baja de libro
+function bajaLibro(codLibro) {
+    let libro = arrayLibros.find(libro => libro.codLibro === codLibro);
+    if (libro) {
+        libro.darDeBaja();
+        return `Libro con código ${codLibro} dado de baja correctamente.`;
+    } else {
+        return "Libro no encontrado.";
+    }
+}
+
+// Función para comprobar si existe un libro por ISBN
+function hayLibro(busqueda) {
+    let libroEncontrado = arrayLibros.find(libro => libro.isbn === busqueda);
+    
+    if (libroEncontrado) {
+        return {
+            isbn: libroEncontrado.isbn,
+            autor: libroEncontrado.autor,
+            titulo: libroEncontrado.titulo,
+            ejemplares: libroEncontrado.ejemplares
+        };
+    } else {
+        console.log("Libro no encontrado");
+        return "Libro no encontrado";
+    }
+}
+
+// Función para gestionar los préstamos
+function prestarLibro(numSocio, codLibro) {
+    let lector = arrayLectores.find(lector => lector.numSocio === numSocio);
+    let libro = arrayLibros.find(libro => libro.codLibro === codLibro);
+    
+    if (!lector) {
+        return "Lector no encontrado.";
+    }
+    if (!libro) {
+        return "Libro no encontrado.";
+    }
+    if (libro.ejemplares <= 0) {
+        return `No hay ejemplares disponibles del libro ${libro.titulo}.`;
+    }
+
+    // Crear un nuevo préstamo
+    let numPrestamo = `${numSocio}-${codLibro}-${new Date().getTime()}`;
+    let fechaPrestamo = new Date().toLocaleDateString();
+    let fechaDevolucion = prompt("Introduce la fecha de devolución (dd/mm/yyyy): ").trim();
+
+    if (!fechaDevolucion) {
+        return "La fecha de devolución es obligatoria.";
+    }
+
+    let nuevoPrestamo = new prestamos(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevolucion);
+
+    // Disminuir el número de ejemplares del libro
+    libro.ejemplares -= 1;
+
+    return `Libro prestado correctamente. Número de préstamo: ${numPrestamo}`;
+}
+
+// Función para devolver libro
+function devolverLibro(numPrestamo) {
+    let prestamo = prestamosArray.find(p => p.numPrestamo === numPrestamo);
+
+    if (!prestamo) {
+        return "Préstamo no encontrado.";
+    }
+
+    let libro = arrayLibros.find(libro => libro.codLibro === prestamo.codLibro);
+    if (libro) {
+        libro.ejemplares += 1; // Aumentar ejemplares disponibles
+    }
+
+    // Eliminar préstamo
+    prestamosArray = prestamosArray.filter(p => p.numPrestamo !== numPrestamo);
+    return `Libro devuelto correctamente. Número de préstamo: ${numPrestamo}`;
+}
+
+// Préstamos (almacenaremos los préstamos aquí)
+let prestamosArray = [];
+
+// Función para ver los préstamos actuales
+function verPrestamos() {
+    if (prestamosArray.length === 0) {
+        return "No hay préstamos registrados.";
+    }
+    
+    return prestamosArray.map(prestamo => {
+        return `Préstamo Nº: ${prestamo.numPrestamo} | Socio: ${prestamo.numSocio} | Libro: ${prestamo.codLibro} | Fecha de préstamo: ${prestamo.fechaPrestamo} | Fecha de devolución: ${prestamo.fechaDevolucion}`;
+    }).join("\n");
+}
+

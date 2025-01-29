@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<style>
+		table, td, th {
+			border-spacing: 0px;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<h1>Biblioteca</h1>
+	<section id="importar">
+		<h2>Importar</h2>
+		<div>
+			<label>Archivo de libros:</label>
+			<input type="file" id="importar-input-libros">
+		</div>
+		<div>
+			<label>Archivo de lectores:</label>
+			<input type="file" id="importar-input-lectores">
+		</div>
+		<button id="importar-boton">Importar</button>
+	</section>
+	<section id="vista-libros">
+		<h2>Vista Libros</h2>
+		<table id="vista-libros-tabla">
+			<thead>
+				<tr>
+					<th>Código Libro</th>
+					<th>ISBN</th>
+					<th>Autor</th>
+					<th>Título</th>
+					<th>Editorial</th>
+					<th>Ejemplares</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<button id="vista-libros-boton">Actualizar vista</button>
+	</section>
+	<section id="alta-lector">
+		<h2>Alta Lector</h2>
+		<table id="comprobar-lectores-tabla">
+			<thead>
+				<tr>
+					<th>Nº Socio</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Teléfono</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<button id="comprobar-lectores-boton">Actualizar</button>
+	</section>
+	<section id="alta-libro">
+		<h2>Vista-libros</h2>
+		<div>
+			<label>ISBN:</label>
+			<input type="text" placeholder="Introduce el ISBN..." id="alta-libro-isbn">
+		</div>
+		<div>
+			<label>Autor:</label>
+			<input type="text" placeholder="Introduce el autor..." id="alta-libro-autor">
+		</div>
+		<div>
+			<label>Título:</label>
+			<input type="text" placeholder="Introduce el título..." id="alta-libro-titulo">
+		</div>
+		<div>
+			<label>Editorial:</label>
+			<input type="text" placeholder="Introduce la editorial..." id="alta-libro-editorial">
+		</div>
+		<div>
+			<label>Ejemplares:</label>
+			<input type="number" step="1" placeholder="Introduce el número de ejemplares..." id="alta-libro-ejemplares">
+		</div>
+		<button id="alta-libro-boton">Alta</button>
+	</section>
+	<section id="devolucion-prestamo">
+		<h2>Devolución/Préstamo de libros</h2>
+		<div>
+			<label>Nº de socio:</label>
+			<input type="text" placeholder="Introduce el nº de socio..." id="devolucion-prestamo-socio">
+		</div>
+		<div>
+			<label>Código de libro:</label>
+			<input type="text" placeholder="Introduce el código de libro..." id="devolucion-prestamo-libro">
+		</div>
+		<button id="devolucion-boton">Devolución</button>
+		<button id="prestamo-boton">Préstamo</button>
+	</section>
+	<script>
+		let nuevoParrafo = document.createElement("p");
+		nuevoParrafo.innerHTML = "Bienvenido";
+		document.body.appendChild(nuevoParrafo);
+
+		// let devolucion = document.getElementById(devolucion-prestamo)
+
+		document.getElementById("devolucion-boton").style.backgroundColor= "red";
+		document.getElementById("prestamo-boton").style.backgroundColor = "green";
+		
+		let labels = devolucion.querySelectorAll("label");
+		for(const key of labels){
+			key.style.color="purple";
+		}
+		
+	</script>
+</body>
+</html>
