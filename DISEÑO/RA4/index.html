@@ -1,11 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Inventario</title>
+  <style>
+     body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: grey;
+      margin: 0;
+      padding: 20px;
+      color: whitesmoke;
+    }
+
+    h1 {
+      text-align: center;
+      color: whitesmoke;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: whitesmoke;
+      font-size: 1.8rem;
+      margin-top: 40px;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      color: whitesmoke;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      color: #333;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: rgb(58, 58, 216);
+    }
+
+    .botones {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    /* Tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: rgb(58, 58, 216);
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    td {
+      background-color: #f9f9f9;
+      color: black;
+    }
+
+    tr:nth-child(even) td {
+      background-color: grey;
+    }
+
+    button.delete {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button.delete:hover {
+      background-color: #e53935;
+    }
+    #graficoBarras {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      height: 300px;
+      border: 1px solid #333;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+    .barra {
+      width: 50px;
+      background-color: rgb(58, 58, 216);
+      text-align: center;
+      color: white;
+      margin: 0 5px;
+    }
+  </style>
 </head>
 <body>
-    
+  <h1>Gestión de Inventario</h1>
+
+
+  <div>
+    <div>
+      <div>
+        <label class="infoProd">Nombre del Producto</label>
+        <input type="text" id="nombreProd">
+      </div>
+      <div>
+        <label class="infoProd">Categoría</label>
+        <input type="text" id="categoriaProd">
+      </div>
+      <div>
+        <label class="infoProd">Cantidad</label>
+        <input type="number" id="cantidadProd">
+      </div>
+      <div>
+        <label class="infoProd">Precio</label>
+        <input type="number" id="precioProd">
+      </div>
+    </div>
+    <div class="botones">
+      <button id = "añadir">Añadir Producto</button>
+      <button id = "limpiar">Limpiar Formulario</button>
+    </div>
+  </div>
+
+
+  <table id="tablaProductos">
+    <thead>
+      <tr>
+        <th class="Nombre">Nombre</th>
+        <th class="Categoria">Categoría</th>
+        <th class="Cantidad">Cantidad</th>
+        <th class="Precios">Precio</th>
+        <th class="Acciones">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+
+ <h2>Inventario de Productos</h2>
+ <div id="graficoBarras"></div>
+
+ <script>
+    //Aqui añado producto en la tabla y actualizo el grafico
+    document.getElementById('añadir').addEventListener('click', function () {
+      const nombre = document.getElementById('nombreProd').value;
+      const categoria = document.getElementById('categoriaProd').value;
+      const cantidad = document.getElementById('cantidadProd').value;
+      const precio = document.getElementById('precioProd').value;
+
+      if (nombre && categoria && cantidad && precio) {
+        agregarProductoTabla(nombre, categoria, cantidad, precio);
+        limpiarFormulario();
+        actualizarGrafico();
+      } else {
+        alert("Todos los campos son obligatorios.");
+      }
+    });
+
+    //Limpiar formulario
+    document.getElementById('limpiar').addEventListener('click', function () {
+      limpiarFormulario();
+    });
+
+    const productos = [];
+
+    //Para añadir un producto a la tabla
+    function agregarProductoTabla(nombre, categoria, cantidad, precio) {
+      const tabla = document.getElementById('tablaProductos').getElementsByTagName('tbody')[0];
+      const nuevaFila = tabla.insertRow();
+
+      nuevaFila.innerHTML = `
+        <td>${nombre}</td>
+        <td>${categoria}</td>
+        <td>${cantidad}</td>
+        <td>${precio}</td>
+        <td><button onclick="eliminarProducto(this, '${nombre}')">Eliminar</button></td>
+      `;
+
+      productos.push({ nombre, cantidad: parseInt(cantidad) });
+    }
+
+    //Funcion para limpiar el formulario
+    function limpiarFormulario() {
+      document.getElementById('nombreProd').value = '';
+      document.getElementById('categoriaProd').value = '';
+      document.getElementById('cantidadProd').value = '';
+      document.getElementById('precioProd').value = '';
+    }
+
+    //Para eliminar el producto y que se actualice la grafica
+    function eliminarProducto(button, nombre) {
+      const fila = button.parentNode.parentNode;
+      fila.parentNode.removeChild(fila);
+
+      const index = productos.findIndex(producto => producto.nombre === nombre);
+      if (index !== -1) productos.splice(index, 1);
+
+      actualizarGrafico();
+    }
+
+    //Actualizar el grafico cuando se le añaden los productos
+    function actualizarGrafico() {
+      const graficoBarras = document.getElementById('graficoBarras');
+      graficoBarras.innerHTML = '';
+
+      productos.forEach(producto => {
+        const barra = document.createElement('div');
+        barra.classList.add('barra');
+        barra.style.height = `${producto.cantidad * 10}px`;
+        barra.textContent = producto.nombre;
+        graficoBarras.appendChild(barra);
+      });
+    }
+  </script>
 </body>
 </html>

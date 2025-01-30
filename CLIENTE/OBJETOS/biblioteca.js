@@ -1,4 +1,3 @@
-
 // Definir arrays globales
 const arrayLectores = [];
 const arrayLibros = [];
@@ -22,21 +21,18 @@ function mostrarContenido(contenido) {
 }
 
 // Manejar eventos de entrada de archivo (Lectores)
-document.getElementById('file-inputLectores').addEventListener('change', async (e) => {
+document.getElementById('file-lectores').addEventListener('change', async (e) => {
     const archivo = e.target.files[0];
     if (!archivo) {
         return;
     }
     const contenido = await leerArchivo(archivo);
 
-    const lineas = contenido.split('\r\n');
-    const sinDuplicados = new Set(lineas);
-    sinDuplicados.delete(""); 
-    const arraySin = [...sinDuplicados]; 
-    arraySin.shift(); 
+    const lineas = contenido.split('\r\n'); 
+    lineas.shift(); 
 
-    arrayLectores.length = 0; 
-    arraySin.forEach(linea => {
+    arrayLectores.length = 0;
+    lineas.forEach(linea => {
         const partes = linea.split(",");
 
         const numSocio = partes[0].trim();
@@ -52,7 +48,7 @@ document.getElementById('file-inputLectores').addEventListener('change', async (
 }, false);
 
 
-document.getElementById('file-inputLibros').addEventListener('change', async (e) => {
+document.getElementById('file-libros').addEventListener('change', async (e) => {
     const archivo = e.target.files[0];
     if (!archivo) {
         return;
@@ -60,13 +56,10 @@ document.getElementById('file-inputLibros').addEventListener('change', async (e)
     const contenido = await leerArchivo(archivo);
 
     const lineas = contenido.split('\r\n');
-    const sinDuplicados = new Set(lineas);
-    sinDuplicados.delete(""); 
-    const arraySin = [...sinDuplicados]; 
-    arraySin.shift();
+    lineas.shift(); 
 
     arrayLibros.length = 0;
-    arraySin.forEach(linea => {
+    lineas.forEach(linea => {
         const partes = linea.split(",");
 
         const codLibro = partes[0].trim();
@@ -80,10 +73,11 @@ document.getElementById('file-inputLibros').addEventListener('change', async (e)
         arrayLibros.push(nuevoLibro);
     });
 
-    console.log(arrayLectores); 
-    altaLector();
-
 }, false);
+
+//Defino el objeto Clasificacion
+const clasificacion = {pasillo: 7, estanteria: 4, estante: 6};
+
 
 // Función constructora de Lectores
 function lectores(numSocio, nombre, apellido, telefono, email) {
@@ -98,8 +92,7 @@ function lectores(numSocio, nombre, apellido, telefono, email) {
     this.darDeBaja = function() {
         this.activo = false;
         this.bajaLector = {
-            baja: true,
-            fechaBaja: new Date().toLocaleDateString()
+            baja: true
         };
     };
 
@@ -118,21 +111,20 @@ function lectores(numSocio, nombre, apellido, telefono, email) {
 }
 
 // Función constructora de Libros
-function libros(codLibro, isbn, autor, titulo, editorial, ejemplares, clasificacion) {
+function libros(codLibro, isbn, autor, titulo, editorial, ejemplares) {
     this.codLibro = codLibro;
     this.isbn = isbn;
     this.autor = autor;
     this.titulo = titulo;
     this.editorial = editorial;
     this.ejemplares = ejemplares;
-    this.clasificacion = clasificacion || ''; // Si no se pasa clasificacion, dejarla vacía
     this.bajaLibro = null;
+    this.clasificacion = clasificacion;
 
     this.darDeBaja = function() {
         this.activo = false;
         this.bajaLibro = {
-            baja: true,
-            fechaBaja: new Date().toLocaleDateString()
+            baja: true
         };
     };
 
@@ -149,6 +141,19 @@ function libros(codLibro, isbn, autor, titulo, editorial, ejemplares, clasificac
         }
     };
 }
+
+
+let prestamosArray = [];
+
+// Función constructora para crear un nuevo préstamo
+function prestamos(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevolucion) {
+    this.numPrestamo = numPrestamo;
+    this.numSocio = numSocio;
+    this.codLibro = codLibro;
+    this.fechaPrestamo = fechaPrestamo;
+    this.fechaDevolucion = fechaDevolucion;
+}
+
 
 // Función para alta de lector
 function altaLector() {
@@ -224,9 +229,8 @@ function altaLibro() {
     let titulo = prompt("Escribe el título del libro: ");
     let editorial = prompt("Escribe la editorial del libro: ");
     let ejemplares = parseInt(prompt("Escribe el número de ejemplares del libro: "));
-    let clasificacion = prompt("Clasificación del libro: ");
 
-    if (!codLibro || !isbn || !autor || !titulo || !editorial || isNaN(ejemplares) || !clasificacion) {
+    if (!codLibro || !isbn || !autor || !titulo || !editorial || isNaN(ejemplares)) {
         return "Por favor, rellene todos los campos correctamente";
     }
 
@@ -236,7 +240,7 @@ function altaLibro() {
         return "El código del libro ya existe";
     }
 
-    let nuevoLibro = new libros(codLibro, isbn, autor, titulo, editorial, ejemplares, clasificacion);
+    let nuevoLibro = new libros(codLibro, isbn, autor, titulo, editorial, ejemplares);
     arrayLibros.push(nuevoLibro);
 
     return "Libro dado de alta correctamente";
@@ -271,8 +275,8 @@ function bajaLibro(codLibro) {
 }
 
 // Función para comprobar si existe un libro por ISBN
-function hayLibro(busqueda) {
-    let libroEncontrado = arrayLibros.find(libro => libro.isbn === busqueda);
+function hayLibro(isbn) {
+    let libroEncontrado = arrayLibros.find(libro => libro.isbn === isbn);
     
     if (libroEncontrado) {
         return {
@@ -337,17 +341,112 @@ function devolverLibro(numPrestamo) {
     return `Libro devuelto correctamente. Número de préstamo: ${numPrestamo}`;
 }
 
-// Préstamos (almacenaremos los préstamos aquí)
-let prestamosArray = [];
+// Función para buscar un libro por ISBN y devolver la ubicación (pasillo, estantería y estante)
+function dondeLibro(isbn) {
+    let libro = arrayLibros.find(libro => libro.isbn === isbn);
+    
+    if (!libro) {
+        return "Libro no encontrado.";
+    }
+    
+    // Devolver la ubicación del libro
+    return `Ubicación del libro con isbn = ${libro.isbn}: Pasillo ${libro.clasificacion.pasillo}, Estantería ${libro.clasificacion.estanteria}, Estante ${libro.clasificacion.estante}.`;
+}
 
-// Función para ver los préstamos actuales
-function verPrestamos() {
+function solicitudPrestamo(numSocio, cod_isbn) {
+    let lector = arrayLectores.find(lector => lector.numSocio === numSocio);
+    if (!lector) {
+        return "Lector no encontrado.";
+    }
+
+    // Buscar el libro por código o ISBN
+    let libro = arrayLibros.find(libro => libro.codLibro === cod_isbn || libro.isbn === cod_isbn);
+    if (!libro) {
+        return "Libro no encontrado.";
+    }
+
+    // Verificar si hay ejemplares disponibles
+    if (libro.ejemplares <= 0) {
+        return `No hay ejemplares disponibles del libro ${libro.titulo}.`;
+    }
+
+    // Crear el nuevo número de préstamo
+    let numPrestamo = `${numSocio}-${cod_isbn}-${new Date().getTime()}`;
+    let fechaPrestamo = new Date().toLocaleDateString();
+    let fechaDevolucion = prompt("Introduce la fecha de devolución (dd/mm/yyyy): ").trim();
+
+    if (!fechaDevolucion) {
+        return "La fecha de devolución es obligatoria.";
+    }
+
+    // Crear un nuevo objeto de préstamo
+    let nuevoPrestamo = new prestamos(numPrestamo, numSocio, cod_isbn, fechaPrestamo, fechaDevolucion);
+
+    // Disminuir el número de ejemplares del libro
+    libro.ejemplares -= 1;
+
+    prestamosArray.push(nuevoPrestamo);
+
+    return `Préstamo solicitado correctamente. Número de préstamo: ${numPrestamo}`;
+}
+
+function devolucionPrestamos(numPrestamo) {
+    // Buscar el préstamo por su número de préstamo
+    let prestamo = prestamosArray.find(p => p.numPrestamo === numPrestamo);
+    if (!prestamo) {
+        return "Préstamo no encontrado.";
+    }
+
+    // Buscar el libro asociado al préstamo
+    let libro = arrayLibros.find(libro => libro.codLibro === prestamo.codLibro);
+    if (!libro) {
+        return "Libro no encontrado.";
+    }
+
+    // Actualizar la fecha de devolución en el préstamo
+    prestamo.fechaDevolucion = new Date().toLocaleDateString();
+
+    // Incrementar el número de ejemplares del libro
+    libro.ejemplares += 1;
+
+    // Eliminar el préstamo de la lista de préstamos
+    prestamosArray = prestamosArray.filter(p => p.numPrestamo !== numPrestamo);
+
+    return `Libro devuelto correctamente. Número de préstamo: ${numPrestamo}`;
+}
+
+function listadoTotalPrestamos() {
     if (prestamosArray.length === 0) {
         return "No hay préstamos registrados.";
     }
-    
-    return prestamosArray.map(prestamo => {
-        return `Préstamo Nº: ${prestamo.numPrestamo} | Socio: ${prestamo.numSocio} | Libro: ${prestamo.codLibro} | Fecha de préstamo: ${prestamo.fechaPrestamo} | Fecha de devolución: ${prestamo.fechaDevolucion}`;
-    }).join("\n");
+
+    let listado = "Listado Total de Préstamos:\n";
+    prestamosArray.forEach(prestamo => {
+        listado += `Número de Préstamo: ${prestamo.numPrestamo}\n`;
+        listado += `Número de Socio: ${prestamo.numSocio}\n`;
+        listado += `Código del Libro: ${prestamo.codLibro}\n`;
+        listado += `Fecha de Préstamo: ${prestamo.fechaPrestamo}\n`;
+        listado += `Fecha de Devolución: ${prestamo.fechaDevolucion || "Pendiente"}\n`;
+    });
+
+    return listado;
 }
 
+function listadoPrestamosVivos() {
+    let prestamosVivos = prestamosArray.filter(prestamo => !prestamo.fechaDevolucion);
+
+    if (prestamosVivos.length === 0) {
+        return "No hay préstamos vivos.";
+    }
+
+    let listado = "Listado de Préstamos Vivos:\n";
+    prestamosVivos.forEach(prestamo => {
+        listado += `Número de Préstamo: ${prestamo.numPrestamo}\n`;
+        listado += `Número de Socio: ${prestamo.numSocio}\n`;
+        listado += `Código del Libro: ${prestamo.codLibro}\n`;
+        listado += `Fecha de Préstamo: ${prestamo.fechaPrestamo}\n`;
+        listado += `Fecha de Devolución: Pendiente\n`;
+    });
+
+    return listado;
+}
