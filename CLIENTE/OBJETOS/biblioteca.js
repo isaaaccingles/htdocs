@@ -1,8 +1,9 @@
 // Definir arrays globales
 const arrayLectores = [];
 const arrayLibros = [];
+let prestamosArray = [];
 
-// Función para leer archivo de texto
+
 async function leerArchivo(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -12,7 +13,6 @@ async function leerArchivo(file) {
     });
 }
 
-// Función para mostrar contenido del archivo
 function mostrarContenido(contenido) {
     var elemento = document.getElementById('contenido-archivo');
     if (elemento) {
@@ -20,8 +20,7 @@ function mostrarContenido(contenido) {
     }
 }
 
-// Manejar eventos de entrada de archivo (Lectores)
-document.getElementById('file-lectores').addEventListener('change', async (e) => {
+document.getElementById('importar-input-lectores').addEventListener('change', async (e) => {
     const archivo = e.target.files[0];
     if (!archivo) {
         return;
@@ -35,11 +34,11 @@ document.getElementById('file-lectores').addEventListener('change', async (e) =>
     lineas.forEach(linea => {
         const partes = linea.split(",");
 
-        const numSocio = partes[0].trim();
-        const nombre = partes[1].trim();
-        const apellido = partes[2].trim();
-        const telefono = partes[3].trim();
-        const email = partes[4].trim();
+        const numSocio = partes[0];
+        const nombre = partes[1];
+        const apellido = partes[2];
+        const telefono = partes[3];
+        const email = partes[4];
 
         const nuevoLector = new lectores(numSocio, nombre, apellido, telefono, email);
         arrayLectores.push(nuevoLector);
@@ -47,8 +46,7 @@ document.getElementById('file-lectores').addEventListener('change', async (e) =>
 
 }, false);
 
-
-document.getElementById('file-libros').addEventListener('change', async (e) => {
+document.getElementById('importar-input-libros').addEventListener('change', async (e) => {
     const archivo = e.target.files[0];
     if (!archivo) {
         return;
@@ -62,12 +60,12 @@ document.getElementById('file-libros').addEventListener('change', async (e) => {
     lineas.forEach(linea => {
         const partes = linea.split(",");
 
-        const codLibro = partes[0].trim();
-        const isbn = partes[1].trim();
-        const autor = partes[2].trim();
-        const titulo = partes[3].trim();
-        const editorial = partes[4].trim();
-        const ejemplares = partes[5].trim();
+        const codLibro = partes[0];
+        const isbn = partes[1];
+        const autor = partes[2];
+        const titulo = partes[3];
+        const editorial = partes[4];
+        const ejemplares = partes[5];
 
         const nuevoLibro = new libros(codLibro, isbn, autor, titulo, editorial, ejemplares);
         arrayLibros.push(nuevoLibro);
@@ -75,60 +73,144 @@ document.getElementById('file-libros').addEventListener('change', async (e) => {
 
 }, false);
 
-//Defino el objeto Clasificacion
 const clasificacion = {pasillo: 7, estanteria: 4, estante: 6};
 
+function Lectores(nombre, apellido, telefono, email, fechaBaja) {
 
-// Función constructora de Lectores
-function lectores(numSocio, nombre, apellido, telefono, email) {
-    this.numSocio = numSocio;
+    // Expresiones regulares para validación
+    const nombreVal = /^[a-zA-ZÀ-ÿ]+(?:[\s-][a-zA-ZÀ-ÿ]+)?$/; // Letras con acentos, guiones y espacios
+    const apellidoVal = /^[a-zA-ZÀ-ÿ]+(?:[\s-][a-zA-ZÀ-ÿ]+)?$/; // Letras con acentos, guiones y espacios
+    const telefonoVal = /^\d{9}$/; // Exactamente 9 dígitos
+    const emailVal = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Email con formato básico
+    const fechaVal = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/; // Formato dd/mm/yyyy
+
+    // Validación de los parámetros
+    if (!nombreVal.test(nombre)) {
+        throw new Error("El nombre no es válido. Debe ser una o dos palabras con letras del alfabeto español, pudiendo incluir guiones.");
+    }
+
+    if (!apellidoVal.test(apellido)) {
+        throw new Error("El apellido no es válido. Debe ser una o dos palabras con letras del alfabeto español, pudiendo incluir guiones.");
+    }
+
+    if (!telefonoVal.test(telefono)) {
+        throw new Error("El teléfono no es válido. Debe contener exactamente 9 cifras.");
+    }
+
+    if (!emailVal.test(email)) {
+        throw new Error("El correo electrónico no es válido.");
+    }
+
+    if (fechaBaja && !fechaVal.test(fechaBaja)) {
+        throw new Error("La fecha de baja no es válida. Debe tener el formato dd/mm/yyyy.");
+    }
+
+    // Generación del número de socio único
+    Lectores.siguienteNumSocio = (Lectores.siguienteNumSocio || 1000) + 1;
+    this.numSocio = Lectores.siguienteNumSocio;
+
+    // Asignación de las propiedades
     this.nombre = nombre;
     this.apellido = apellido;
     this.telefono = telefono;
     this.email = email;
-    this.activo = true;
-    this.bajaLector = null;
+    this.fechaBaja = fechaBaja || null; 
+    this.activo = true; 
+    this.bajaLector = null; 
+
 
     this.darDeBaja = function() {
         this.activo = false;
+        this.fechaBaja = new Date().toLocaleDateString('en-GB'); 
         this.bajaLector = {
-            baja: true
+            baja: true,
+            fechaBaja: this.fechaBaja
         };
     };
 
-    // Función para modificar los datos del lector
+
     this.modificarLector = function(dato, nuevoValor) {
         if (dato === 'nombre') {
+            if (!nombreVal.test(nuevoValor)) {
+                throw new Error("El nombre no es válido.");
+            }
             this.nombre = nuevoValor;
         } else if (dato === 'apellido') {
+            if (!apellidoVal.test(nuevoValor)) {
+                throw new Error("El apellido no es válido.");
+            }
             this.apellido = nuevoValor;
         } else if (dato === 'telefono') {
+            if (!telefonoVal.test(nuevoValor)) {
+                throw new Error("El teléfono debe contener exactamente 9 cifras.");
+            }
             this.telefono = nuevoValor;
         } else if (dato === 'email') {
+            if (!emailVal.test(nuevoValor)) {
+                throw new Error("El correo electrónico no es válido.");
+            }
             this.email = nuevoValor;
+        } else if (dato === 'fechaBaja') {
+            if (nuevoValor && !fechaVal.test(nuevoValor)) {
+                throw new Error("La fecha de baja no es válida. Debe tener el formato dd/mm/yyyy.");
+            }
+            this.fechaBaja = nuevoValor;
         }
     };
 }
 
-// Función constructora de Libros
-function libros(codLibro, isbn, autor, titulo, editorial, ejemplares) {
+function Libros(codLibro, isbn, autor, titulo, editorial, ejemplares, clasificacion, fechaBaja) {
+
+    const isbnVal = /^(?:\d{3}-)?\d{1,5}-\d{1,7}-\d{1,7}-\d{1,7}$/; 
+    const autorVal = /^[a-zA-ZÀ-ÿ]+(?:[\s-][a-zA-ZÀ-ÿ]+)?$/; 
+    const tituloVal = /^[a-zA-ZÀ-ÿ0-9\s\-_¡!@#$%&/()¿?€.,;:]+$/; 
+    const editorialVal = /^[a-zA-ZÀ-ÿ]+(?:[\s-][a-zA-ZÀ-ÿ]+)?$/; 
+    const ejemplaresVal = /^\d+$/; 
+    const fechaBajaVal = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/; 
+
+    // Validación de los parámetros
+    if (!isbnVal.test(isbn)) {
+        throw new Error("El ISBN no es válido. Debe seguir el formato de ISBN-13.");
+    }
+    if (!autorVal.test(autor)) {
+        throw new Error("El autor no es válido. Debe ser una o dos palabras con letras del alfabeto español, pudiendo incluir guiones.");
+    }
+    if (!tituloVal.test(titulo)) {
+        throw new Error("El título no es válido.");
+    }
+    if (!editorialVal.test(editorial)) {
+        throw new Error("La editorial no es válida. Debe ser una o dos palabras con letras del alfabeto español, pudiendo incluir guiones.");
+    }
+    if (!ejemplaresVal.test(ejemplares) || ejemplares < 1) {
+        throw new Error("El número de ejemplares no es válido. Debe ser un número mayor que 0.");
+    }
+    if (fechaBaja && !fechaBajaVal.test(fechaBaja)) {
+        throw new Error("La fecha de baja no es válida. Debe tener el formato dd/mm/aaaa.");
+    }
+
+    // Generación del código de libro único
+    Libros.siguienteCodLibro = (Libros.siguienteCodLibro || 1000) + 1;
+    this.codLibro = Libros.siguienteCodLibro;
+
+    // Asignación de los parámetros
     this.codLibro = codLibro;
     this.isbn = isbn;
     this.autor = autor;
     this.titulo = titulo;
     this.editorial = editorial;
     this.ejemplares = ejemplares;
-    this.bajaLibro = null;
     this.clasificacion = clasificacion;
+    this.fechaBaja = fechaBaja || null; 
+    this.bajaLibro = null;
+
 
     this.darDeBaja = function() {
-        this.activo = false;
         this.bajaLibro = {
-            baja: true
-        };
+            baja: true,
+            fechaBaja: new Date().toLocaleDateString('en-GB') 
     };
 
-    // Función para modificar los datos del libro
+
     this.modificarLibro = function(dato, nuevoValor) {
         if (dato === 'titulo') {
             this.titulo = nuevoValor;
@@ -138,48 +220,109 @@ function libros(codLibro, isbn, autor, titulo, editorial, ejemplares) {
             this.ejemplares = nuevoValor;
         } else if (dato === 'clasificacion') {
             this.clasificacion = nuevoValor;
+        } else if (dato === 'fechaBaja') {
+            // Validación de nueva fecha de baja
+            if (!fechaBajaVal.test(nuevoValor)) {
+                throw new Error("La fecha de baja no es válida. Debe tener el formato dd/mm/aaaa.");
+            }
+            this.fechaBaja = nuevoValor;
         }
     };
+    }
 }
 
+function Prestamo(numSocio, codLibro, fechaPrestamo, fechaDevolucion) {
 
-let prestamosArray = [];
+    
+    const fechaVal = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 
-// Función constructora para crear un nuevo préstamo
-function prestamos(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevolucion) {
-    this.numPrestamo = numPrestamo;
+    // Validación de las fechas
+    if (!fechaVal.test(fechaPrestamo)) {
+        throw new Error("La fecha de préstamo no es válida. Debe tener el formato dd/mm/yyyy.");
+    }
+
+    if (!fechaVal.test(fechaDevolucion)) {
+        throw new Error("La fecha de devolución no es válida. Debe tener el formato dd/mm/yyyy.");
+    }
+
+    // Asignar el siguiente número de préstamo
+    Prestamo.siguienteNumPres = (Prestamo.siguienteNumPres || 1000) + 1;
+    this.numPrestamo = Prestamo.siguienteNumPres;
+
+
     this.numSocio = numSocio;
     this.codLibro = codLibro;
     this.fechaPrestamo = fechaPrestamo;
     this.fechaDevolucion = fechaDevolucion;
 }
 
-
-// Función para alta de lector
 function altaLector() {
-    let numSocio = prompt("Escribe tu número de socio: ");
+
     let nombre = prompt("Escribe tu nombre: ");
     let apellido = prompt("Escribe tu apellido: ");
     let telefono = prompt("Escribe tu teléfono: ");
     let email = prompt("Escribe tu email: ");
 
-    if (!numSocio || !nombre || !apellido || !telefono || !email) {
-        return "Por favor, rellene todos los campos";
+    // Verificar si algún campo está vacío
+    if (!nombre || !apellido || !telefono || !email) {
+        return "F";  
     }
 
-    // Verificar si ya existe el lector
-    let lectorExistente = arrayLectores.find(lector => lector.numSocio === numSocio);
+    // Verificar formato del teléfono 
+    let telefonoValido = /^\d{10}$/.test(telefono);
+    if (!telefonoValido) {
+        return "V";  // Formato de teléfono incorrecto
+    }
+
+    // Verificar formato del email 
+    let emailValido = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+    if (!emailValido) {
+        return "V";  
+    }
+
+    // Verificar si el email ya existe
+    let lectorExistente = arrayLectores.find(lector => lector.email === email);
     if (lectorExistente) {
-        return "El número de socio ya existe";
+        return "V";  
     }
 
-    let nuevoLector = new lectores(numSocio, nombre, apellido, telefono, email);
+    let nuevoLector = new Lector(nombre, apellido, telefono, email);
     arrayLectores.push(nuevoLector);
 
-    return "Lector dado de alta correctamente";
+    return nuevoLector.numSocio;  
 }
 
-// Función para modificar lector
+function bajaLector() {
+    
+    let numSocio = prompt("Introduce el email del lector a dar de baja: ");
+
+   
+    let lectorExistente = arrayLectores.find(lector => lector.numSocio === numSocio);
+
+    
+    if (!lectorExistente) {
+        console.log("E"); 
+        return;
+    }
+
+   
+    let diaBaja = prompt("Introduce el día de la baja (DD): ");
+    let mesBaja = prompt("Introduce el mes de la baja (MM): ");
+    let añoBaja = prompt("Introduce el año de la baja (AAAA): ");
+
+    // Validar que la fecha es correcta
+    if (!diaBaja || !mesBaja || !añoBaja || isNaN(diaBaja) || isNaN(mesBaja) || isNaN(añoBaja) ||
+        diaBaja < 1 || diaBaja > 31 || mesBaja < 1 || mesBaja > 12 || añoBaja < 1900) {
+        console.log("E");  // Error en la fecha de baja
+        return;
+    }
+
+    lectorExistente.bajaLector = true;
+    lectorExistente.fechaBaja = `${diaBaja}/${mesBaja}/${añoBaja}`;
+
+    console.log(`Fecha de baja registrada: ${lectorExistente.fechaBaja}`);
+}
+
 function modificarLector(numSocio) {
     let lector = arrayLectores.find(lector => lector.numSocio === numSocio);
     if (!lector) {
@@ -196,32 +339,40 @@ function modificarLector(numSocio) {
     return `Dato ${dato} del lector ${numSocio} actualizado correctamente.`;
 }
 
-// Función para comprobar emails válidos
-function comprobarEmails() {
+function comprobarEmails(arrayLectores) {
     let invalidos = [];
+    
     arrayLectores.forEach(lector => {
-        let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailRegex.test(lector.email)) {
-            invalidos.push(`${lector.nombre} ${lector.apellido} + ${lector.email}`);
+        if (!verificarEmail(lector.email)) {
+            invalidos.push(`${lector.nombre} ${lector.apellido} - ${lector.email}`);
         }
     });
+
     return invalidos.length ? invalidos : "Todos los emails son válidos.";
 }
 
-// Función para comprobar teléfonos válidos
-function comprobarTelefonos() {
+function comprobarTelefonos(arrayLectores) {
     let invalidos = [];
+    
     arrayLectores.forEach(lector => {
-        let telefonoRegex = /^\d{9}$/;
-        if (!telefonoRegex.test(lector.telefono)) {
-            invalidos.push(`${lector.nombre} ${lector.apellido} + ${lector.telefono}`);
+        if (!verificarTelefono(lector.telefono)) {
+            invalidos.push(`${lector.nombre} ${lector.apellido} - ${lector.telefono}`);
         }
     });
+
     return invalidos.length ? invalidos : "Todos los teléfonos son válidos.";
 }
 
+function verificarEmail(email) {
+    const emailVal = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailVal.test(email);
+}
 
-// Función para alta de libro
+function verificarTelefono(telefono) {
+    const telefonoVal = /^\d{9}$/;
+    return telefonoVal.test(telefono);
+}
+
 function altaLibro() {
     let codLibro = prompt("Escribe el código del libro: ");
     let isbn = prompt("Escribe el ISBN del libro: ");
@@ -246,7 +397,16 @@ function altaLibro() {
     return "Libro dado de alta correctamente";
 }
 
-// Función para modificar libro
+function bajaLibro(codLibro) { 
+    let libro = arrayLibros.find(libro => libro.codLibro === codLibro);
+    if (libro) {
+        libro.darDeBaja();
+        return `Libro con código ${codLibro} dado de baja correctamente.`;
+    } else {
+        return "Libro no encontrado.";
+    }
+}
+
 function modificarLibro(codLibro) {
     let libro = arrayLibros.find(libro => libro.codLibro === codLibro);
     if (!libro) {
@@ -263,67 +423,57 @@ function modificarLibro(codLibro) {
     return `Dato ${dato} del libro ${codLibro} actualizado correctamente.`;
 }
 
-// Función para baja de libro
-function bajaLibro(codLibro) {
-    let libro = arrayLibros.find(libro => libro.codLibro === codLibro);
-    if (libro) {
-        libro.darDeBaja();
-        return `Libro con código ${codLibro} dado de baja correctamente.`;
-    } else {
-        return "Libro no encontrado.";
-    }
-}
-
-// Función para comprobar si existe un libro por ISBN
 function hayLibro(isbn) {
     let libroEncontrado = arrayLibros.find(libro => libro.isbn === isbn);
     
     if (libroEncontrado) {
-        return {
-            isbn: libroEncontrado.isbn,
-            autor: libroEncontrado.autor,
-            titulo: libroEncontrado.titulo,
-            ejemplares: libroEncontrado.ejemplares
-        };
+        return true;
+
     } else {
-        console.log("Libro no encontrado");
-        return "Libro no encontrado";
+        return false;
     }
 }
 
-// Función para gestionar los préstamos
-function prestarLibro(numSocio, codLibro) {
+function prestamoLibro(numSocio, codLibro) {
+    // Buscar el lector y el libro
     let lector = arrayLectores.find(lector => lector.numSocio === numSocio);
     let libro = arrayLibros.find(libro => libro.codLibro === codLibro);
-    
+
+    // Validación de existencia del lector
     if (!lector) {
-        return "Lector no encontrado.";
+        return "El número de socio no existe.";
     }
+
+    // Validación de existencia y disponibilidad del libro
     if (!libro) {
-        return "Libro no encontrado.";
+        return "El código del libro no existe.";
     }
+
     if (libro.ejemplares <= 0) {
-        return `No hay ejemplares disponibles del libro ${libro.titulo}.`;
+        return "No hay ejemplares disponibles para préstamo.";
+    }
+
+    // Solicitar y validar la fecha de devolución
+    let fechaDevolucion = prompt("Introduce la fecha de devolución (dd/mm/yyyy): ").trim();
+    if (!fechaDevolucion || !/^\d{2}\/\d{2}\/\d{4}$/.test(fechaDevolucion)) {
+        return "La fecha de devolución es obligatoria y debe tener el formato dd/mm/yyyy.";
     }
 
     // Crear un nuevo préstamo
-    let numPrestamo = `${numSocio}-${codLibro}-${new Date().getTime()}`;
+    let numPrestamo = `${numSocio}-${codLibro}-${Date.now()}`;
     let fechaPrestamo = new Date().toLocaleDateString();
-    let fechaDevolucion = prompt("Introduce la fecha de devolución (dd/mm/yyyy): ").trim();
 
-    if (!fechaDevolucion) {
-        return "La fecha de devolución es obligatoria.";
-    }
+    let nuevoPrestamo = new Prestamo(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevolucion);
 
-    let nuevoPrestamo = new prestamos(numPrestamo, numSocio, codLibro, fechaPrestamo, fechaDevolucion);
+    // Agregar el préstamo al registro
+    prestamosArray.push(nuevoPrestamo);
 
-    // Disminuir el número de ejemplares del libro
+    // Descontar un ejemplar del libro
     libro.ejemplares -= 1;
 
     return `Libro prestado correctamente. Número de préstamo: ${numPrestamo}`;
 }
 
-// Función para devolver libro
 function devolverLibro(numPrestamo) {
     let prestamo = prestamosArray.find(p => p.numPrestamo === numPrestamo);
 
@@ -333,7 +483,7 @@ function devolverLibro(numPrestamo) {
 
     let libro = arrayLibros.find(libro => libro.codLibro === prestamo.codLibro);
     if (libro) {
-        libro.ejemplares += 1; // Aumentar ejemplares disponibles
+        libro.ejemplares += 1; 
     }
 
     // Eliminar préstamo
@@ -341,7 +491,6 @@ function devolverLibro(numPrestamo) {
     return `Libro devuelto correctamente. Número de préstamo: ${numPrestamo}`;
 }
 
-// Función para buscar un libro por ISBN y devolver la ubicación (pasillo, estantería y estante)
 function dondeLibro(isbn) {
     let libro = arrayLibros.find(libro => libro.isbn === isbn);
     
@@ -353,7 +502,7 @@ function dondeLibro(isbn) {
     return `Ubicación del libro con isbn = ${libro.isbn}: Pasillo ${libro.clasificacion.pasillo}, Estantería ${libro.clasificacion.estanteria}, Estante ${libro.clasificacion.estante}.`;
 }
 
-function solicitudPrestamo(numSocio, cod_isbn) {
+function prestamoLibro(numSocio, cod_isbn) {
     let lector = arrayLectores.find(lector => lector.numSocio === numSocio);
     if (!lector) {
         return "Lector no encontrado.";
@@ -450,3 +599,4 @@ function listadoPrestamosVivos() {
 
     return listado;
 }
+

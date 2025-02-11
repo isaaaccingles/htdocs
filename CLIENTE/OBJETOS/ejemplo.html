@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <p>Hola</p>
+        <p>Buenos</p>
+        <p id="tercero">Días</p>
+    </div>
+
+    <script>
+        
+        const parrafos = document.querySelectorAll("p");
+
+        // parrafos.forEach(parrafo => {
+        //     parrafo.addEventListener("click", function Parrafos() {
+        //         const nuevoParrafo = document.createElement("p");
+        //         nuevoParrafo.textContent = this.textContent;
+        //         this.parentElement.appendChild(nuevoParrafo);
+
+        //         if (this.id == "tercero") {
+        //             this.removeEventListener("click", Parrafos);
+        //         }
+        //     });
+        // });
+
+        parrafos.forEach(parrafo => {
+            parrafo.addEventListener("mouseenter", function Parrafos() {
+                console.log("Parrafo: " + this.textContent);
+            }); 
+            parrafo.addEventListener("mouseleave", function Parrafos() {
+                console.log("Parrafo: " + this.textContent);
+            }); 
+        });
+    </script>
+</body>
+
+</html>
