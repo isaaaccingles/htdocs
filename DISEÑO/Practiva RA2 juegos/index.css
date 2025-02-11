@@ -36,35 +36,55 @@ header {
     margin: -30px auto 0 auto;
 }
 
+/* Menú derecha */
 .menu_derecha {
     display: flex;
     align-items: center;
     gap: 20px; 
+    width: 40%;
+    justify-content: flex-end;
 }
+
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
 
 nav a {
     text-decoration: none;
     color: #ffffff;
     font-family: 'Press Start 2P', sans-serif;
-    font-size: 10px;
-    transition: color 0.3s;
-    padding: 5px; 
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 25px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 nav a:hover {
-    color: #a0bbd1;
+    background-color: #a0bbd1;
+    color: white;
+    transform: translateY(-3px);
 }
 
-#usuIcon {
+
+#usuIcon, #carritoIcon {
     height: 35px;
-    margin-left: 20px;
+    transition: transform 0.3s, filter 0.3s;
+    cursor: pointer;
 }
 
-#carritoIcon {
-    height: 35px;
+#usuIcon:hover, #carritoIcon:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
 }
 
-/* Main */
+
+
 .contenedor {
     margin-top: 0% auto;
     width: 100%;
