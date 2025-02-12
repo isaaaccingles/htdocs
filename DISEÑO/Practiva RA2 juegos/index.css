@@ -1,61 +1,23 @@
-* {
-    box-sizing: border-box;
-}
-
-/* Cambio el tipo de letra, defino el color de fondo */
-body {
-    font-family: 'Rajdhani', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #d9eaf9;
-    color: #ffffff;
-    font-size: 14px; 
-}
-
 /* Header */
 header {
     background: linear-gradient(135deg, #4278A5, #569eda);
-    height: 150px;
     position: sticky;
     top: 0;
     z-index: 1000;
-    display: flex;
-    align-items: center; 
-    justify-content: space-between;
-    padding: 0 4%; 
+    padding: 10px 4%;
 }
 
-/* Logo */
-.menu_izquierda {
-    display: flex;
-    align-items: center;
+/* Navbar Bootstrap */
+.navbar {
+    background: linear-gradient(135deg, #4278A5, #569eda);
+    padding: 15px;
 }
 
-#logo {
-    height: 200px; 
-    margin: -30px auto 0 auto;
+.navbar-brand img {
+    height: 80px;
 }
 
-/* Menú derecha */
-.menu_derecha {
-    display: flex;
-    align-items: center;
-    gap: 20px; 
-    width: 40%;
-    justify-content: flex-end;
-}
-
-
-nav {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-}
-
-
-nav a {
-    text-decoration: none;
+.navbar-nav .nav-link {
     color: #ffffff;
     font-family: 'Press Start 2P', sans-serif;
     font-size: 12px;
@@ -65,13 +27,13 @@ nav a {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-nav a:hover {
+.navbar-nav .nav-link:hover {
     background-color: #a0bbd1;
     color: white;
     transform: translateY(-3px);
 }
 
-
+/* Iconos de usuario y carrito */
 #usuIcon, #carritoIcon {
     height: 35px;
     transition: transform 0.3s, filter 0.3s;
@@ -83,6 +45,64 @@ nav a:hover {
     filter: brightness(1.2);
 }
 
+/* Botón del menú  */
+.navbar-toggler {
+    border: none;
+    background: transparent;
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* Media Queries para Responsividad */
+
+/* Tablets
+@media (max-width: 991px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .navbar-collapse {
+        background: linear-gradient(135deg, #4278A5, #569eda);
+        padding: 10px 0;
+    }
+} */
+
+/* Móviles */
+@media (max-width: 768px) {
+    .navbar-brand img {
+        height: 60px;
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 12px;
+        padding: 8px;
+        width: 100%;
+        text-align: center;
+    }
+
+    #usuIcon, #carritoIcon {
+        height: 30px;
+    }
+}
 
 
 .contenedor {
@@ -198,6 +218,7 @@ nav a:hover {
     box-shadow: 0px 10px 15px #0000004d;
     border: 4px solid #8ec2ec;
     z-index: 100;
+    margin-top: 5%;
 }
 
 #noticias {
