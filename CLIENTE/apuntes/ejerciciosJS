@@ -1,0 +1,665 @@
+// 1. DOM - Manipulación de elementos (textContent, innerHTML)
+
+// Pregunta: Modificar altaLibroBoton.addEventListener para usar innerHTML y añadir un botón que limpie los campos.
+
+// Solución:
+// javascript
+altaLibroBoton.addEventListener('click', function() {
+    let isbn = altaLibroIsbn.value;
+    let autor = altaLibroAutor.value;
+    let titulo = altaLibroTitulo.value;
+    let editorial = altaLibroEditorial.value;
+    let ejemplares = parseInt(altaLibroEjemplares.value);
+    
+    let codLibro = prompt("Escribe el código del libro: ");
+    
+    let mensajeAltaLibro = document.getElementById('mensaje-alta-libro');
+    if (!mensajeAltaLibro) {
+        mensajeAltaLibro = document.createElement('div');
+        mensajeAltaLibro.id = 'mensaje-alta-libro';
+        mensajeAltaLibro.style.marginTop = '10px';
+        mensajeAltaLibro.style.fontWeight = 'bold';
+        mensajeAltaLibro.style.textAlign = 'center';
+    }
+    
+    mensajeAltaLibro.innerHTML = ''; // Limpiar contenido previo
+    
+    if (!codLibro) {
+        mensajeAltaLibro.innerHTML = "El código del libro es obligatorio. <button id='limpiar-campos'>Limpiar</button>";
+        mensajeAltaLibro.style.color = 'red';
+        let contenedorAltaLibro = document.getElementById('alta-libro');
+        contenedorAltaLibro.insertBefore(mensajeAltaLibro, altaLibroBoton);
+        
+        document.getElementById('limpiar-campos').addEventListener('click', limpiarCampos);
+        return;
+    }
+    
+    let libroExistente = arrayLibros.find(libro => libro.codLibro === codLibro);
+    if (libroExistente) {
+        mensajeAltaLibro.innerHTML = "El código del libro ya existe. <button id='limpiar-campos'>Limpiar</button>";
+        mensajeAltaLibro.style.color = 'red';
+        let contenedorAltaLibro = document.getElementById('alta-libro');
+        contenedorAltaLibro.insertBefore(mensajeAltaLibro, altaLibroBoton.nextSibling);
+        
+        document.getElementById('limpiar-campos').addEventListener('click', limpiarCampos);
+        return;
+    }
+    
+    let nuevoLibro = new Libros(codLibro, isbn, autor, titulo, editorial, ejemplares);
+    arrayLibros.push(nuevoLibro);
+    
+    mensajeAltaLibro.innerHTML = `¡Libro dado de alta con éxito! Código del libro: ${nuevoLibro.codLibro} <button id='limpiar-campos'>Limpiar</button>`;
+    mensajeAltaLibro.style.color = 'red';
+    let contenedorAltaLibro = document.getElementById('alta-libro');
+    contenedorAltaLibro.insertBefore(mensajeAltaLibro, altaLibroBoton);
+    
+    document.getElementById('limpiar-campos').addEventListener('click', limpiarCampos);
+});
+
+function limpiarCampos() {
+    altaLibroIsbn.value = '';
+    altaLibroAutor.value = '';
+    altaLibroTitulo.value = '';
+    altaLibroEditorial.value = '';
+    altaLibroEjemplares.value = '';
+}
+
+// Explicación: Cambié textContent por innerHTML para incluir un botón <button> en el mensaje. Al hacer clic, ejecuta limpiarCampos(), que vacía los valores de los inputs. El evento se añade dinámicamente al botón creado.
+
+// 2. DOM - Métodos principales (querySelector, getElementById)
+
+// Pregunta: Explicar diferencias y reescribir una línea con querySelector.
+
+// Solución:
+
+//     Diferencia: getElementById busca un elemento por su ID y devuelve un único elemento (o null si no existe). Es más rápido porque los IDs son únicos. querySelector usa selectores CSS y devuelve el primer elemento que coincida (o null), siendo más versátil pero potencialmente más lento.
+//     Reescritura:
+//     javascript
+
+const altaLibroIsbn = document.querySelector('#alta-libro-isbn');
+//     Ventajas/Desventajas: En este caso, como solo necesitamos un elemento por ID, getElementById es más eficiente. querySelector sería útil si quisiéramos combinar condiciones (ej. #alta-libro-isbn[type="text"]).
+
+// 3. DOM - Navegación por el DOM (children, parentNode)
+
+// Pregunta: Modificar actualizarVistaLibros() usando children y parentNode.
+
+// Solución:
+// javascript
+function actualizarVistaLibros() {
+    const tbody = document.getElementById('vista-libros-tabla').children[1]; // <tbody> es el segundo hijo después de <thead>
+    tbody.innerHTML = ''; // Limpiar la tabla
+
+    if (tbody.parentNode !== document.getElementById('vista-libros-tabla')) {
+        console.error("El nodo padre no es correcto.");
+        return;
+    }
+
+    arrayLibros.forEach(libro => {
+        let row = document.createElement('tr');
+        const propiedades = [libro.codLibro, libro.isbn, libro.autor, libro.titulo, libro.editorial, libro.ejemplares];
+        
+        propiedades.forEach(valor => {
+            let td = document.createElement('td');
+            td.textContent = valor;
+            td.style.backgroundColor = '#C398EB';
+            td.style.color = '#1B1B1B';
+            td.style.padding = '30px';
+            td.style.border = '1px solid #1B1B1B';
+            td.style.outline = '2px solid #1B1B1B';
+            row.appendChild(td);
+        });
+        tbody.appendChild(row);
+    });
+}
+
+// Explicación: Uso children[1] para acceder al <tbody> (segundo hijo del <table>). Verifico que su parentNode sea la tabla correcta antes de proceder. Itero sobre las propiedades del libro con un bucle, creando <td> dinámicamente.
+// 4. DOM - Creación/eliminación de elementos (createElement, removeChild)
+
+// Pregunta: Añadir un <p> si no hay libros y eliminarlo si hay.
+
+// Solución:
+// javascript
+vistaLibrosBoton.addEventListener('click', function() {
+    const tabla = document.getElementById('vista-libros-tabla');
+    let mensajeNoLibros = document.getElementById('no-libros-mensaje');
+    
+    if (arrayLibros.length === 0) {
+        if (!mensajeNoLibros) {
+            mensajeNoLibros = document.createElement('p');
+            mensajeNoLibros.id = 'no-libros-mensaje';
+            mensajeNoLibros.textContent = "No hay libros disponibles";
+            tabla.insertAdjacentElement('afterend', mensajeNoLibros);
+        }
+    } else {
+        if (mensajeNoLibros) {
+            mensajeNoLibros.parentNode.removeChild(mensajeNoLibros);
+        }
+        actualizarVistaLibros();
+    }
+});
+
+// Explicación: Si arrayLibros está vacío, creo un <p> con createElement y lo inserto después de la tabla. Si hay libros y el <p> existe, lo elimino con removeChild antes de actualizar la tabla.
+// 5. Eventos - Captura de eventos (addEventListener)
+
+// Pregunta: Añadir un evento de confirmación al botón "Importar".
+
+// Solución:
+// javascript
+importarBoton.addEventListener('click', function() {
+    if (!confirm("¿Estás seguro de importar los datos? Esto sobrescribirá los datos actuales.")) {
+        return;
+    }
+    // Resto del código original de importación...
+});
+
+// Explicación: Añado un confirm al inicio del evento. Si el usuario cancela, return detiene la ejecución. No necesita otro addEventListener porque se integra en el existente.
+// 6. Eventos - Propagación de eventos y anulación (stopPropagation)
+
+// Pregunta: Anular propagación del evento del botón "Importar".
+
+// Solución:
+// javascript
+importarBoton.addEventListener('click', function(event) {
+    event.stopPropagation();
+    // Resto del código original de importación...
+});
+
+document.getElementById('importar').addEventListener('click', function() {
+    console.log("Sección importar clicada");
+});
+
+// Explicación: stopPropagation() evita que el evento del botón suba al <section id="importar">. El burbujeo es el proceso por el cual un evento se propaga desde el elemento hijo al padre; aquí lo detenemos para aislar el comportamiento del botón.
+// 7. Programación asíncrona - Promesas (then, catch)
+
+// Pregunta: Modificar la importación de libros con then y catch.
+
+// Solución:
+// javascript
+if (archivoLibros) {
+    leerArchivo(archivoLibros)
+        .then(contenido => {
+            const lineas = contenido.split('\r\n').filter(linea => linea.trim() !== '');
+            lineas.shift();
+            arrayLibros.length = 0;
+            lineas.forEach(linea => {
+                const partes = linea.split(",");
+                if (partes.length >= 6) {
+                    const nuevoLibro = new Libros(partes[0], partes[1], partes[2], partes[3], partes[4], partes[5]);
+                    arrayLibros.push(nuevoLibro);
+                }
+            });
+            alert("Libros importados correctamente");
+            librosCargados = true;
+            verificarImportacion();
+        })
+        .catch(error => {
+            let mensajeError = document.createElement('div');
+            mensajeError.textContent = "Error al importar libros";
+            importarBoton.insertAdjacentElement('afterend', mensajeError);
+        });
+}
+
+// Explicación: Uso then para mostrar una alerta tras importar los libros y catch para crear un <div> con el mensaje de error si falla la promesa.
+// 8. Programación asíncrona - Async/Await
+
+// Pregunta: Reescribir la importación con async/await.
+
+// Solución:
+// javascript
+importarBoton.addEventListener('click', async function() {
+    let archivoLibros = document.getElementById('importar-input-libros').files[0];
+    let archivoLectores = document.getElementById('importar-input-lectores').files[0];
+    
+    let mensajeImportacion = document.getElementById('mensaje-importacion') || document.createElement('div');
+    mensajeImportacion.id = 'mensaje-importacion';
+    mensajeImportacion.style.marginTop = '10px';
+    mensajeImportacion.style.fontWeight = 'bold';
+    mensajeImportacion.style.textAlign = 'center';
+    mensajeImportacion.textContent = '';
+    
+    let librosCargados = false;
+    let lectoresCargados = false;
+
+    try {
+        if (archivoLibros) {
+            const contenido = await leerArchivo(archivoLibros);
+            const lineas = contenido.split('\r\n').filter(linea => linea.trim() !== '');
+            lineas.shift();
+            arrayLibros.length = 0;
+            lineas.forEach(linea => {
+                const partes = linea.split(",");
+                if (partes.length >= 6) arrayLibros.push(new Libros(...partes.slice(0, 6)));
+            });
+            librosCargados = true;
+        } else {
+            mensajeImportacion.textContent = "No se ha seleccionado un archivo de libros.";
+            mensajeImportacion.style.color = 'red';
+        }
+    } catch (error) {
+        mensajeImportacion.textContent = `Error al leer el archivo de libros: ${error.message}`;
+        mensajeImportacion.style.color = 'red';
+    }
+
+    try {
+        if (archivoLectores) {
+            const contenido = await leerArchivo(archivoLectores);
+            const lineas = contenido.split('\r\n').filter(linea => linea.trim() !== '');
+            lineas.shift();
+            arrayLectores.length = 0;
+            lineas.forEach(linea => {
+                const partes = linea.split(",");
+                if (partes.length >= 5) arrayLectores.push(new Lectores(...partes.slice(0, 5)));
+            });
+            lectoresCargados = true;
+        } else {
+            mensajeImportacion.textContent = "No se ha seleccionado un archivo de lectores.";
+            mensajeImportacion.style.color = 'red';
+        }
+    } catch (error) {
+        mensajeImportacion.textContent = `Error al leer el archivo de lectores: ${error.message}`;
+        mensajeImportacion.style.color = 'red';
+    }
+
+    if (librosCargados && lectoresCargados) {
+        mensajeImportacion.textContent = "Importación realizada con éxito.";
+        mensajeImportacion.style.color = 'red';
+    }
+
+    document.getElementById('importar').insertBefore(mensajeImportacion, importarBoton.nextSibling);
+});
+
+// Explicación: Convierto el evento en una función asíncrona y uso await para esperar la resolución de leerArchivo. Cada importación tiene su propio try/catch para manejar errores sin detener el resto del código.
+// 9. DOM - NodeList y querySelectorAll
+
+// Pregunta: Resaltar emails inválidos en la tabla de lectores.
+
+// Solución:
+// javascript
+comprobarLectoresBoton.addEventListener('click', function() {
+    actualizarVistaLectores();
+    const emailCells = document.querySelectorAll('#comprobar-lectores-tabla tbody td:nth-child(5)');
+    emailCells.forEach(cell => {
+        if (!verificarEmail(cell.textContent)) {
+            cell.style.backgroundColor = '#FF0000';
+        }
+    });
+});
+
+// Explicación: Uso querySelectorAll para seleccionar las celdas de la columna "Email" (quinta columna). Itero sobre el NodeList y cambio el fondo a rojo si el email no pasa la validación. Un NodeList es una colección de nodos similar a un array, pero no tiene todos los métodos de array (como map).
+// 10. Temporizadores - setTimeout
+
+// Pregunta: Hacer que los mensajes desaparezcan tras 5 segundos.
+
+// Solución:
+// javascript
+function mostrarMensaje(mensaje) {
+    let mensajeDiv = document.getElementById('mensaje-prestamo-devolucion');
+    if (!mensajeDiv) {
+        mensajeDiv = document.createElement('div');
+        mensajeDiv.id = 'mensaje-prestamo-devolucion';
+        mensajeDiv.style.marginTop = '10px';
+        mensajeDiv.style.fontWeight = 'bold';
+        mensajeDiv.style.textAlign = 'center';
+        document.body.appendChild(mensajeDiv);
+    }
+    
+    clearTimeout(mensajeDiv.timeoutId); // Cancelar temporizador previo
+    mensajeDiv.textContent = mensaje;
+    mensajeDiv.style.color = 'red';
+    
+    mensajeDiv.timeoutId = setTimeout(() => {
+        mensajeDiv.textContent = '';
+    }, 5000);
+}
+
+// Explicación: Añado un setTimeout que vacía el mensaje tras 5 segundos. Guardo el ID del temporizador en el elemento para cancelarlo con clearTimeout si se muestra un nuevo mensaje antes.
+// 11. Concepto - Tipos de nodos y nodeType
+
+// Pregunta: Mostrar nodeType de <th> y texto.
+
+// Solución:
+// javascript
+function actualizarVistaLectores() {
+    vistaLectoresTabla.innerHTML = '';
+    let encabezado = vistaLectoresTabla.insertRow();
+    const titulos = ['Número de Socio', 'Nombre', 'Apellido', 'Teléfono', 'Email'];
+    titulos.forEach(titulo => {
+        let th = document.createElement('th');
+        th.textContent = titulo;
+        console.log("nodeType de <th>:", th.nodeType); // 1 (Elemento)
+        console.log("nodeType del texto dentro de <td>:", th.firstChild.nodeType); // 3 (Texto)
+        th.style.backgroundColor = '#BB61F0';
+        th.style.color = '#1B1B1B';
+        th.style.padding = '30px';
+        th.style.border = '1px solid #1B1B1B';
+        encabezado.appendChild(th);
+    });
+    // Resto del código...
+}
+
+// Explicación: nodeType de <th> es 1 (nodo elemento), y el texto dentro es 3 (nodo de texto). Otros tipos comunes: 9 (documento), 8 (comentario).
+// 12. DOM - Objeto document y getElementsByTagName
+
+// Pregunta: Usar getElementsByTagName en actualizarVistaLibros.
+
+// Solución:
+// javascript
+function actualizarVistaLibros() {
+    const tbody = document.getElementsByTagName('tbody')[0]; // Primer <tbody> del documento
+    tbody.innerHTML = '';
+    // Resto del código...
+}
+
+// Explicación: getElementsByTagName devuelve una HTMLCollection (colección viva de elementos) frente al elemento único de getElementById. Aquí asumimos que el primer <tbody> es el de la tabla de libros.
+// 13. Eventos - Objeto evento y tipos de eventos (Ratón)
+
+// Pregunta: Añadir evento mouseover a filas de la tabla.
+
+// Solución:
+// javascript
+function actualizarVistaLibros() {
+    vistaLibrosTabla.innerHTML = '';
+    arrayLibros.forEach(libro => {
+        let row = vistaLibrosTabla.insertRow();
+        // Código para llenar la fila...
+        row.addEventListener('mouseover', function(event) {
+            event.target.style.backgroundColor = '#FFFF00'; // Amarillo al pasar el ratón
+        });
+        row.addEventListener('mouseout', function(event) {
+            event.target.style.backgroundColor = '#C398EB'; // Volver al color original
+        });
+    });
+}
+
+// Explicación: Añado eventos mouseover y mouseout a cada fila para cambiar el color al pasar el ratón, usando el objeto event para referirme al elemento objetivo.
+
+// 14. DOM - Creación/eliminación de elementos (appendChild, insertBefore)
+
+// Pregunta:
+
+// Añade una nueva funcionalidad a la sección "Devolución/Préstamo de libros" para que, al hacer clic en el botón "Préstamo" (prestamo-boton), se cree un nuevo elemento <span> con el texto "Préstamo en proceso..." y se inserte justo antes del botón "Devolución" (devolucion-boton). Si el préstamo falla, elimina ese <span> y muestra un mensaje de error.
+
+// Solución:
+// javascript
+document.getElementById("prestamo-boton").addEventListener("click", function() {
+    const numSocio = document.getElementById("devolucion-prestamo-socio").value;
+    const codLibro = document.getElementById("devolucion-prestamo-libro").value;
+
+    let spanProceso = document.createElement('span');
+    spanProceso.textContent = "Préstamo en proceso...";
+    spanProceso.style.marginRight = '10px';
+    const devolucionBoton = document.getElementById("devolucion-boton");
+    devolucionBoton.parentNode.insertBefore(spanProceso, devolucionBoton);
+
+    const resultado = solicitudPrestamo(numSocio, codLibro);
+
+    if (resultado.includes("Préstamo solicitado correctamente")) {
+        mostrarMensaje(`${resultado}. Número de préstamo: ${resultado.numPrestamo}. Fecha de préstamo: ${resultado.fechaPrestamo}`);
+        spanProceso.remove(); // Eliminar después de éxito
+    } else {
+        spanProceso.remove(); // Eliminar si falla
+        mostrarMensaje(resultado);
+    }
+});
+
+// Explicación: Creo un <span> con createElement y lo inserto antes del botón "Devolución" con insertBefore. Si el préstamo falla o tiene éxito, lo elimino con remove() para mantener la interfaz limpia.
+// 15. Eventos - Tipos de eventos (Teclado)
+
+// Pregunta:
+
+// Modifica el campo de entrada "Nº de socio" (devolucion-prestamo-socio) en la sección "Devolución/Préstamo" para que, al presionar la tecla "Enter", se dispare el evento del botón "Préstamo" (prestamo-boton) automáticamente. Usa el objeto event para detectar la tecla.
+
+// Solución:
+// javascript
+document.getElementById("devolucion-prestamo-socio").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Evitar comportamiento por defecto (como submit de formularios)
+        document.getElementById("prestamo-boton").click(); // Simular clic en el botón
+    }
+});
+
+// Explicación: Añado un evento keydown al input. Si la tecla presionada (event.key) es "Enter", disparo el evento click del botón "Préstamo". Uso preventDefault() para evitar comportamientos no deseados.
+// 16. DOM - Navegación por el DOM (firstChild, lastChild)
+
+// Pregunta:
+
+// En la función actualizarVistaLectores(), modifica el código para que, después de llenar la tabla, uses firstChild y lastChild para añadir un borde especial (por ejemplo, rojo) a la primera y última fila de datos en el <tbody> (excluyendo el encabezado).
+
+// Solución:
+// javascript
+function actualizarVistaLectores() {
+    vistaLectoresTabla.innerHTML = '';
+    // Código del encabezado...
+
+    arrayLectores.forEach(lector => {
+        let row = vistaLectoresTabla.insertRow();
+        // Código para llenar la fila...
+    });
+
+    const tbody = vistaLectoresTabla.getElementsByTagName('tbody')[0];
+    if (tbody.children.length > 0) {
+        tbody.firstChild.style.border = '2px solid red'; // Primera fila
+        tbody.lastChild.style.border = '2px solid red'; // Última fila
+    }
+}
+
+// Explicación: Uso firstChild y lastChild para acceder a la primera y última fila dentro del <tbody>. Aplico un borde rojo solo si hay filas de datos.
+// 17. Programación asíncrona - Encadenamiento de promesas
+
+// Pregunta:
+
+// Modifica el evento de importarBoton para que, después de importar los libros con éxito, se encadene otra promesa que espere 2 segundos (simulando una validación adicional) y luego muestre un mensaje en el <div> de importación diciendo "Validación de libros completada".
+
+// Solución:
+// javascript
+importarBoton.addEventListener('click', function() {
+    let archivoLibros = document.getElementById('importar-input-libros').files[0];
+    let mensajeImportacion = document.getElementById('mensaje-importacion') || document.createElement('div');
+    mensajeImportacion.id = 'mensaje-importacion';
+    mensajeImportacion.style.marginTop = '10px';
+    
+    if (archivoLibros) {
+        leerArchivo(archivoLibros)
+            .then(contenido => {
+                const lineas = contenido.split('\r\n').filter(linea => linea.trim() !== '');
+                lineas.shift();
+                arrayLibros.length = 0;
+                lineas.forEach(linea => {
+                    const partes = linea.split(",");
+                    if (partes.length >= 6) arrayLibros.push(new Libros(...partes.slice(0, 6)));
+                });
+                return new Promise(resolve => setTimeout(resolve, 2000)); // Esperar 2 segundos
+            })
+            .then(() => {
+                mensajeImportacion.textContent = "Validación de libros completada";
+                mensajeImportacion.style.color = 'green';
+                document.getElementById('importar').insertBefore(mensajeImportacion, importarBoton.nextSibling);
+            })
+            .catch(error => {
+                mensajeImportacion.textContent = `Error: ${error.message}`;
+                document.getElementById('importar').insertBefore(mensajeImportacion, importarBoton.nextSibling);
+            });
+    }
+});
+
+// Explicación: Encadeno un then con una promesa que espera 2 segundos usando setTimeout, luego actualizo el mensaje de importación.
+// 18. DOM - NodeList y getElementsByClassName
+
+// Pregunta:
+
+// Añade una clase CSS lector-row a todas las filas de la tabla de lectores en actualizarVistaLectores(). Luego, crea una función que use getElementsByClassName para seleccionar todas las filas con esa clase y las oculte/muestre al hacer clic en un nuevo botón "Ocultar/Mostrar lectores".
+
+// Solución:
+// javascript
+function actualizarVistaLectores() {
+    vistaLectoresTabla.innerHTML = '';
+    // Código del encabezado...
+    arrayLectores.forEach(lector => {
+        let row = vistaLectoresTabla.insertRow();
+        row.className = 'lector-row';
+        // Código para llenar la fila...
+    });
+}
+
+const toggleButton = document.createElement('button');
+toggleButton.textContent = "Ocultar/Mostrar lectores";
+toggleButton.style.marginTop = '10px';
+document.getElementById('vista-lectores').appendChild(toggleButton);
+
+let visible = true;
+toggleButton.addEventListener('click', function() {
+    const rows = document.getElementsByClassName('lector-row');
+    for (let row of rows) {
+        row.style.display = visible ? 'none' : '';
+    }
+    visible = !visible;
+});
+
+// Explicación: Añado la clase lector-row a cada fila. Creo un botón que, al hacer clic, usa getElementsByClassName para alternar la visibilidad de las filas.
+// 19. Eventos - Anular comportamientos predeterminados
+
+// Pregunta:
+
+// Supón que la página está dentro de un <form> y el botón "Alta" (alta-libro-boton) envía el formulario por defecto. Modifica su evento para que use preventDefault() y evite ese comportamiento, permitiendo solo la lógica de alta de libros.
+
+// Solución:
+// javascript
+altaLibroBoton.addEventListener('click', function(event) {
+    event.preventDefault(); // Evitar envío del formulario
+    // Resto del código original de altaLibroBoton...
+});
+
+// Explicación: preventDefault() anula el comportamiento predeterminado del botón dentro de un formulario (enviar datos), dejando solo la lógica personalizada.
+// 20. Temporizadores - setTimeout (Código no bloqueante)
+
+// Pregunta:
+
+// Añade una funcionalidad a actualizarVistaLibros() para que, si hay más de 10 libros, muestre un mensaje "Cargando libros..." durante 3 segundos antes de actualizar la tabla, usando setTimeout para simular una carga asíncrona.
+
+// Solución:
+// javascript
+function actualizarVistaLibros() {
+    vistaLibrosTabla.innerHTML = '';
+    if (arrayLibros.length > 10) {
+        const loadingMsg = document.createElement('div');
+        loadingMsg.textContent = "Cargando libros...";
+        vistaLibrosTabla.parentNode.insertBefore(loadingMsg, vistaLibrosTabla);
+        
+        setTimeout(() => {
+            loadingMsg.remove();
+            arrayLibros.forEach(libro => {
+                let row = vistaLibrosTabla.insertRow();
+                // Código para llenar la fila...
+            });
+        }, 3000);
+    } else {
+        arrayLibros.forEach(libro => {
+            let row = vistaLibrosTabla.insertRow();
+            // Código para llenar la fila...
+        });
+    }
+}
+
+// Explicación: Si hay más de 10 libros, muestro un mensaje y uso setTimeout para retrasar la actualización 3 segundos, simulando un proceso no bloqueante.
+// 21. Programación asíncrona - Funciones asíncronas (Async/Await)
+
+// Pregunta:
+
+// Crea una función asíncrona validarDatosLectores() que verifique los emails y teléfonos de arrayLectores usando verificarEmail y verificarTelefono. Si hay datos inválidos, retorna una promesa rechazada. Llamala desde el evento de "Actualizar lectores" (comprobar-lectores-boton).
+
+// Solución:
+// javascript
+async function validarDatosLectores() {
+    const invalidos = [];
+    arrayLectores.forEach(lector => {
+        if (!verificarEmail(lector.email)) invalidos.push(`Email inválido: ${lector.email}`);
+        if (!verificarTelefono(lector.telefono)) invalidos.push(`Teléfono inválido: ${lector.telefono}`);
+    });
+    if (invalidos.length > 0) throw new Error(invalidos.join(', '));
+    return "Todos los datos son válidos";
+}
+
+comprobarLectoresBoton.addEventListener('click', async function() {
+    try {
+        const resultado = await validarDatosLectores();
+        actualizarVistaLectores();
+        alert(resultado);
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+    }
+});
+
+// Explicación: validarDatosLectores es asíncrona y usa throw para rechazar la promesa si hay datos inválidos. La llamo con await en el evento y manejo errores con try/catch.
+// 22. DOM - Métodos principales (getElementsByTagName)
+
+// Pregunta:
+
+// Modifica actualizarVistaLibros() para usar getElementsByTagName y cambiar el fondo de todas las celdas <td> a un color aleatorio cada vez que se actualiza la tabla.
+
+// Solución:
+// javascript
+function actualizarVistaLibros() {
+    vistaLibrosTabla.innerHTML = '';
+    arrayLibros.forEach(libro => {
+        let row = vistaLibrosTabla.insertRow();
+        // Código para llenar la fila...
+    });
+    const tds = document.getElementsByTagName('td');
+    for (let td of tds) {
+        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        td.style.backgroundColor = randomColor;
+    }
+}
+
+// Explicación: Uso getElementsByTagName para obtener todas las <td> y les asigno un color hexadecimal aleatorio.
+// 23. Eventos - Objeto evento (Captura de eventos)
+
+// Pregunta:
+
+// Añade un evento click a la tabla #vista-libros-tabla que use el objeto event para mostrar en un <div> nuevo el contenido de la celda clicada (por ejemplo, el título del libro).
+
+// Solución:
+// javascript
+vistaLibrosTabla.addEventListener('click', function(event) {
+    if (event.target.tagName === 'TD') {
+        const infoDiv = document.createElement('div');
+        infoDiv.textContent = `Celda clicada: ${event.target.textContent}`;
+        vistaLibrosTabla.insertAdjacentElement('afterend', infoDiv);
+    }
+});
+
+// Explicación: Capturo el evento click en la tabla y verifico si el objetivo (event.target) es una <td>. Creo un <div> con el contenido de la celda clicada.
+// 24. DOM - Manipulación de elementos (innerHTML)
+
+// Pregunta:
+
+// Modifica la sección "Alta Libro" para que, al cargar la página, se añada dinámicamente un campo adicional "Año de publicación" usando innerHTML en el <div> antes del botón "Alta".
+
+// Solución:
+// javascript
+document.addEventListener('DOMContentLoaded', function() {
+    const altaSection = document.getElementById('alta-libro');
+    const botonAlta = document.getElementById('alta-libro-boton');
+    const nuevoDiv = document.createElement('div');
+    nuevoDiv.innerHTML = '<label>Año de publicación: </label><input type="number" id="alta-libro-anio" placeholder="Introduce el año...">';
+    altaSection.insertBefore(nuevoDiv, botonAlta);
+});
+
+// Explicación: Uso innerHTML para agregar un nuevo campo de entrada al cargar la página, insertándolo antes del botón "Alta".
+// 25. Concepto - Propagación de eventos (Burbuja)
+
+// Pregunta teórica:
+
+// Explica cómo funciona la propagación de eventos (burbujeo) en el contexto de la tabla #vista-libros-tabla. Si haces clic en una celda <td>, ¿qué elementos reciben el evento y en qué orden? ¿Cómo podrías capturar el evento en la fase de captura en lugar de burbujeo?
+
+// Respuesta:
+
+//     Propagación (burbujeo): Cuando haces clic en una <td>, el evento se origina en ese elemento y "sube" por el árbol DOM: <td> → <tr> → <tbody> → <table> → <section> → <body> → <html> → document. Esto es el burbujeo (fase ascendente).
+//     Orden: El evento se dispara primero en el elemento más profundo (<td>) y luego en sus ancestros.
+//     Fase de captura: Para capturar el evento en la fase descendente (antes del burbujeo), usas addEventListener con el tercer parámetro true:
+//     javascript
+
+vistaLibrosTabla.addEventListener('click', function(event) {
+    console.log("Evento en tabla durante captura");
+}, true);
+{/* Esto hace que el evento se detecte desde document hacia abajo hasta <td>. */}
