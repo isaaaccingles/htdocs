@@ -1,0 +1,501 @@
+/* Header */
+header {
+    background: linear-gradient(135deg, #4278A5, #569eda);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 4%;
+}
+
+/* Navbar Bootstrap */
+.navbar {
+    background: linear-gradient(135deg, #4278A5, #569eda);
+    padding: 15px;
+}
+
+.navbar-brand img {
+    height: 80px;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 25px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #a0bbd1;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Iconos de usuario y carrito */
+#usuIcon, #carritoIcon {
+    height: 35px;
+    transition: transform 0.3s, filter 0.3s;
+    cursor: pointer;
+}
+
+#usuIcon:hover, #carritoIcon:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Botón del menú  */
+.navbar-toggler {
+    border: none;
+    background: transparent;
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.contenedor {
+    margin-top: 0% auto;
+    width: 100%;
+    text-align: center;
+}
+
+#videoPrimer {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    opacity: 0.4;
+    position: relative; 
+    z-index: 1;
+}
+
+.barra-busqueda {
+    position: absolute;
+    top: 40%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 0;
+    border-radius: 30px;
+    width: 60%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.barra-busqueda input {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px; 
+    border-radius: 30px;
+    outline: none;
+    background-color: white;
+    color: black;
+}
+
+.barra-busqueda button {
+    padding: 8px 10px; 
+    font-size: 16px; 
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: bold;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.barra-busqueda button:hover {
+    background-color: #a0bbd1;
+}
+
+/* Blog Information */
+.informacion-blog {
+    padding: 40px 20px;
+    border-radius: 15px;
+    margin-top: 2%;
+    text-align: center;
+    margin-bottom: 2%;
+    background-color: #435461;
+    color: #ffffff;
+    box-shadow: 0px 15px 25px #0000001a;
+    transition: transform 0.3s ease-in-out;
+}
+
+.informacion-blog:hover {
+    transform: translateY(-5px);
+}
+
+.informacion-blog h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px; 
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-bottom: 4px solid #ffffff;
+    padding-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.informacion-blog p {
+    font-size: 18px; 
+    line-height: 1.6;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin: 0 auto;
+    max-width: 1000px;
+    margin-bottom: 20px;
+}
+
+/* Novedades Section */
+.titulo-noticias {
+    position: relative;
+    text-align: center;
+}
+
+.titulo-noticias h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 35px; 
+    color: #ffffff;
+    background-color: #435461;
+    padding: 2% 28%;
+    display: inline-block;
+    border-radius: 10px;
+    position: relative;
+    transform: translateY(-50%);
+    box-shadow: 0px 10px 15px #0000004d;
+    border: 4px solid #8ec2ec;
+    z-index: 100;
+    margin-top: 5%;
+}
+
+#noticias {
+    background-color: grey;
+    padding: 7px 35px 67px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #4278A5, #8ec2ec);
+    position: static;
+    overflow: hidden;
+}
+
+/* Noticias */
+.contenedor-noticias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  
+    gap: 2%; 
+    width: 90%;
+    margin: 0% auto;
+}
+
+
+.noticia {
+    background-color: #cccccc;
+    border-radius: 10px;
+    padding: 15%; 
+    text-align: center;
+    color: white;
+    border-radius: 15px;
+    background: linear-gradient(135deg, black, #435461);
+    transition: transform 0.5s;
+}
+
+.noticia:hover {
+    transform: scale(1.05);
+}
+
+.noticia img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.noticia h3 {
+    font-size: 24px; 
+    margin: 15px 0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.noticia p {
+    font-size: 18px; 
+    color: white;
+    margin-top: 10%;
+}
+
+/* PROMOCIÓN */
+#promocion {
+    background-color: #435461;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    height: 600px;
+    margin-top: 76px;
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+#promocion:hover {
+    transform: translateY(-5px);
+}
+
+#videoPromocion {
+    width: 50%;
+    height: 100%; 
+    object-fit: cover; 
+    box-shadow: 0px 5px 15px rgba(18, 78, 216, 0.3);
+}
+
+.texto-promocion {
+    overflow: hidden;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%; 
+    padding-left: 1%;
+}
+
+.texto-promocion h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 25px; 
+    color: #ffffff;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.texto-promocion h1::before {
+    content: "✦";
+    color: gold;
+}
+
+.texto-promocion h1::after {
+    content: "✦";
+    color: gold;
+}
+
+.texto-promocion h2 {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 20px; 
+    color: #f2f2f2;
+    margin: 10px 0;
+}
+
+.texto-promocion p {
+    font-size: 15px;
+    color: #dddddd;
+    line-height: 1.6;
+}
+
+.texto-promocion a {
+    font-size: 15px; 
+    color: #dddddd;
+    line-height: 1.6;
+}
+
+.texto-promocion a:hover {
+    transform: scale(1.05);
+    color: white;
+}
+
+/*FOOTER*/
+footer {
+    background-color: #4278A5;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+.footer-content p {
+    margin: 5px 0;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px; 
+}
+
+.footer-content a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.menu_izquierda {
+    animation: girar 3s infinite;
+}
+
+/* Implementación de Media Queries para ajustalo al tamaño de pantalla 
+de tablets y moviles */
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    .barra-busqueda {
+        top: 27%;  
+        width: 80%; 
+        padding: 12px 0; 
+    }
+
+    .barra-busqueda input {
+        width: 70%; 
+        padding: 12px;
+        font-size: 14px;  
+    }
+
+    .barra-busqueda button {
+        padding: 8px 12px; 
+        font-size: 14px; 
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px;
+        padding: 8px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-toggler {
+        background-color: transparent;
+        border: none;
+    }
+
+    .navbar-toggler-icon {
+        filter: invert(1);
+    }
+
+    #usuIcon, #carritoIcon {
+        height: 30px;
+    }
+
+    .texto-promocion h1 {
+        font-size: 18px; 
+    }
+
+    .texto-promocion h2 {
+        font-size: 14px; 
+    }
+
+    .texto-promocion p, .texto-promocion a {
+        font-size: 12px; 
+    }
+
+    #videoPrimer {
+        width: 100%;
+        height: 250px; 
+    }
+
+    .texto-promocion {
+        width: 100%;
+        padding-left: 5%;
+    }
+
+    footer {
+        padding: 15px 0;
+    }
+
+    .footer-content p {
+        font-size: 14px;
+    }
+
+    
+    .contenedor-noticias {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 15px;
+        padding: 0 10px;  
+    }
+
+    .noticia {
+        padding: 15px;
+    }
+
+    .noticia img {
+        width: 100%;
+    }
+
+    .noticia h3 {
+        font-size: 20px;
+    }
+
+    .noticia p {
+        font-size: 14px;
+    }
+}
+
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-brand img {
+        height: 70px;
+        width: auto;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: center; 
+        padding: 10px 0;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px; 
+        padding: 10px;
+        text-align: center;
+    }
+
+    #usuIcon, #carritoIcon {
+        height: 35px;
+    }
+
+    .texto-promocion h1 {
+        font-size: 22px; 
+    }
+
+    .texto-promocion h2 {
+        font-size: 18px; 
+    }
+
+    .texto-promocion p, .texto-promocion a {
+        font-size: 14px; 
+    }
+
+    .contenedor-noticias {
+        grid-template-columns: repeat(2, 1fr);  
+        gap: 20px;
+    }
+
+    .noticia {
+        padding: 20px;
+        font-size: 16px;
+    }
+
+    .informacion-blog {
+        padding: 30px;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    #videoPromocion {
+        width: 80%;
+        height: auto;
+    }
+
+    .barra-busqueda {
+        width: 50%;  
+        top: 40%;  
+    }
+
+    .barra-busqueda input {
+        width: 80%;  
+    }
+
+    .barra-busqueda button {
+        font-size: 14px;  
+    }
+}

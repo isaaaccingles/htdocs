@@ -1,0 +1,76 @@
+Examen SERVIDOR
+
+1---------------------
+
+c) Un Context puede incluir varios servlets y varios JSP –
+ Esta afirmación es correcta. Un Context es la representación de una aplicación web dentro de Tomcat, y dentro de ese Context pueden residir múltiples servlets y archivos JSP.
+
+d) Tomcat es un servidor – Esta afirmación es correcta. 
+Tomcat es un servidor web que implementa las especificaciones de Servlet y JSP.
+
+2--------------------
+
+ServletConfig
+
+3--------------------
+
+web.xml o mediante anotaciones @Webservlet y @WebInitParam
+
+4--------------------
+
+Vista: formulario.jsp, prestamos.jsp, devoluciones.jsp, resumenPres.jsp, resumenPres.jsp
+Controlador: ControladorForm.java, datosPrestamo.java, datosDevoluciones.java
+Modelo: biblioteca, libro, prestamos, devoluciones
+
+5--------------------
+
+6--------------------
+
+a) http://localhost:3600/velocidad.jsp?espacio=4&tiempo=2
+
+
+b) <%@ page errorPage="ErrorVelocidad.jsp" %>
+
+c) 
+
+7--------------------
+
+a) 
+
+
+----------------------------------------
+--------------"examen02"--------------------------
+2-------------------------------------------------------------------------
+ try {
+                double espacio = toDouble(request.getParameter("espacio"));
+                double tiempo = toDouble(request.getParameter("tiempo"));
+                double velocidad = espacio / tiempo;
+        %>
+        
+        <UL>
+            <LI>Espacio: <%= espacio %>.
+            <LI>Tiempo: <%= tiempo %>.
+            <LI>Velocidad: <%= velocidad %>.
+        </UL>
+
+        <%
+            } catch (Exception e) {
+                response.sendRedirect("ErrorVelocidad.jsp"); // Redirección manual en caso de error
+            }
+        %>
+
+4----------
+El servlet hará lo siguiente:
+
+    Extraerá los parámetros nombreCookie="fechaexamen" y contenidoCookie="21/02/23".
+    Creará una cookie con nombre fechaexamen y valor 21/02/23.
+    Añadirá la cookie a la respuesta HTTP con response.addCookie(laCookie);.
+    Recuperará todas las cookies existentes en la petición con request.getCookies().
+    Imprimirá en la respuesta HTML el nombre de cada cookie existente.
+
+
+--------7. Especifica la etiqueta y el parámetro necesario en el web.xml asociado al servlet RecuperaSesion para determinar el tiempo de Timeout. ¿Sería en minutos o segundos?---------
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>

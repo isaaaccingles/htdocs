@@ -56,55 +56,6 @@ header {
     filter: invert(1);
 }
 
-/* Media Queries para Responsividad */
-
-/* Tablets
-@media (max-width: 991px) {
-    .navbar-nav {
-        text-align: center;
-    }
-
-    .navbar-nav .nav-link {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .navbar-collapse {
-        background: linear-gradient(135deg, #4278A5, #569eda);
-        padding: 10px 0;
-    }
-} */
-
-/* Móviles */
-@media (max-width: 768px) {
-    .navbar-brand img {
-        height: 60px;
-    }
-
-    .navbar-toggler {
-        border: none;
-    }
-
-    .navbar-nav {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 0;
-    }
-
-    .navbar-nav .nav-link {
-        font-size: 12px;
-        padding: 8px;
-        width: 100%;
-        text-align: center;
-    }
-
-    #usuIcon, #carritoIcon {
-        height: 30px;
-    }
-}
-
-
 .contenedor {
     margin-top: 0% auto;
     width: 100%;
@@ -123,7 +74,7 @@ header {
 
 .barra-busqueda {
     position: absolute;
-    top: 35%; 
+    top: 40%; 
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 15px 0;
@@ -233,11 +184,12 @@ header {
 /* Noticias */
 .contenedor-noticias {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  
     gap: 2%; 
     width: 90%;
     margin: 0% auto;
 }
+
 
 .noticia {
     background-color: #cccccc;
@@ -361,7 +313,7 @@ footer {
 }
 
 .footer-content a {
-    color: #a0bbd1;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
     margin: 0 10px;
@@ -371,10 +323,179 @@ footer {
     animation: girar 3s infinite;
 }
 
-@keyframes girar {
-    from {
-        transform: rotateY(0deg);
-    } to {
-        transform: rotateY(360deg);
+/* Implementación de Media Queries para ajustalo al tamaño de pantalla 
+de tablets y moviles */
+
+/* Móviles */
+@media (max-width: 768px) {
+
+    .barra-busqueda {
+        top: 27%;  
+        width: 80%; 
+        padding: 12px 0; 
+    }
+
+    .barra-busqueda input {
+        width: 70%; 
+        padding: 12px;
+        font-size: 14px;  
+    }
+
+    .barra-busqueda button {
+        padding: 8px 12px; 
+        font-size: 14px; 
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px;
+        padding: 8px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-toggler {
+        background-color: transparent;
+        border: none;
+    }
+
+    .navbar-toggler-icon {
+        filter: invert(1);
+    }
+
+    #usuIcon, #carritoIcon {
+        height: 30px;
+    }
+
+    .texto-promocion h1 {
+        font-size: 18px; 
+    }
+
+    .texto-promocion h2 {
+        font-size: 14px; 
+    }
+
+    .texto-promocion p, .texto-promocion a {
+        font-size: 12px; 
+    }
+
+    #videoPrimer {
+        width: 100%;
+        height: 250px; 
+    }
+
+    .texto-promocion {
+        width: 100%;
+        padding-left: 5%;
+    }
+
+    footer {
+        padding: 15px 0;
+    }
+
+    .footer-content p {
+        font-size: 14px;
+    }
+
+    
+    .contenedor-noticias {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 15px;
+        padding: 0 10px;  
+    }
+
+    .noticia {
+        padding: 15px;
+    }
+
+    .noticia img {
+        width: 100%;
+    }
+
+    .noticia h3 {
+        font-size: 20px;
+    }
+
+    .noticia p {
+        font-size: 14px;
+    }
+}
+
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-brand img {
+        height: 70px;
+        width: auto;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: center; 
+        padding: 10px 0;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px; 
+        padding: 10px;
+        text-align: center;
+    }
+
+    #usuIcon, #carritoIcon {
+        height: 35px;
+    }
+
+    .texto-promocion h1 {
+        font-size: 22px; 
+    }
+
+    .texto-promocion h2 {
+        font-size: 18px; 
+    }
+
+    .texto-promocion p, .texto-promocion a {
+        font-size: 14px; 
+    }
+
+    .contenedor-noticias {
+        grid-template-columns: repeat(2, 1fr);  
+        gap: 20px;
+    }
+
+    .noticia {
+        padding: 20px;
+        font-size: 16px;
+    }
+
+    .informacion-blog {
+        padding: 30px;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    #videoPromocion {
+        width: 80%;
+        height: auto;
+    }
+
+    .barra-busqueda {
+        width: 50%;  
+        top: 40%;  
+    }
+
+    .barra-busqueda input {
+        width: 80%;  
+    }
+
+    .barra-busqueda button {
+        font-size: 14px;  
     }
 }

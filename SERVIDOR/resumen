@@ -1,0 +1,164 @@
+//-------------------------------------FORMULARIO---------------------------------------------------------------
+
+
+//Cuando solo es tratado en un servlet
+String nombre = request.getParameter("nombre");
+request.setAttribute("nombre", nombre);
+request.getRequestDispatcher("formulario.jsp").forward(request, response);      <p>Clave: ${clave}</p>
+
+//Cuando viaja entre seervlet 
+HttpSession laSesion = request.getSession();
+String nombre = request.getParameter("nombre");
+laSesion.setAttribute("nombre", nombre);
+response.sendRedirect("formulario.jsp");        <p>Nombre: ${sessionScope.nombre}</p>
+
+
+//-------------------------------------Cookies---------------------------------------------------------------
+String nombre = request.getParameter("nombre");
+String clave = request.getParameter("clave");
+String pais = request.getParameter("pais");
+
+//Query String
+Cookie cookie = new Cookie(nombre,"clave="+clave+"&pais="+pais);
+cookie.setMaxAge(60); 
+response.addCookie(cookie);       
+
+response.sendRedirect("recuperaCookie");
+
+Cookie[] cookie = request.getCookies(); 
+		
+		for( Cookie cookies : cookie) {
+			request.getSession().setAttribute("nombre", cookies.getName());
+			request.getSession().setAttribute("QueryString", cookies.getValue());
+			System.out.print(cookies.getName());
+			System.out.print(cookies.getValue());
+		}	
+        
+		response.sendRedirect("mostrar.jsp");
+	}
+
+
+//-------------------------------------Conexion BD---------------------------------------------------------------
+
+    try {
+        // 1. Cargar el driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // 2. Crear la conexión
+        Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/usuarios", "admin1", "123456");
+
+        
+        // 4. Crear la consulta 
+        String sql = "SELECT * FROM usuario WHERE nombre = ? AND clave = ?";
+        // 5. Crear consulta preparada
+        PreparedStatement consulta = conexion.prepareStatement(sql);
+        consulta.setString(1, nombre);
+        consulta.setString(2, clave);
+
+        // 5. Ejecutar la consulta
+        ResultSet resultado = consulta.executeQuery();
+
+        // 6. Procesar el resultado
+        if (resultado.next()) {
+            //Guardar sesion
+            HttpSession session = request.getSession();
+            session.setAttribute("nombre", nombre);
+            // Login exitoso
+             response.sendRedirect("wow.jsp");
+        } else {
+            // Login fallido
+            response.getWriter().append("Fallo de conexion");
+        }
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+//-------------------------------------Metodos SESIONES---------------------------------------------------------------
+
+        String id = (String) laSesion.getId();
+		Date creacion = new Date(laSesion.getCreationTime());
+		Date ultimoAcesso = new Date(laSesion.getLastAccessedTime());
+		Integer tiempo = laSesion.getMaxInactiveInterval();
+
+
+
+//-------------------------------------CONTEXTE-CONFIG-Filtros---------------------------------------------------------------
+
+
+	//Mismo Servlet
+    public void init(ServletConfig config) throws ServletException {
+		super.init(config);  //super llama al metodo init de la clase HttpServlet, config el web.xml
+
+		 // Obtener parámetros de inicialización específicos del servlet
+	    userName = config.getInitParameter("usuario");
+	    password = config.getInitParameter("password");
+	    url = config.getInitParameter("URLBaseDeDatos");
+
+		
+
+	    System.out.println("Usuario desde init-param: " + userName);
+	    System.out.println("Contraseña desde init-param: " + password);
+	    System.out.println("URL desde init-param: " + url);
+
+	    
+	}
+
+    <!-- CONFIG, MISMO SERVLET -->
+<servlet>
+	<servlet-name>PaqueteServlets.ConsultaServlet</servlet-name>
+	<servlet-class>PaqueteServlets.ConsultaServlet</servlet-class>
+		<!-- URL -->
+		<init-param>
+			<param-name>URLBaseDeDatos</param-name>
+			<param-value>jdbc:mysql://localhost/tiendalibros</param-value>
+		</init-param>
+		<!-- USUARIO -->
+		<init-param>
+			<param-name>usuario</param-name>
+			<param-value>admin1</param-value>
+		</init-param>
+		<!-- PASSWORD -->
+		<init-param>
+			<param-name>password</param-name>
+			<param-value>admin1</param-value>
+		</init-param>
+</servlet>
+
+
+//--------------------------------
+
+	//Toda la aplicacion
+	public void init(ServletContext context) throws ServletException {
+		// this.context = config.getServletContext(); --> Transformar a context
+		super.init(context);
+	
+		url2 = context.getInitParameter("URLBaseDeDatos");
+		userName2 = context.getInitParameter("usuario");
+		password2 = context.getInitParameter("password");
+
+		System.out.println("Usuario desde context-param: " + userName2);
+	    System.out.println("Contraseña desde context-param: " + password2);
+	    System.out.println("URL desde context-param: " + url2);
+
+	}
+
+    <!-- CONTEXT, EN TODA LA APLICACION -->
+<context-param>
+	<param-name>URLBaseDeDatos</param-name>
+	<param-value>jdbc:mysql://localhost/TiendaLibros</param-value>
+</context-param>
+<context-param>
+	<param-name>usuario</param-name>
+	<param-value>root</param-value>
+</context-param>
+<context-param>
+	<param-name>password</param-name>
+	<param-value>despliegue</param-value>
+</context-param>
+<context-param>
+	<param-name>contador</param-name>
+	<param-value>10</param-value>
+</context-param>

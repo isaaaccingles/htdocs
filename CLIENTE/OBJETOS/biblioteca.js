@@ -533,38 +533,27 @@ function altaLector() {
     }
 
     // Crear un nuevo lector y agregarlo al array
-    let nuevoLector = new Lectores(nombre, apellido, telefono, email);
-    nuevoLector.numSocio = siguienteNumSocio++;
-
+    let nuevoLector = new Lectores(siguienteNumSocio, nombre, apellido, telefono, email);
     arrayLectores.push(nuevoLector);
+    
+    // Incrementar el número de socio para el próximo lector
+    siguienteNumSocio++;
 
     // Devolver el número de socio del nuevo lector
     return `Lector registrado exitosamente. Número de socio: ${nuevoLector.numSocio}`;
 }
 
 function bajaLector() {
-    
-    let numSocio = prompt("Introduce el email del lector a dar de baja: ");
-    let lectorExistente = arrayLectores.find(lector => lector.numSocio === numSocio);
+    let email = prompt("Introduce el email del lector a dar de baja: ");
+    let lectorExistente = arrayLectores.find(lector => lector.email === email);
 
     if (!lectorExistente) {
-        console.log("E"); 
+        console.log("No se encontró un lector con este correo.");
         return;
     }
 
-    let diaBaja = prompt("Introduce el día de la baja (DD): ");
-    let mesBaja = prompt("Introduce el mes de la baja (MM): ");
-    let añoBaja = prompt("Introduce el año de la baja (AAAA): ");
-
-    // Validar que la fecha es correcta
-    if (!diaBaja || !mesBaja || !añoBaja || isNaN(diaBaja) || isNaN(mesBaja) || isNaN(añoBaja) ||
-        diaBaja < 1 || diaBaja > 31 || mesBaja < 1 || mesBaja > 12 || añoBaja < 1900) {
-        console.log("E");  // Error en la fecha de baja
-        return;
-    }
-
-    lectorExistente.bajaLector = true;
-    lectorExistente.fechaBaja = `${diaBaja}/${mesBaja}/${añoBaja}`;
+    // Llamar al método darDeBaja() para realizar la baja
+    lectorExistente.darDeBaja();
 
     console.log(`Fecha de baja registrada: ${lectorExistente.fechaBaja}`);
 }

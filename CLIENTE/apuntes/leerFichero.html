@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Read Text File</title>
+	</head>
+	<body>
+		<input type="file" multiple id="file-input-lectores" />
+		<input type="file" id="file-input-libros" />
+		<button type="button" id="submit-reader">Click Me!</button>
+		<h3>Contenido del archivo:</h3>
+		<p id="contenido-archivo"></p>
+
+		<script>
+			
+			function leerArchivo(file) {
+				return new Promise((resolve, reject) => {
+					const reader = new FileReader();
+					reader.addEventListener('load', (event) => {
+						resolve(reader.result);
+					});
+					reader.addEventListener('error', (event) => {
+						reject(event);
+					});
+					reader.readAsText(file);
+				});
+			}
+
+			function mostrarContenido(contenido) {
+				var elemento = document.getElementById('contenido-archivo');
+				elemento.innerHTML = contenido;
+			}
+			document.getElementById('submit-reader').addEventListener('click', async () => {
+				const librosInputEl = document.getElementById('file-input-libros');
+				const lectoresInputEl = document.getElementById('file-input-lectores');
+				const archivoLibros = librosInputEl.files[0];
+				const archivoLectores = lectoresInputEl.files[0];
+				if (!archivoLibros) {
+					alert("No has introducido el archivo de libros");
+					return;
+				}
+				if (!archivoLectores) {
+					alert("No has introducido el archivo de lectores");
+					return;
+				}
+			
+
+				const contenidoLibros = await leerArchivo(archivoLibros);
+                console.log(contenidoLibros);
+                
+				const contenidoLectores = await leerArchivo(archivoLectores);
+                console.log(contenidoLectores);
+                
+			}, false);
+		</script>
+	</body>
+</html>
+

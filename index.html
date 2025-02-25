@@ -1,0 +1,111 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css"> <!-- Rutas ajustadas para el CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Reset AND Play</title>
+</head>
+<body>
+    <!-- Implemento bootstrap para mejorar la barra de navegación -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img id="logo" src="img/DALL·E 2024-11-14 10.16.22 - A sleek, elegant logo for a video game company named 'RESET and PLAY' with a minimalist black background and refined white text. Use sophisticated, mo.png" alt="Logo" width="150">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                    aria-expanded="false" aria-label="Abrir menú de navegación" tabindex="0">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Noticias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Novedades</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Recomendaciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <img id="usuIcon" src="img/person_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="Usuario">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <img id="carritoIcon" src="img/shopping_cart_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="Carrito">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="contenedor">
+            <div>
+                <video id="videoPrimer" src="img/2930943-hd_1920_1080_25fps.mp4" autoplay loop muted></video>
+                <div class="barra-busqueda">
+                    <input type="text" placeholder="Buscar videojuegos, reseñas, noticias..." />
+                    <button>Buscar</button>
+                </div>
+                <div class="informacion-blog">
+                    <h2>BIENVENIDO A NUESTRO BLOG DE VIDEOJUEGOS</h2>
+                    <p>Sumérgete en el apasionante mundo de los videojuegos con las últimas novedades, reseñas y noticias. En nuestro blog encontrarás análisis detallados de los juegos más populares, recomendaciones personalizadas para todos los gustos, y actualizaciones sobre lo que sucede en la industria. Además, mantente al tanto de los productos exclusivos, eventos y todo lo relacionado con tu pasión por los videojuegos. ¡Explora y disfruta del mejor contenido gaming!</p>
+                </div>
+            <section id="noticias">
+                <div class="titulo-noticias">
+                    <h1>NOTICIAS</h1>
+                </div>
+                <div class="contenedor-noticias">
+                    <div class="noticia">
+                        <img src="img/intro-1558044013.jpg" alt="Imagen Red Dead Redemption 3">
+                        <h3>Se filtran videos sobre el nuevo Red Read Redemption 3</h3>
+                        <p>Recientemente se han filtrado varios videos que muestran adelantos del esperado <strong>Red Dead Redemption 3</strong>, el nuevo título de la popular saga de Rockstar Games. Aunque no se ha confirmado oficialmente por la compañía, los clips han generado gran entusiasmo entre los fans, revelando posibles detalles sobre la jugabilidad, gráficos y personajes. Los seguidores de la franquicia esperan con ansias más información, mientras la comunidad especula sobre el rumbo que tomará este nuevo capítulo del western más icónico de los videojuegos.</p>                    
+                    </div>
+                    <div class="noticia">
+                        <img src="img/b05b7aae-b6cd-40e8-afd1-25d5183a6584.__CR0,231,3600,1938_PT0_SX650_V1___.jpg" alt="Imagen Playstation 5">
+                        <h3>¡Nueva Playstation 5 Pro ya en el mercado!</h3>
+                        <p>La esperada <strong>PlayStation 5 Pro</strong> ya está disponible en el mercado, ofreciendo mejoras significativas en rendimiento y gráficos. Con una mayor potencia de procesamiento, soporte para resoluciones más altas y una experiencia de juego más fluida, esta nueva versión promete llevar los videojuegos a un nivel completamente nuevo. Los fanáticos de Sony y los gamers de todo el mundo ya comienzan a disfrutar de lo último en tecnología de consolas, ¡una actualización imprescindible para los entusiastas del gaming!</p>                    
+                    </div>
+                    <div class="noticia">
+                        <img src="img/UbisoftNews_NewCPO_Thumbnail960x540.avif" alt="Imagen Ubisoft">
+                        <h3>Ubisoft despide a 1.200 desarrolladores</h3>
+                        <p>En un giro inesperado, <strong>Ubisoft</strong> ha anunciado el despido de 1.200 desarrolladores como parte de una reestructuración interna. La medida, que ha sorprendido a la industria, busca optimizar los recursos y enfocarse en proyectos clave. Aunque la compañía asegura que este recorte no afectará el lanzamiento de juegos esperados, ha generado preocupaciones sobre el futuro de algunos títulos y la dirección creativa de la empresa. Los empleados despedidos serán apoyados con paquetes de indemnización y servicios de reubicación.</p>                    
+                    </div>
+                </div>
+            </section>
+            <section id="promocion">
+                <video id="videoPromocion" src="img/7547007-uhd_3840_2160_25fps.mp4" autoplay loop muted></video>
+                <div class="texto-promocion">
+                    <h1>PROMOCIÓN</h1>
+                    <h2>Las nuevas VR 2.0 por solo <strong>199,99$</strong> hasta el 11/03/2025</h2>
+                    <p>Sumérgete en una experiencia de realidad virtual completamente nueva con las <strong>VR 2.0</strong>. Disfruta de gráficos mejorados, mayor comodidad y un rendimiento sin igual por solo <strong>199,99$</strong>. Aprovecha esta oferta limitada hasta el 11 de marzo de 2025 y lleva tu juego y entretenimiento al siguiente nivel.</p>
+                    <p>Las <strong>VR 2.0</strong> cuentan con características avanzadas, como una resolución más alta, un campo de visión ampliado y una compatibilidad mejorada con los juegos y aplicaciones más recientes. No dejes pasar esta oportunidad única de experimentar lo último en tecnología de realidad virtual a un precio increíble.</p>
+                    <a href="#">Para visitar la página del producto, pulse aquí</a>                    
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Reset AND Play. Todos los derechos reservados.</p>
+            <p>
+                <a href="#">Política de privacidad</a> 
+                <a href="#">Términos de uso</a> 
+                <a href="#">Contacto</a>
+            </p>
+        </div>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
