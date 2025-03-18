@@ -12,7 +12,7 @@ $array = array(
 // asociaciones clave-valor
 
 $valores = array_values($array);
-arsort($valores);
+arsort($valores); //orden descendente manteniendo las claves
 print_r($valores);
 
 //b) Igual pero manteniendo las asociaciones
@@ -43,3 +43,13 @@ print_r($aleatorio);
 
 natcasesort($valores);
 print_r($valores);
+
+
+arsort($array); //orden descendente manteniendo las claves
+ksort($array); //orden de el array segun las claves ascendente
+krsort($array); //orden de el array segun las claves descendente
+shuffle($array); //mezcla el array aleatoriamente
+array_rand($array, 2); //Obtén un array con las claves de dos valores seleccionados aleatoriamente.
+natcasesort($array); //Ordenarlo por los valores de mayor a menor sin diferenciar mayúsculas y minúsculas.
+uksort($ciudades, "strcasecmp"); //Ordena un array por claves usando una función de comparación definida por el usuario
+

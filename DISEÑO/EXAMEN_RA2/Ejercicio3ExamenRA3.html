@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+    .cuadrado {
+    width: 100px;
+    height: 100px;
+    background-color: #FF0000;  
+}
+
+/* que dure 4 segundo y que se repita infinito */
+.cuadrado{
+    animation: animacionCuadrado 4s infinite;
+}
+
+/* Hasta el 25 porciento el color del cuadrado lo pongo amarillo,
+ hago que a la mitad de la animacion se ponga de color amarillo 
+ y por ultimo hago que vuelva poniendo el movimiento en negativo(vuelve a la misma posicion)*/
+@keyframes animacionCuadrado{
+  25%{
+		background-color: yellow;
+        
+	} 
+	50% {
+		background-color: blue;
+        transform: translate(300px);
+        
+		}
+    100%{
+        background-color: red;
+        transition: translate(-300px);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="cuadrado"></div>
+    
+</body>
+</html>
